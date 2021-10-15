@@ -1,0 +1,23 @@
+{
+  "name": "purescript-tree-sitter",
+  "version": "1.0.0",
+  "description": "Purescript bindings for tree-sitter",
+  "main": "index.js",
+  "scripts": {
+    "spago": "spago",
+    "start": "spago run",
+    "test": "spago test"
+  },
+  "keywords": [
+    "parser",
+    "lexer",
+    "tree-sitter"
+  ],
+  "author": "Samuel Ytterbrink",
+  "license": "MIT",
+  "dependencies": {
+    "purescript": "^0.14.4",
+    "spago": "^0.20.3",
+    "tree-sitter": "^0.20.0"
+  }
+}

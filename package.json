@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "spago": "spago",
+    "pulp": "pulp",
     "start": "spago run",
     "publish": "pulp publish",
     "test": "spago test"

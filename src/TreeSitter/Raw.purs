@@ -51,7 +51,7 @@ newtype SyntaxNode = SyntaxNode
     , startPosition :: Point
     , endPosition :: Point
     , parent :: MaybeSyntaxNode
-    , childern :: Array SyntaxNode
+    , children :: Array SyntaxNode
     , namedChildren :: Array SyntaxNode
     , childCount :: Number
     , namedChildCount :: Number

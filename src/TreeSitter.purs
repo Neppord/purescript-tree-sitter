@@ -35,6 +35,18 @@ reParseString (Raw.Parser {parse}) input (Tree oldTree) =
 rootNode :: Tree -> SyntaxNode
 rootNode (Tree (Raw.Tree {rootNode: rootNode'})) = SyntaxNode $ rootNode'
 
+children :: SyntaxNode -> Array SyntaxNode
+children (SyntaxNode (Raw.SyntaxNode {children: children'})) =
+ map SyntaxNode children'
+
+namedChildren :: SyntaxNode -> Array SyntaxNode
+namedChildren (SyntaxNode (Raw.SyntaxNode {namedChildren: namedChildren'})) =
+ map SyntaxNode namedChildren'
+
+isNamed :: SyntaxNode -> Boolean
+isNamed (SyntaxNode (Raw.SyntaxNode {isNamed: isNamed'})) =
+    isNamed'
+
 instance showSyntaxNode :: Show SyntaxNode where
     show (SyntaxNode (Raw.SyntaxNode {toString})) = toString unit
 

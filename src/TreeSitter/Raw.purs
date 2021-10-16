@@ -3,11 +3,10 @@ module TreeSitter.Raw where
 import Effect.Uncurried (EffectFn1)
 import Effect (Effect)
 import Data.Unit (Unit)
+import Data.Function.Uncurried (Fn3)
 
-newtype Parser = Parser ParserImpl
-
-type ParserImpl =
-    { parse :: String -> MaybeTree -> MaybeOptions -> Tree
+newtype Parser = Parser
+    { parse :: Fn3 String MaybeTree MaybeOptions Tree
     , getLanguage :: Effect Language
     , setLanguage :: EffectFn1 Language Unit
     , getLogger :: Effect Logger
@@ -86,8 +85,8 @@ foreign import data PackedSyntaxNode :: Type
 foreign import data Query :: Type
 foreign import data Logger :: Type
 
-foreign import mkParser :: Unit -> ParserImpl
-foreign import mkLanguage :: EffectFn1 String Language
+foreign import mkParser :: Unit -> Parser
+foreign import mkLanguage :: String -> Language
 foreign import noTree :: MaybeTree
 foreign import noOptions :: MaybeOptions
 foreign import toMaybeTree :: Tree -> MaybeTree

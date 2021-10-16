@@ -3,9 +3,11 @@ module Test.Main where
 import Prelude
 
 import Effect (Effect)
-import Effect.Class.Console (log)
+import Effect.Class.Console (logShow)
+import TreeSitter (mkParser, parseString)
 
 main :: Effect Unit
 main = do
-  log "🍝"
-  log "You should add some tests."
+  let bashParser = mkParser "bash"
+  let tree = parseString bashParser "cat file | grep 'foo'"
+  logShow tree

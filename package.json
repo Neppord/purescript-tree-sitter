@@ -6,6 +6,7 @@
   "scripts": {
     "spago": "spago",
     "start": "spago run",
+    "publish": "pulp publish",
     "test": "spago test"
   },
   "keywords": [
@@ -21,6 +22,7 @@
     "tree-sitter": "^0.20.0"
   },
   "devDependencies": {
+    "pulp": "^15.0.0",
     "tree-sitter-bash": "^0.19.0"
   }
 }

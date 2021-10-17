@@ -45,7 +45,7 @@ newtype SyntaxNode = SyntaxNode
     , tree :: SyntaxNode
     , typeId :: String
     , isNamed :: Boolean
-    , test :: String
+    , text :: String
     , startIndex :: Int
     , endIndex :: Int
     , startPosition :: Point

@@ -1,4 +1,4 @@
-module TreeSitter where
+module TreeSitter.Laizy where
 
 import Prelude
 

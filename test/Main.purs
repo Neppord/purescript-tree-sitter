@@ -4,7 +4,7 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Class.Console (logShow)
-import TreeSitter (children, mkParser, namedChildren, parseString, rootNode)
+import TreeSitter.Laizy (children, mkParser, namedChildren, parseString, rootNode)
 
 bashSource :: String
 bashSource = """

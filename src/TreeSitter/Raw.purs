@@ -15,26 +15,26 @@ newtype Parser = Parser
     }
 
 type Options =
-    { bufferSize :: Number
+    { bufferSize :: Int
     , includedRanges :: Array Range
     }
 
 type Point =
-    { row :: Number
-    , column :: Number
+    { row :: Int
+    , column :: Int
     }
 
 type Range =
-    { startIndex :: Number
-    , endIndex :: Number
+    { startIndex :: Int
+    , endIndex :: Int
     , startPosition :: Point
     , endPosition :: Point
     }
 
 type Edit =
-    { startIndex :: Number
-    , endIndex :: Number
-    , newEndIndex :: Number
+    { startIndex :: Int
+    , endIndex :: Int
+    , newEndIndex :: Int
     , startPosition :: Point
     , endPosition :: Point
     , newEndPosition :: Point
@@ -46,15 +46,15 @@ newtype SyntaxNode = SyntaxNode
     , typeId :: String
     , isNamed :: Boolean
     , test :: String
-    , startIndex :: Number
-    , endIndex :: Number
+    , startIndex :: Int
+    , endIndex :: Int
     , startPosition :: Point
     , endPosition :: Point
     , parent :: MaybeSyntaxNode
     , children :: Array SyntaxNode
     , namedChildren :: Array SyntaxNode
-    , childCount :: Number
-    , namedChildCount :: Number
+    , childCount :: Int
+    , namedChildCount :: Int
     , firstChild :: MaybeSyntaxNode
     , firstNamedChild :: MaybeSyntaxNode
     , lastChild :: MaybeSyntaxNode

@@ -10,6 +10,7 @@ import Data.Function.Uncurried (runFn3)
 type LanguageName = String
 
 type Parser = Raw.Parser
+type Point = Raw.Point
 newtype Tree = Tree Raw.Tree
 newtype SyntaxNode = SyntaxNode Raw.SyntaxNode
 
@@ -46,6 +47,30 @@ namedChildren (SyntaxNode (Raw.SyntaxNode {namedChildren: namedChildren'})) =
 isNamed :: SyntaxNode -> Boolean
 isNamed (SyntaxNode (Raw.SyntaxNode {isNamed: isNamed'})) =
     isNamed'
+
+startIndex :: SyntaxNode -> Int
+startIndex (SyntaxNode (Raw.SyntaxNode {startIndex: startIndex'})) =
+    startIndex'
+
+endIndex :: SyntaxNode -> Int
+endIndex (SyntaxNode (Raw.SyntaxNode {endIndex: endIndex'})) =
+    endIndex'
+
+startPosition :: SyntaxNode -> Point
+startPosition (SyntaxNode (Raw.SyntaxNode {startPosition: startPosition'})) =
+    startPosition'
+
+endPosition :: SyntaxNode -> Point
+endPosition (SyntaxNode (Raw.SyntaxNode {endPosition: endPosition'})) =
+    endPosition'
+
+type' :: SyntaxNode -> String
+type' (SyntaxNode (Raw.SyntaxNode {type: type''})) =
+    type''
+
+isMissing :: SyntaxNode -> Boolean
+isMissing (SyntaxNode (Raw.SyntaxNode {isMissing: isMissing'})) =
+    isMissing' unit
 
 instance showSyntaxNode :: Show SyntaxNode where
     show (SyntaxNode (Raw.SyntaxNode {toString})) = toString unit

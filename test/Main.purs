@@ -5,6 +5,7 @@ import Prelude
 import Effect (Effect)
 import Effect.Class.Console (logShow)
 import TreeSitter.Laizy (children, mkParser, namedChildren, parseString, rootNode)
+import TreeSitter.Declerative (parse)
 
 bashSource :: String
 bashSource = """
@@ -16,11 +17,5 @@ do_stuff
 """
 main :: Effect Unit
 main = do
-  let bashParser = mkParser "bash"
-  let tree = parseString bashParser bashSource
+  let tree = parse "bash" bashSource
   logShow tree
-  tree
-    # rootNode
-    # children
-    # map namedChildren
-    # logShow

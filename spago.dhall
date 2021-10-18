@@ -16,5 +16,5 @@ to generate this file without the comments in this block.
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
 , license = "MIT"
-, repository = "https://github.com/Neppord/purescript-tree-sitter.git"
+, repository = "https://github.com/neppord/purescript-tree-sitter.git"
 }

@@ -8,6 +8,7 @@
     "pulp": "pulp",
     "start": "spago run",
     "publish": "pulp publish",
+    "publish:patch": "spago bump-version patch --no-dry-run && pulp publish",
     "test": "spago test"
   },
   "keywords": [

@@ -1,3 +1,7 @@
+--| The raw module contains only imports of the foreign interface, this should
+--| be the most stable part of the library to depend on, but is on a verry
+--| tedius level to work with.
+
 module TreeSitter.Raw where
 
 import Effect.Uncurried (EffectFn1)

@@ -1,3 +1,7 @@
+--| The lazy module contains only a thin wrapper around the foreign interface,
+--| this should be a stable part of the library to depend on. But it only implement
+--| the most common operations and just slightly more simple then the raw module
+
 module TreeSitter.Lazy where
 
 import Prelude

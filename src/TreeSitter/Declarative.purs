@@ -1,3 +1,8 @@
+--| This is the prefered module to work with if you only want to try out
+--| tree-sitter or if you are going to make a quck litle script analysing some
+--| code. It has the most risk of changin while the library tries to find the
+--| best way to represent tree-sitter for a purescript audience
+
 module TreeSitter.Declarative where
 
 import Prelude

@@ -15,14 +15,22 @@ import Data.Show.Generic (genericShow)
 
 type LanguageName = String
 
-data Tree
-    = Normal { type :: String, children :: Array Tree, range :: Raw.Range }
-    | Named  { type :: String, children :: Array Tree, range :: Raw.Range }
-    | Missing  { type :: String, children :: Array Tree, range :: Raw.Range }
+data Named = Named | Unnamed | Missing
+
+newtype Tree = Tree
+    { named::Named
+    , type :: String
+    , range :: Raw.Range
+    , children :: Array Tree
+    }
+
+derive instance genericNamed :: Generic Named _
+instance showNamed :: Show Named where
+    show named = genericShow named
 
 derive instance genericTree :: Generic Tree _
 instance showTree :: Show Tree where
-    show tree = genericShow tree
+    show named = genericShow named
 
 parse :: LanguageName -> String -> Tree
 parse name input = Lazy.parseString parser input # treeToDeclerative
@@ -32,11 +40,11 @@ treeToDeclerative :: Lazy.Tree -> Tree
 treeToDeclerative = nodeToDeclerative <<< Lazy.rootNode
 
 nodeToDeclerative :: Lazy.SyntaxNode -> Tree
-nodeToDeclerative node = const {type: type', children, range}
+nodeToDeclerative node = Tree {named, type: type', range, children}
     where
-        const | Lazy.isNamed node = Named
-        const | Lazy.isMissing node = Missing
-        const = Normal
+        named | Lazy.isNamed node = Named
+        named | Lazy.isMissing node = Missing
+        named = Unnamed
         type' = Lazy.type' node
         children = map nodeToDeclerative $ Lazy.children node
         range =

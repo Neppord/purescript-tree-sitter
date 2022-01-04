@@ -4,7 +4,8 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Class.Console (logShow)
-import TreeSitter.Declarative (parse)
+import TreeSitter.Declarative (Named(..), Tree(..), parse)
+import Effect.Console (log)
 
 bashSource :: String
 bashSource = """
@@ -14,7 +15,17 @@ do_stuff () {
 
 do_stuff
 """
+swiftSource :: String
+swiftSource = """
+print("Hello, world!")
+// Prints "Hello, world!"
+"""
 main :: Effect Unit
 main = do
-  let tree = parse "bash" bashSource
-  logShow tree
+  log "Bash"
+  log bashSource
+  logShow (parse "bash" bashSource)
+  log "====="
+  log "Swift"
+  log swiftSource
+  logShow (parse "swift" swiftSource)

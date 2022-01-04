@@ -7,46 +7,46 @@ module TreeSitter.Declarative where
 
 import Prelude
 
+import Data.Generic.Rep (class Generic)
+import Data.List (fromFoldable)
+import Data.Show.Generic (genericShow)
 import TreeSitter.Lazy as Lazy
 import TreeSitter.Raw as Raw
-import Data.Generic.Rep (class Generic)
-import Data.Show.Generic (genericShow)
-
+import TreeSitter.Tree (Forest, Tree, mkTree)
 
 type LanguageName = String
 
 data Named = Named | Unnamed | Missing
-
-newtype Tree = Tree
-    { named::Named
+newtype Node = Node
+    { named :: Named
     , type :: String
     , range :: Raw.Range
-    , children :: Array Tree
     }
 
-derive instance genericNamed :: Generic Named _
-instance showNamed :: Show Named where
+derive instance Generic Named _
+instance Show Named where
     show named = genericShow named
 
-derive instance genericTree :: Generic Tree _
-instance showTree :: Show Tree where
+derive instance genericTree :: Generic Node _
+instance Show Node where
     show named = genericShow named
 
-parse :: LanguageName -> String -> Tree
+parse :: LanguageName -> String -> Tree Node
 parse name input = Lazy.parseString parser input # treeToDeclerative
     where parser = Lazy.mkParser name
 
-treeToDeclerative :: Lazy.Tree -> Tree
+treeToDeclerative :: Lazy.Tree -> Tree Node
 treeToDeclerative = nodeToDeclerative <<< Lazy.rootNode
 
-nodeToDeclerative :: Lazy.SyntaxNode -> Tree
-nodeToDeclerative node = Tree {named, type: type', range, children}
+nodeToDeclerative :: Lazy.SyntaxNode -> Tree Node
+nodeToDeclerative node = mkTree (Node {named, type: type', range}) children
     where
         named | Lazy.isNamed node = Named
         named | Lazy.isMissing node = Missing
         named = Unnamed
         type' = Lazy.type' node
-        children = map nodeToDeclerative $ Lazy.children node
+        children :: Forest Node
+        children = fromFoldable $ map nodeToDeclerative $ Lazy.children node
         range =
             { startIndex: Lazy.startIndex node
             , endIndex: Lazy.endIndex node

@@ -12,7 +12,17 @@ to generate this file without the comments in this block.
 -}
 { name = "tree-sitter"
 , dependencies =
-  [ "console", "effect", "functions", "prelude", "psci-support" ]
+  [ "console"
+  , "effect"
+  , "foldable-traversable"
+  , "free"
+  , "functions"
+  , "lists"
+  , "maybe"
+  , "prelude"
+  , "psci-support"
+  , "tailrec"
+  ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
 , license = "MIT"

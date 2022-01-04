@@ -4,7 +4,7 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Class.Console (logShow)
-import TreeSitter.Declarative (Named(..), Tree(..), parse)
+import TreeSitter.Declarative (parse)
 import Effect.Console (log)
 
 bashSource :: String

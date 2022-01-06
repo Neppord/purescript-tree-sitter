@@ -7,10 +7,12 @@ module TreeSitter.Declarative where
 
 import Prelude
 
+import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.Generic.Rep (class Generic)
 import Data.List (fromFoldable)
-import Data.Newtype (class Newtype, wrap)
+import Data.Newtype (class Newtype, unwrap)
 import Data.Show.Generic (genericShow)
+import Data.Traversable (class Traversable, sequence, traverse)
 import Data.Tree (Forest, Tree, mkTree, showTree)
 import TreeSitter.Lazy as Lazy
 import TreeSitter.Raw as Raw
@@ -33,12 +35,23 @@ instance Show Node where
     show named = genericShow named
 
 newtype SyntaxTree a = SyntaxTree (Tree a)
-derive instance newtypeSyntaxTree :: Newtype (SyntaxTree a) _
+derive instance Newtype (SyntaxTree a) _
+derive instance Functor SyntaxTree
+
+instance Foldable SyntaxTree where
+    foldr f zero tree = foldr f zero $ unwrap tree
+    foldl f zero tree = foldl f zero $ unwrap tree
+    foldMap f tree = foldMap f $ unwrap tree
+
+instance Traversable SyntaxTree where
+    traverse f syntaxTree = SyntaxTree <$> traverse f (unwrap syntaxTree)
+    sequence = map SyntaxTree <<< sequence <<< unwrap
+
 instance  Show a => Show (SyntaxTree a) where
-    show (SyntaxTree tree) = showTree tree
+    show = showTree <<< unwrap
 
 parse :: LanguageName -> String -> SyntaxTree Node
-parse name input = wrap $ Lazy.parseString parser input # treeToDeclerative
+parse name input = SyntaxTree $ Lazy.parseString parser input # treeToDeclerative
     where parser = Lazy.mkParser name
 
 treeToDeclerative :: Lazy.Tree -> Tree Node

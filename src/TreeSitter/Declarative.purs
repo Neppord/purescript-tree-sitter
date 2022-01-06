@@ -9,30 +9,36 @@ import Prelude
 
 import Data.Generic.Rep (class Generic)
 import Data.List (fromFoldable)
+import Data.Newtype (class Newtype, wrap)
 import Data.Show.Generic (genericShow)
+import Data.Tree (Forest, Tree, mkTree, showTree)
 import TreeSitter.Lazy as Lazy
 import TreeSitter.Raw as Raw
-import Data.Tree (Tree, Forest, mkTree)
 
 type LanguageName = String
 
 data Named = Named | Unnamed | Missing
+derive instance Generic Named _
+instance Show Named where
+    show named = genericShow named
+
 newtype Node = Node
     { named :: Named
     , type :: String
     , range :: Raw.Range
     }
 
-derive instance Generic Named _
-instance Show Named where
-    show named = genericShow named
-
-derive instance genericTree :: Generic Node _
+derive instance genericNode :: Generic Node _
 instance Show Node where
     show named = genericShow named
 
-parse :: LanguageName -> String -> Tree Node
-parse name input = Lazy.parseString parser input # treeToDeclerative
+newtype SyntaxTree a = SyntaxTree (Tree a)
+derive instance newtypeSyntaxTree :: Newtype (SyntaxTree a) _
+instance  Show a => Show (SyntaxTree a) where
+    show (SyntaxTree tree) = showTree tree
+
+parse :: LanguageName -> String -> SyntaxTree Node
+parse name input = wrap $ Lazy.parseString parser input # treeToDeclerative
     where parser = Lazy.mkParser name
 
 treeToDeclerative :: Lazy.Tree -> Tree Node

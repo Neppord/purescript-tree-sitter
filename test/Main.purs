@@ -4,8 +4,7 @@ import Prelude
 
 import Effect (Effect)
 import TreeSitter.Declarative (parse)
-import Effect.Console (log)
-import Data.Tree (showTree)
+import Effect.Console (log, logShow)
 
 bashSource :: String
 bashSource = """
@@ -24,8 +23,8 @@ main :: Effect Unit
 main = do
   log "Bash"
   log bashSource
-  log $ showTree (parse "bash" bashSource)
+  logShow (parse "bash" bashSource)
   log "====="
   log "Swift"
   log swiftSource
-  log $ showTree (parse "swift" swiftSource)
+  logShow (parse "swift" swiftSource)

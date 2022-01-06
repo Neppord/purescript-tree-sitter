@@ -12,7 +12,7 @@ import Data.List (fromFoldable)
 import Data.Show.Generic (genericShow)
 import TreeSitter.Lazy as Lazy
 import TreeSitter.Raw as Raw
-import TreeSitter.Tree (Forest, Tree, mkTree)
+import Data.Tree (Tree, Forest, mkTree)
 
 type LanguageName = String
 

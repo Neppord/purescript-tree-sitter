@@ -3,10 +3,9 @@ module Test.Main where
 import Prelude
 
 import Effect (Effect)
-import Effect.Class.Console (logShow)
 import TreeSitter.Declarative (parse)
 import Effect.Console (log)
-import TreeSitter.Tree (showTree)
+import Data.Tree (showTree)
 
 bashSource :: String
 bashSource = """

@@ -20,8 +20,10 @@ to generate this file without the comments in this block.
   , "lists"
   , "maybe"
   , "prelude"
+  , "profunctor-lenses"
   , "psci-support"
   , "tailrec"
+  , "tree-rose"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]

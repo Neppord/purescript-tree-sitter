@@ -27,4 +27,6 @@ main = do
   log "====="
   log "Swift"
   log swiftSource
-  logShow (parse "swift" swiftSource)
+  parse "swift" swiftSource
+    # (map \ n -> {type: n.type, start: n.range.startIndex, end: n.range.endIndex})
+    # logShow

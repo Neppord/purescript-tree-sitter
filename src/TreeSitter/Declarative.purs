@@ -6,7 +6,7 @@
 module TreeSitter.Declarative where
 
 import Prelude
-import TreeSitter.Plated
+import TreeSitter.Plated (class Plated)
 
 import Control.Comonad.Cofree as Cofree
 import Data.Foldable (class Foldable, foldMap, foldl, foldr)
@@ -30,15 +30,11 @@ derive instance Generic Named _
 instance Show Named where
     show named = genericShow named
 
-newtype Node = Node
+type Node =
     { named :: Named
     , type :: String
     , range :: Raw.Range
     }
-
-derive instance genericNode :: Generic Node _
-instance Show Node where
-    show named = genericShow named
 
 newtype SyntaxTree a = SyntaxTree (Tree.Tree a)
 derive instance Newtype (SyntaxTree a) _
@@ -63,7 +59,7 @@ children :: forall a. SyntaxTree a -> List (SyntaxTree a)
 children = map SyntaxTree <<< Cofree.tail <<< unwrap
 
 _children :: forall a. Lens' (SyntaxTree a) (List (SyntaxTree a))
-_children = lens childern replaceChildren
+_children = lens children replaceChildren
 
 replaceChildren :: forall a. SyntaxTree a -> List (SyntaxTree a) -> SyntaxTree a
 replaceChildren tree children' = SyntaxTree $ mkTree (Cofree.head $ unwrap tree) $ map unwrap children'
@@ -76,7 +72,7 @@ treeToDeclerative :: Lazy.Tree -> Tree Node
 treeToDeclerative = nodeToDeclerative <<< Lazy.rootNode
 
 nodeToDeclerative :: Lazy.SyntaxNode -> Tree Node
-nodeToDeclerative node = mkTree (Node {named, type: type', range}) children'
+nodeToDeclerative node = mkTree ({named, type: type', range}) children'
     where
         named | Lazy.isNamed node = Named
         named | Lazy.isMissing node = Missing

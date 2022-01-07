@@ -11,8 +11,8 @@ import Data.Maybe (Maybe, maybe)
 class Plated a where
     plate :: Traversal' a a
 
-childern :: forall a. Plated a => a -> List a
-childern = toListOf plate
+children :: forall a. Plated a => a -> List a
+children = toListOf plate
 
 rewrite :: forall a. Plated a => (a -> Maybe a) -> a -> a
 rewrite = rewriteOf plate

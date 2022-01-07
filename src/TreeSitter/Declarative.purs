@@ -11,8 +11,9 @@ import TreeSitter.Plated
 import Control.Comonad.Cofree as Cofree
 import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.Generic.Rep (class Generic)
-import Data.Lens.Iso.Newtype (unto)
+import Data.Lens.Lens (lens)
 import Data.Lens.Traversal (traversed)
+import Data.Lens.Types (Lens')
 import Data.List (List, fromFoldable)
 import Data.Newtype (class Newtype, unwrap)
 import Data.Show.Generic (genericShow)
@@ -21,9 +22,6 @@ import Data.Tree (Forest, Tree, mkTree, showTree)
 import Data.Tree as Tree
 import TreeSitter.Lazy as Lazy
 import TreeSitter.Raw as Raw
-import Data.Lens.Lens (lens)
-import Data.Lens.Types (Lens)
-import Data.Lens.Types (Lens')
 
 type LanguageName = String
 
@@ -78,14 +76,14 @@ treeToDeclerative :: Lazy.Tree -> Tree Node
 treeToDeclerative = nodeToDeclerative <<< Lazy.rootNode
 
 nodeToDeclerative :: Lazy.SyntaxNode -> Tree Node
-nodeToDeclerative node = mkTree (Node {named, type: type', range}) children
+nodeToDeclerative node = mkTree (Node {named, type: type', range}) children'
     where
         named | Lazy.isNamed node = Named
         named | Lazy.isMissing node = Missing
         named = Unnamed
         type' = Lazy.type' node
-        children :: Forest Node
-        children = fromFoldable $ map nodeToDeclerative $ Lazy.children node
+        children' :: Forest Node
+        children' = fromFoldable $ map nodeToDeclerative $ Lazy.children node
         range =
             { startIndex: Lazy.startIndex node
             , endIndex: Lazy.endIndex node

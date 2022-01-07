@@ -66,7 +66,7 @@ _children :: forall a. Lens' (SyntaxTree a) (List (SyntaxTree a))
 _children = lens children replaceChildren
 
 replaceChildren :: forall a. SyntaxTree a -> List (SyntaxTree a) -> SyntaxTree a
-replaceChildren tree children' = SyntaxTree $ mkTree (Cofree.head $ unwrap tree) $ map unwrap children'
+replaceChildren tree children' = SyntaxTree $ mkTree (node tree) $ map unwrap children'
 
 parse :: LanguageName -> String -> SyntaxTree Node
 parse name input = SyntaxTree $ Lazy.parseString parser input # treeToDeclerative

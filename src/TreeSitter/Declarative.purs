@@ -6,16 +6,24 @@
 module TreeSitter.Declarative where
 
 import Prelude
+import TreeSitter.Plated
 
+import Control.Comonad.Cofree as Cofree
 import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.Generic.Rep (class Generic)
-import Data.List (fromFoldable)
+import Data.Lens.Iso.Newtype (unto)
+import Data.Lens.Traversal (traversed)
+import Data.List (List, fromFoldable)
 import Data.Newtype (class Newtype, unwrap)
 import Data.Show.Generic (genericShow)
 import Data.Traversable (class Traversable, sequence, traverse)
 import Data.Tree (Forest, Tree, mkTree, showTree)
+import Data.Tree as Tree
 import TreeSitter.Lazy as Lazy
 import TreeSitter.Raw as Raw
+import Data.Lens.Lens (lens)
+import Data.Lens.Types (Lens)
+import Data.Lens.Types (Lens')
 
 type LanguageName = String
 
@@ -34,7 +42,7 @@ derive instance genericNode :: Generic Node _
 instance Show Node where
     show named = genericShow named
 
-newtype SyntaxTree a = SyntaxTree (Tree a)
+newtype SyntaxTree a = SyntaxTree (Tree.Tree a)
 derive instance Newtype (SyntaxTree a) _
 derive instance Functor SyntaxTree
 
@@ -47,8 +55,20 @@ instance Traversable SyntaxTree where
     traverse f syntaxTree = SyntaxTree <$> traverse f (unwrap syntaxTree)
     sequence = map SyntaxTree <<< sequence <<< unwrap
 
+instance Plated (SyntaxTree a) where
+    plate = _children <<< traversed
+
 instance  Show a => Show (SyntaxTree a) where
     show = showTree <<< unwrap
+
+children :: forall a. SyntaxTree a -> List (SyntaxTree a)
+children = map SyntaxTree <<< Cofree.tail <<< unwrap
+
+_children :: forall a. Lens' (SyntaxTree a) (List (SyntaxTree a))
+_children = lens childern replaceChildren
+
+replaceChildren :: forall a. SyntaxTree a -> List (SyntaxTree a) -> SyntaxTree a
+replaceChildren tree children' = SyntaxTree $ mkTree (Cofree.head $ unwrap tree) $ map unwrap children'
 
 parse :: LanguageName -> String -> SyntaxTree Node
 parse name input = SyntaxTree $ Lazy.parseString parser input # treeToDeclerative

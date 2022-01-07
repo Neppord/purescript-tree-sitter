@@ -27,6 +27,7 @@ type LanguageName = String
 
 data Named = Named | Unnamed | Missing
 derive instance Generic Named _
+derive instance Eq Named
 instance Show Named where
     show named = genericShow named
 
@@ -55,6 +56,9 @@ instance Plated (SyntaxTree a) where
 instance  Show a => Show (SyntaxTree a) where
     show = showTree <<< unwrap
 
+node :: forall a. SyntaxTree a -> a
+node (SyntaxTree tree) = Cofree.head tree
+
 children :: forall a. SyntaxTree a -> List (SyntaxTree a)
 children = map SyntaxTree <<< Cofree.tail <<< unwrap
 
@@ -72,17 +76,17 @@ treeToDeclerative :: Lazy.Tree -> Tree Node
 treeToDeclerative = nodeToDeclerative <<< Lazy.rootNode
 
 nodeToDeclerative :: Lazy.SyntaxNode -> Tree Node
-nodeToDeclerative node = mkTree ({named, type: type', range}) children'
+nodeToDeclerative node' = mkTree ({named, type: type', range}) children'
     where
-        named | Lazy.isNamed node = Named
-        named | Lazy.isMissing node = Missing
+        named | Lazy.isNamed node' = Named
+        named | Lazy.isMissing node' = Missing
         named = Unnamed
-        type' = Lazy.type' node
+        type' = Lazy.type' node'
         children' :: Forest Node
-        children' = fromFoldable $ map nodeToDeclerative $ Lazy.children node
+        children' = fromFoldable $ map nodeToDeclerative $ Lazy.children node'
         range =
-            { startIndex: Lazy.startIndex node
-            , endIndex: Lazy.endIndex node
-            , startPosition: Lazy.startPosition node
-            , endPosition: Lazy.endPosition node
+            { startIndex: Lazy.startIndex node'
+            , endIndex: Lazy.endIndex node'
+            , startPosition: Lazy.startPosition node'
+            , endPosition: Lazy.endPosition node'
             }

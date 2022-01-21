@@ -39,6 +39,7 @@ type Node =
 
 newtype SyntaxTree a = SyntaxTree (Tree.Tree a)
 derive instance Newtype (SyntaxTree a) _
+derive newtype instance Eq a => Eq (SyntaxTree a)
 derive newtype instance Functor SyntaxTree
 derive newtype instance Foldable SyntaxTree
 derive newtype instance Traversable SyntaxTree
@@ -48,6 +49,9 @@ instance  Show a => Show (SyntaxTree a) where
 
 instance Plated (SyntaxTree a) where
     plate = _children <<< traversed
+
+mkSyntaxTree :: forall a. a -> List (SyntaxTree a) -> SyntaxTree a
+mkSyntaxTree node' children' = SyntaxTree $ mkTree node' $ map unwrap children'
 
 node :: forall a. SyntaxTree a -> a
 node (SyntaxTree tree) = Cofree.head tree

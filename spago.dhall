@@ -12,7 +12,8 @@ to generate this file without the comments in this block.
 -}
 { name = "tree-sitter"
 , dependencies =
-  [ "console"
+  [ "aff"
+  , "console"
   , "effect"
   , "foldable-traversable"
   , "free"
@@ -23,7 +24,8 @@ to generate this file without the comments in this block.
   , "prelude"
   , "profunctor-lenses"
   , "psci-support"
-  , "tailrec"
+  , "spec"
+  , "spec-discovery"
   , "tree-rose"
   ]
 , packages = ./packages.dhall

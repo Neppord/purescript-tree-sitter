@@ -9,7 +9,7 @@ import Prelude
 import TreeSitter.Plated (class Plated)
 
 import Control.Comonad.Cofree as Cofree
-import Data.Foldable (class Foldable, foldMap, foldl, foldr)
+import Data.Foldable (class Foldable)
 import Data.Generic.Rep (class Generic)
 import Data.Lens.Lens (lens)
 import Data.Lens.Traversal (traversed)
@@ -17,7 +17,7 @@ import Data.Lens.Types (Lens')
 import Data.List (List, fromFoldable)
 import Data.Newtype (class Newtype, unwrap)
 import Data.Show.Generic (genericShow)
-import Data.Traversable (class Traversable, sequence, traverse)
+import Data.Traversable (class Traversable)
 import Data.Tree (Forest, Tree, mkTree, showTree)
 import Data.Tree as Tree
 import TreeSitter.Lazy as Lazy

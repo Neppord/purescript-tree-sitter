@@ -39,22 +39,15 @@ type Node =
 
 newtype SyntaxTree a = SyntaxTree (Tree.Tree a)
 derive instance Newtype (SyntaxTree a) _
-derive instance Functor SyntaxTree
-
-instance Foldable SyntaxTree where
-    foldr f zero tree = foldr f zero $ unwrap tree
-    foldl f zero tree = foldl f zero $ unwrap tree
-    foldMap f tree = foldMap f $ unwrap tree
-
-instance Traversable SyntaxTree where
-    traverse f syntaxTree = SyntaxTree <$> traverse f (unwrap syntaxTree)
-    sequence = map SyntaxTree <<< sequence <<< unwrap
-
-instance Plated (SyntaxTree a) where
-    plate = _children <<< traversed
+derive newtype instance Functor SyntaxTree
+derive newtype instance Foldable SyntaxTree
+derive newtype instance Traversable SyntaxTree
 
 instance  Show a => Show (SyntaxTree a) where
     show = showTree <<< unwrap
+
+instance Plated (SyntaxTree a) where
+    plate = _children <<< traversed
 
 node :: forall a. SyntaxTree a -> a
 node (SyntaxTree tree) = Cofree.head tree

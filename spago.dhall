@@ -29,7 +29,7 @@ to generate this file without the comments in this block.
   , "tree-rose"
   ]
 , packages = ./packages.dhall
-, sources = [ "src/**/*.purs", "test/**/*.purs" ]
+, sources = [ "src/**/*.purs", "test/**/*.purs", "examples/**/*.purs" ]
 , license = "MIT"
 , repository = "https://github.com/neppord/purescript-tree-sitter.git"
 }

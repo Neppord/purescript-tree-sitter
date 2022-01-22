@@ -2,14 +2,17 @@ module TreeSitter.Plated where
 
 import Prelude
 
-import Data.Lens.Fold (toListOf)
-import Data.Lens.Setter (over)
-import Data.Lens.Types (Setter, Traversal')
+import Control.Comonad.Cofree (Cofree, head, mkCofree, tail)
+import Data.Lens (Setter, Traversal', over, toListOf, wander)
 import Data.List.Types (List)
 import Data.Maybe (Maybe, maybe)
+import Data.Traversable (class Traversable, traverse)
 
 class Plated a where
     plate :: Traversal' a a
+
+instance (Traversable f) => Plated (Cofree f a) where
+    plate = wander (\ f tree -> mkCofree (head tree) <$> traverse f (tail tree))
 
 children :: forall a. Plated a => a -> List a
 children = toListOf plate

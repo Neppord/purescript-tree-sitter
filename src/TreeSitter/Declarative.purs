@@ -12,7 +12,6 @@ import Control.Comonad.Cofree as Cofree
 import Data.Foldable (class Foldable)
 import Data.Generic.Rep (class Generic)
 import Data.Lens.Lens (lens)
-import Data.Lens.Traversal (traversed)
 import Data.Lens.Types (Lens')
 import Data.List (List, fromFoldable)
 import Data.Newtype (class Newtype, unwrap)
@@ -43,12 +42,11 @@ derive newtype instance Eq a => Eq (SyntaxTree a)
 derive newtype instance Functor SyntaxTree
 derive newtype instance Foldable SyntaxTree
 derive newtype instance Traversable SyntaxTree
+derive newtype instance Plated (SyntaxTree a)
 
 instance  Show a => Show (SyntaxTree a) where
     show = showTree <<< unwrap
 
-instance Plated (SyntaxTree a) where
-    plate = _children <<< traversed
 
 mkSyntaxTree :: forall a. a -> List (SyntaxTree a) -> SyntaxTree a
 mkSyntaxTree node' children' = SyntaxTree $ mkTree node' $ map unwrap children'

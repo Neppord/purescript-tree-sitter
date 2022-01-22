@@ -10,7 +10,8 @@
     "publish": "pulp publish",
     "publish:patch": "spago bump-version patch --no-dry-run && pulp publish",
     "examples": "spago test --main Examples.Main",
-    "test": "spago test"
+    "test": "spago test",
+    "repl": "spago repl"
   },
   "keywords": [
     "parser",

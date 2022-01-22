@@ -1,4 +1,4 @@
-module Test.TreeSitter.Declerative where
+module Test.TreeSitter.SyntaxTree where
 
 import Prelude
 
@@ -7,7 +7,7 @@ import Data.List (List(..), (:))
 import Data.Traversable (traverse)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import TreeSitter.Declarative (children, mkSyntaxTree, node)
+import TreeSitter.SyntaxTree (children, mkSyntaxTree, node)
 import TreeSitter.Plated (rewrite)
 import Data.Maybe (Maybe(..))
 

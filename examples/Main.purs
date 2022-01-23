@@ -3,7 +3,7 @@ module Examples.Main where
 import Prelude
 
 import Effect (Effect)
-import TreeSitter.Declarative (parse)
+import TreeSitter.Declarative (parseAnnotations)
 import Effect.Console (log, logShow)
 
 bashSource :: String
@@ -23,10 +23,10 @@ main :: Effect Unit
 main = do
   log "Bash"
   log bashSource
-  logShow (parse "bash" bashSource)
+  logShow (parseAnnotations "bash" bashSource)
   log "====="
   log "Swift"
   log swiftSource
-  parse "swift" swiftSource
+  parseAnnotations "swift" swiftSource
     # (map \ n -> {type: n.type, start: n.range.startIndex, end: n.range.endIndex})
     # logShow

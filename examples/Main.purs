@@ -5,6 +5,7 @@ import Prelude
 import Effect (Effect)
 import TreeSitter.Declarative (parseAnnotations)
 import Effect.Console (log, logShow)
+import TreeSitter.Declarative (parseCST)
 
 bashSource :: String
 bashSource = """
@@ -29,4 +30,6 @@ main = do
   log swiftSource
   parseAnnotations "swift" swiftSource
     # (map \ n -> {type: n.type, start: n.range.startIndex, end: n.range.endIndex})
+    # logShow
+  parseCST "swift" swiftSource
     # logShow

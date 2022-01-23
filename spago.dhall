@@ -13,6 +13,7 @@ to generate this file without the comments in this block.
 { name = "tree-sitter"
 , dependencies =
   [ "aff"
+  , "arrays"
   , "console"
   , "effect"
   , "either"

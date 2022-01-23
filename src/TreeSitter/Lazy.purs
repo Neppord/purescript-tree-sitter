@@ -10,6 +10,8 @@ import TreeSitter.Raw as Raw
 import Effect.Unsafe (unsafePerformEffect)
 import Effect.Uncurried (runEffectFn1)
 import Data.Function.Uncurried (runFn3)
+import Data.Array (length)
+import Data.Array (null)
 
 type LanguageName = String
 
@@ -39,6 +41,9 @@ reParseString (Raw.Parser {parse}) input (Tree oldTree) =
 
 rootNode :: Tree -> SyntaxNode
 rootNode (Tree (Raw.Tree {rootNode: rootNode'})) = SyntaxNode $ rootNode'
+
+hasChildren :: SyntaxNode -> Boolean
+hasChildren = children >>> null >>> not
 
 children :: SyntaxNode -> Array SyntaxNode
 children (SyntaxNode (Raw.SyntaxNode {children: children'})) =
@@ -71,6 +76,9 @@ endPosition (SyntaxNode (Raw.SyntaxNode {endPosition: endPosition'})) =
 type' :: SyntaxNode -> String
 type' (SyntaxNode (Raw.SyntaxNode {type: type''})) =
     type''
+
+text :: SyntaxNode -> String
+text (SyntaxNode (Raw.SyntaxNode {text: text'})) = text'
 
 isMissing :: SyntaxNode -> Boolean
 isMissing (SyntaxNode (Raw.SyntaxNode {isMissing: isMissing'})) =

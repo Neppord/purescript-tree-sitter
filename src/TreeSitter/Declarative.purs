@@ -7,10 +7,15 @@ module TreeSitter.Declarative where
 
 import Prelude
 
+import Control.Comonad.Cofree ((:<))
+import Data.Array (null)
+import Data.Either (Either(..))
+import Data.Functor.Compose (Compose(..))
 import Data.Generic.Rep (class Generic)
 import Data.List (fromFoldable)
 import Data.Show.Generic (genericShow)
 import Data.Tree (Forest, Tree, mkTree)
+import TreeSitter.CST (CST(..))
 import TreeSitter.Lazy as Lazy
 import TreeSitter.Raw as Raw
 import TreeSitter.SyntaxTree (SyntaxTree(..))
@@ -21,7 +26,7 @@ data Named = Named | Unnamed | Missing
 derive instance Generic Named _
 derive instance Eq Named
 instance Show Named where
-    show named = genericShow named
+    show named' = genericShow named'
 
 type Node =
     { named :: Named
@@ -37,15 +42,34 @@ parseAnnotations name input =
     # treeToDeclerative
     # SyntaxTree
 
+parseCST :: LanguageName -> String -> DeclerativeCST
+parseCST name input =
+    Lazy.mkParser name
+    # \ parser -> Lazy.parseString parser input
+    # lazyTreeToCST
+
+type DeclerativeCST = CST String CSTNode
+type CSTNode = {named :: Named , type :: String}
+
+lazyTreeToCST :: Lazy.Tree -> DeclerativeCST
+lazyTreeToCST = CST <<< loop <<< Lazy.rootNode where
+    loop node  = head node :< tail node
+    head node = { named: named node , type: Lazy.type' node }
+    tail node | null $ Lazy.children node = (Compose (Left $ Lazy.text node))
+    tail node = (Compose (Right (loop <$> Lazy.children node)))
+
+named :: Lazy.SyntaxNode -> Named
+named node | Lazy.isNamed node = Named
+named node | Lazy.isMissing node = Missing
+named _ = Unnamed
+
+
 treeToDeclerative :: Lazy.Tree -> Tree Node
 treeToDeclerative = nodeToDeclerative <<< Lazy.rootNode
 
 nodeToDeclerative :: Lazy.SyntaxNode -> Tree Node
-nodeToDeclerative node' = mkTree ({named, type: type', range}) children'
+nodeToDeclerative node' = mkTree ({named: named node', type: type', range}) children'
     where
-        named | Lazy.isNamed node' = Named
-        named | Lazy.isMissing node' = Missing
-        named = Unnamed
         type' = Lazy.type' node'
         children' :: Forest Node
         children' = fromFoldable $ map nodeToDeclerative $ Lazy.children node'

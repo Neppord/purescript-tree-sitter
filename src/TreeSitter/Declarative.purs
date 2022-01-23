@@ -31,8 +31,11 @@ type Node =
 
 
 parse :: LanguageName -> String -> SyntaxTree Node
-parse name input = SyntaxTree $ Lazy.parseString parser input # treeToDeclerative
-    where parser = Lazy.mkParser name
+parse name input =
+    Lazy.mkParser name
+    # \ parser -> Lazy.parseString parser input
+    # treeToDeclerative
+    # SyntaxTree
 
 treeToDeclerative :: Lazy.Tree -> Tree Node
 treeToDeclerative = nodeToDeclerative <<< Lazy.rootNode

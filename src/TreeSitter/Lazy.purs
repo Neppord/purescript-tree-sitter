@@ -6,12 +6,11 @@ module TreeSitter.Lazy where
 
 import Prelude
 
-import TreeSitter.Raw as Raw
-import Effect.Unsafe (unsafePerformEffect)
-import Effect.Uncurried (runEffectFn1)
-import Data.Function.Uncurried (runFn3)
-import Data.Array (length)
 import Data.Array (null)
+import Data.Function.Uncurried (runFn3)
+import Effect.Uncurried (runEffectFn1)
+import Effect.Unsafe (unsafePerformEffect)
+import TreeSitter.Raw as Raw
 
 type LanguageName = String
 

@@ -3,15 +3,14 @@ module TreeSitter.CST where
 import Prelude
 
 import Control.Comonad.Cofree (Cofree, head, tail)
-import Data.Array (intercalate, (:))
+import Data.Array (filter, intercalate, (:))
 import Data.Either (Either(..))
 import Data.Foldable (class Foldable)
 import Data.Functor.Compose (Compose(..))
 import Data.Newtype (class Newtype)
+import Data.String as String
 import Data.Traversable (class Traversable)
 import TreeSitter.Plated (class Plated)
-import Data.Array (filter)
-import Data.String as String
 
 type CST' l r = (Cofree (Compose (Either l) Array) r)
 newtype CST l r = CST (CST' l r)

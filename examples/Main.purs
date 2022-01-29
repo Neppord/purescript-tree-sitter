@@ -3,12 +3,9 @@ module Examples.Main where
 import Prelude
 
 import Effect (Effect)
-import TreeSitter.Declarative (parseAnnotations)
 import Effect.Console (log, logShow)
-import TreeSitter.Declarative (parseCST)
-import TreeSitter.CST (displayGroups_, displayGroups)
-import TreeSitter.Declarative (Named(..))
-import TreeSitter.CST (sexpression)
+import TreeSitter.CST (displayGroups, displayGroups_, sexpression)
+import TreeSitter.Declarative (Named(..), parseCST)
 
 bashSource :: String
 bashSource = """

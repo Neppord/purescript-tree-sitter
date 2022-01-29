@@ -2,10 +2,16 @@ module Examples.Main where
 
 import Prelude
 
+import Control.Alternative (guard)
+import Data.Array ((!!))
+import Data.Either (Either(..), hush)
+import Data.Int (fromString)
+import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Effect.Console (log, logShow)
-import TreeSitter.CST (displayGroups, displayGroups_, sexpression)
-import TreeSitter.Declarative (Named(..), parseCST)
+import TreeSitter.CST (displayGroups, displayGroups_, tail, (:<))
+import TreeSitter.Declarative (DeclarativeCST, Named(..), parseCST, sExpression, text, type')
+import TreeSitter.Plated (rewrite)
 
 bashSource :: String
 bashSource = """
@@ -17,9 +23,23 @@ do_stuff
 """
 swiftSource :: String
 swiftSource = """
+let a = 1 + 2 + 3
 print("Hello, world!")
 // Prints "Hello, world!"
 """
+
+collapseAdditions :: DeclarativeCST -> Maybe DeclarativeCST
+collapseAdditions cst = do
+    guard $ type' cst == "additive_expression"
+    children <- hush $ tail cst
+    x <- children !! 0
+    y <- children !! 2
+    guard $ type' x == "integer_literal"
+    guard $ type' y == "integer_literal"
+    xInt <- fromString $ text x
+    yInt <- fromString $ text y
+    Just $ {type: "integer_literal", named: Named} :< Left (show (xInt + yInt))
+
 main :: Effect Unit
 main = do
   log "show"
@@ -33,7 +53,12 @@ main = do
   parseCST "swift" swiftSource
     # displayGroups_ show (\ n -> if n.named == Named then n.type else "")
     # log
-  log "sexpression"
+  log "s-expression"
   parseCST "swift" swiftSource
-    # sexpression (\ n -> if n.named == Named then n.type else "")
+    # sExpression
+    # log
+  log "collapseAdditions"
+  parseCST "swift" swiftSource
+    # rewrite collapseAdditions
+    # text
     # log

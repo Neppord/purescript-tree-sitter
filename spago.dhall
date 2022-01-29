@@ -15,12 +15,14 @@ to generate this file without the comments in this block.
   [ "aff"
   , "arrays"
   , "console"
+  , "control"
   , "effect"
   , "either"
   , "foldable-traversable"
   , "free"
   , "functions"
   , "functors"
+  , "integers"
   , "lists"
   , "maybe"
   , "newtype"
@@ -31,6 +33,7 @@ to generate this file without the comments in this block.
   , "spec-discovery"
   , "strings"
   , "tree-rose"
+  , "tuples"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs", "examples/**/*.purs" ]

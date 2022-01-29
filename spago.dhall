@@ -29,6 +29,7 @@ to generate this file without the comments in this block.
   , "psci-support"
   , "spec"
   , "spec-discovery"
+  , "strings"
   , "tree-rose"
   ]
 , packages = ./packages.dhall

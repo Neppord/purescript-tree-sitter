@@ -6,6 +6,9 @@ import Effect (Effect)
 import TreeSitter.Declarative (parseAnnotations)
 import Effect.Console (log, logShow)
 import TreeSitter.Declarative (parseCST)
+import TreeSitter.CST (displayGroups_, displayGroups)
+import TreeSitter.Declarative (Named(..))
+import TreeSitter.CST (sexpression)
 
 bashSource :: String
 bashSource = """
@@ -22,14 +25,18 @@ print("Hello, world!")
 """
 main :: Effect Unit
 main = do
-  log "Bash"
-  log bashSource
-  logShow (parseAnnotations "bash" bashSource)
-  log "====="
-  log "Swift"
-  log swiftSource
-  parseAnnotations "swift" swiftSource
-    # (map \ n -> {type: n.type, start: n.range.startIndex, end: n.range.endIndex})
-    # logShow
+  log "show"
   parseCST "swift" swiftSource
     # logShow
+  log "displayGroups"
+  parseCST "swift" swiftSource
+    # displayGroups
+    # log
+  log "displayGroups_"
+  parseCST "swift" swiftSource
+    # displayGroups_ show (\ n -> if n.named == Named then n.type else "")
+    # log
+  log "sexpression"
+  parseCST "swift" swiftSource
+    # sexpression (\ n -> if n.named == Named then n.type else "")
+    # log

@@ -21,6 +21,7 @@ import TreeSitter.Lazy as Lazy
 import TreeSitter.Raw as Raw
 import TreeSitter.SyntaxTree (SyntaxTree(..))
 import Data.Array (fold)
+import Data.String as String
 
 type LanguageName = String
 
@@ -35,6 +36,18 @@ type Node =
     , type :: String
     , range :: Raw.Range
     }
+
+extractText :: String -> Node -> String
+extractText everything {range: {startIndex, endIndex}} =
+    everything
+    # String.drop startIndex
+    # String.take (endIndex - startIndex)
+
+replace :: String -> Node -> String -> String
+replace everything {range: {startIndex, endIndex}} toInsert =
+    String.take startIndex everything
+    <> toInsert
+    <> String.drop endIndex everything
 
 
 parseAnnotations :: LanguageName -> String -> SyntaxTree Node

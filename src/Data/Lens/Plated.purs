@@ -1,4 +1,4 @@
-module TreeSitter.Plated where
+module Data.Lens.Plated where
 
 import Prelude
 

@@ -11,7 +11,7 @@ import Effect (Effect)
 import Effect.Console (log, logShow)
 import TreeSitter.CST (displayGroups, displayGroups_, tail, (:<))
 import TreeSitter.Declarative (DeclarativeCST, Named(..), parseCST, sExpression, text, type')
-import TreeSitter.Plated (rewrite)
+import Data.Lens.Plated (rewrite)
 
 bashSource :: String
 bashSource = """

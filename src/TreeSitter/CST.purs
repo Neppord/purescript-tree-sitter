@@ -11,7 +11,7 @@ import Data.Functor.Compose (Compose(..))
 import Data.Newtype (class Newtype)
 import Data.String as String
 import Data.Traversable (class Traversable)
-import TreeSitter.Plated (class Plated)
+import Data.Lens.Plated (class Plated)
 import Data.Newtype (unwrap)
 import Control.Comonad.Cofree (mkCofree)
 

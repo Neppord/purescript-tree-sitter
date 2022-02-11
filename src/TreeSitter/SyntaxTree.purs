@@ -11,7 +11,7 @@ import Data.Newtype (class Newtype, unwrap)
 import Data.Traversable (class Traversable)
 import Data.Tree (mkTree, showTree)
 import Data.Tree as Tree
-import TreeSitter.Plated (class Plated)
+import Data.Lens.Plated (class Plated)
 
 newtype SyntaxTree a = SyntaxTree (Tree.Tree a)
 derive instance Newtype (SyntaxTree a) _

@@ -8,7 +8,7 @@ import Data.Traversable (traverse)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import TreeSitter.SyntaxTree (children, mkSyntaxTree, node)
-import TreeSitter.Plated (rewrite)
+import Data.Lens.Plated (rewrite)
 import Data.Maybe (Maybe(..))
 
 spec :: Spec Unit

@@ -8,20 +8,19 @@ module TreeSitter.Declarative where
 import Prelude
 
 import Control.Comonad.Cofree ((:<))
-import Data.Array (null)
+import Data.Array (fold, null)
 import Data.Either (Either(..))
 import Data.Functor.Compose (Compose(..))
 import Data.Generic.Rep (class Generic)
 import Data.List (fromFoldable)
 import Data.Show.Generic (genericShow)
+import Data.String as String
 import Data.Tree (Forest, Tree, mkTree)
 import TreeSitter.CST (CST(..))
 import TreeSitter.CST as CST
 import TreeSitter.Lazy as Lazy
 import TreeSitter.Raw as Raw
 import TreeSitter.SyntaxTree (SyntaxTree(..))
-import Data.Array (fold)
-import Data.String as String
 
 type LanguageName = String
 

@@ -4,9 +4,11 @@ import Prelude
 
 import Control.Comonad.Cofree (Cofree, head, mkCofree, tail)
 import Data.Lens (Setter, Traversal', over, toListOf, wander)
-import Data.List.Types (List)
+import Data.List.Types (List, (:))
 import Data.Maybe (Maybe, maybe)
 import Data.Traversable (class Traversable, traverse)
+import Data.Lens.Fold (foldMapOf)
+import Data.Lens.Internal.Forget (Forget)
 
 class Plated a where
     plate :: Traversal' a a
@@ -16,6 +18,13 @@ instance (Traversable f) => Plated (Cofree f a) where
 
 children :: forall a. Plated a => a -> List a
 children = toListOf plate
+
+universe :: forall a. Plated a => a -> List a
+universe = universeOf plate
+
+universeOf :: forall a b c. (Forget (List a) a c -> Forget (List a) a b) -> a -> List a
+universeOf p = go where
+    go a = a : foldMapOf p go a
 
 rewrite :: forall a. Plated a => (a -> Maybe a) -> a -> a
 rewrite = rewriteOf plate

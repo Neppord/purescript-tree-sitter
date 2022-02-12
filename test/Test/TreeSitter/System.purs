@@ -2,23 +2,14 @@ module Test.TreeSitter.System where
 
 import Prelude
 
-import Control.Comonad.Cofree (Cofree, buildCofree)
-import Data.Array (filter, fromFoldable)
+import Control.Comonad.Cofree (Cofree, buildCofree, head, tail)
+import Data.Array (filter, foldMap, foldr, fromFoldable)
+import Data.Lens.Plated (universe)
+import Data.String as String
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import TreeSitter.Lazy (SyntaxNode, children, mkParser, parseString, rootNode, text, type')
-import Data.Lens.Plated (rewrite)
-import Data.Maybe (Maybe(..))
-import Control.Comonad.Cofree (head)
-import Data.Lens.Plated (universe)
-import Data.Array (foldMap)
-import Control.Comonad.Cofree (tail)
-import TreeSitter.Lazy (startIndex)
-import TreeSitter.Lazy (endIndex)
-import Data.Array (foldl)
-import Data.String as String
-import Data.Array (foldr)
+import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
 
 program :: String
 program = """

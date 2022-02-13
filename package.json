@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "purescript": "^0.14.4",
-    "spago": "^0.20.3",
+    "spago": "^0.20.7",
     "tree-sitter": "^0.20.0"
   },
   "devDependencies": {

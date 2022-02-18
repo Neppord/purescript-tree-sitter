@@ -10,5 +10,5 @@ import Effect.Console (log)
 
 main :: Effect Unit
 main = launchAff_ do
-      specs <- discover """Test\.TreeSitter\..*"""
+      specs <- discover """Test\..*"""
       runSpec [consoleReporter] specs

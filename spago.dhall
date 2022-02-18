@@ -32,6 +32,7 @@ to generate this file without the comments in this block.
   , "spec"
   , "spec-discovery"
   , "strings"
+  , "transformers"
   , "tree-rose"
   , "tuples"
   ]

@@ -6,12 +6,57 @@ import Control.Comonad.Cofree (Cofree)
 import Control.Comonad.Cofree as Cofree
 import Control.Monad.Writer (execWriter, tell)
 import Data.Eq (class Eq1, eq1)
-import Data.List (List)
+import Data.List (List, (:))
+import Data.Array as Array
+import Data.List as List
+import Data.Maybe as Maybe
+import Data.Maybe (Maybe(..))
+import Data.Tuple (Tuple)
+import Data.Foldable (class Foldable, foldl)
+import Data.Tuple (Tuple(..))
+import Data.Maybe.First (First)
+import Data.Maybe.First (First(..))
+
+class Uncons f where
+    uncons :: forall a. f a -> Maybe { head :: a, tail :: f a }
+
+instance Uncons Array where
+    uncons = Array.uncons
+
+instance Uncons List where
+    uncons = List.uncons
+
+instance Uncons Maybe where
+    uncons Nothing = Nothing
+    uncons (Just a) = Just {head: a , tail: Nothing}
+
+instance Uncons First where
+    uncons (First m) = case uncons m of
+        Nothing -> Nothing
+        Just {head} -> Just {head, tail: First Nothing}
+
+newtype Trace f a = Trace {left:: f (Cofree f a), focus:: a, right:: f (Cofree f a)}
+instance (Eq1 f, Eq a) => Eq (Trace f a) where
+    eq (Trace a) (Trace b) = a.focus == b.focus
+        && a.left `eq1` b.left
+        && a.right `eq1` b.right
+
+instance (Functor f, Show (f String), Show a) => Show (Trace f a) where
+    show (Trace trace) = execWriter do
+        tell "Trace "
+        tell "{ left:"
+        tell $ show $ map showCofree trace.left
+        tell ", focus:"
+        tell $ show trace.focus
+        tell ", rigth:"
+        tell $ show $ map showCofree trace.right
+        tell "}"
+
 
 
 newtype Zipper f a = Zipper
     { extract :: Cofree f a
-    , up :: List (Zipper f a)
+    , trace :: List (Trace f a)
     , left :: f (Cofree f a)
     , right :: f (Cofree f a)
     }
@@ -19,7 +64,7 @@ newtype Zipper f a = Zipper
 instance (Eq1 f, Eq a, Eq (Cofree f a)) => Eq (Zipper f a) where
     eq (Zipper a) (Zipper b)
         = a.extract == b.extract
-        && a.up == b.up
+        && a.trace == b.trace
         && eq1 a.left b.left
         && eq1 a.right b.right
 
@@ -28,7 +73,8 @@ instance (Functor f, Show (f String), Show (f a), Show a) => Show (Zipper f a) w
         tell "(Zipper "
         tell "{ extract: "
         tell $ showCofree zipper.extract
-        tell ", up: "
+        tell ", trace: "
+        tell $ show zipper.trace
         tell ", left: "
         tell ", right: "
         tell " })"
@@ -46,7 +92,21 @@ showCofree cofree = execWriter do
 fromCofree :: forall f a. Monoid (f (Cofree f a)) => Cofree f a -> Zipper f a
 fromCofree cofree = Zipper
     { extract : cofree
-    , up : mempty
+    , trace : mempty
     , left : mempty
     , right : mempty
     }
+
+goDown :: forall a f. Uncons f => Monoid (f (Cofree f a)) => Zipper f a -> Maybe (Zipper f a)
+goDown (Zipper zipper) = do
+    let
+        focus = Cofree.head zipper.extract
+        trace = Trace {left: zipper.left, focus, right: zipper.right}
+        left = mempty
+    {head, tail} <- uncons $ Cofree.tail zipper.extract
+    pure $ Zipper
+        { extract: head
+        , trace: trace : zipper.trace
+        , left
+        , right: tail
+        }

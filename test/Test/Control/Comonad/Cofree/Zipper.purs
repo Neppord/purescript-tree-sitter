@@ -4,11 +4,13 @@ import Prelude
 
 import Control.Comonad.Cofree.Zipper (Zipper(..), fromCofree)
 import Control.Comonad.Cofree (Cofree, (:<))
-import Data.List (List(..))
+import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import Data.Maybe.First (First(..))
+import Control.Comonad.Cofree.Zipper (goDown)
+import Control.Comonad.Cofree.Zipper (Trace(..))
 
 type MaybeCofree a = Cofree Maybe a
 
@@ -17,8 +19,23 @@ spec = describe "Cofree.Zipper" do
     it "creates a Zipper for a simple cofree" do
         let expected = Zipper
                 { extract : 1 :< First Nothing
-                , up : Nil
+                , trace : Nil
                 , left : First Nothing
                 , right : First Nothing
                 }
         fromCofree (1 :< First Nothing) `shouldEqual` expected
+    it "moves up and down" do
+        (1 :< (First (Just (2 :< First Nothing))))
+            # fromCofree
+            # goDown
+            # shouldEqual $ Just $ Zipper
+                { extract : 2 :< First Nothing
+                , trace : Trace
+                    { left: First Nothing
+                    , focus: 1
+                    , right: First Nothing
+                    } : Nil
+                , left : First Nothing
+                , right : First Nothing
+                }
+

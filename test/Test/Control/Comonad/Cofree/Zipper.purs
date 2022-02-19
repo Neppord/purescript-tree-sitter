@@ -3,13 +3,12 @@ module Test.Control.Comonad.Cofree.Zipper where
 import Prelude
 
 import Control.Comonad.Cofree (Cofree, (:<))
-import Control.Comonad.Cofree.Zipper (Trace(..), Zipper(..), fromCofree, goDown, goUp)
+import Control.Comonad.Cofree.Zipper (Trace(..), Zipper(..), fromCofree, goDown, goRight, goUp)
 import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import Control.Comonad.Cofree.Zipper (goRight)
 
 type MaybeCofree a = Cofree Maybe a
 

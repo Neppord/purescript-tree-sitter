@@ -2,19 +2,14 @@ module Control.Comonad.Cofree.Zipper where
 
 import Prelude
 
-import Control.Comonad.Cofree (Cofree)
+import Control.Comonad.Cofree (Cofree, (:<))
 import Control.Comonad.Cofree as Cofree
 import Control.Monad.Writer (execWriter, tell)
+import Data.Array as Array
 import Data.Eq (class Eq1, eq1)
 import Data.List (List, (:))
-import Data.Array as Array
 import Data.List as List
-import Data.Maybe as Maybe
 import Data.Maybe (Maybe(..))
-import Data.Tuple (Tuple)
-import Data.Foldable (class Foldable, foldl)
-import Data.Tuple (Tuple(..))
-import Data.Maybe.First (First)
 import Data.Maybe.First (First(..))
 
 class Uncons f where
@@ -41,18 +36,16 @@ instance (Eq1 f, Eq a) => Eq (Trace f a) where
         && a.left `eq1` b.left
         && a.right `eq1` b.right
 
-instance (Functor f, Show (f String), Show a) => Show (Trace f a) where
+instance (Functor f, Show a, Show (Showfree f a), Show (f String)) => Show (Trace f a) where
     show (Trace trace) = execWriter do
         tell "Trace "
         tell "{ left:"
-        tell $ show $ map showCofree trace.left
+        tell $ show $ map (show <<< Showfree) trace.left
         tell ", focus:"
         tell $ show trace.focus
         tell ", rigth:"
-        tell $ show $ map showCofree trace.right
+        tell $ show $ map (show <<< Showfree) trace.right
         tell "}"
-
-
 
 newtype Zipper f a = Zipper
     { extract :: Cofree f a
@@ -68,26 +61,28 @@ instance (Eq1 f, Eq a, Eq (Cofree f a)) => Eq (Zipper f a) where
         && eq1 a.left b.left
         && eq1 a.right b.right
 
-instance (Functor f, Show (f String), Show (f a), Show a) => Show (Zipper f a) where
+instance (Show (Showfree f a), Show (Trace f a)) => Show (Zipper f a) where
     show (Zipper zipper) = execWriter do
         tell "(Zipper "
         tell "{ extract: "
-        tell $ showCofree zipper.extract
+        tell $ show $ Showfree zipper.extract
         tell ", trace: "
         tell $ show zipper.trace
         tell ", left: "
         tell ", right: "
         tell " })"
 
-showCofree :: forall f a. Functor f => Show (f String) => Show a => Cofree f a -> String
-showCofree cofree = execWriter do
-    tell "("
-    tell $ show $ Cofree.head cofree
-    tell " :< "
-    tell "("
-    tell $ show $ map showCofree $ Cofree.tail cofree
-    tell ")"
-    tell ")"
+newtype Showfree f a = Showfree (Cofree f a)
+
+instance (Functor f, Show a, Show (f String)) => Show (Showfree f a) where
+    show (Showfree cofree) = execWriter do
+        tell "("
+        tell $ show $ Cofree.head cofree
+        tell " :< "
+        tell "("
+        tell $ show $ map (show <<< Showfree) $ Cofree.tail cofree
+        tell ")"
+        tell ")"
 
 fromCofree :: forall f a. Monoid (f (Cofree f a)) => Cofree f a -> Zipper f a
 fromCofree cofree = Zipper
@@ -110,3 +105,15 @@ goDown (Zipper zipper) = do
         , left
         , right: tail
         }
+
+goUp :: forall a f. Applicative f => Monoid (f (Cofree f a)) => Zipper f a -> Maybe (Zipper f a)
+goUp (Zipper zipper) = do
+    {head, tail} <- uncons zipper.trace
+    let (Trace trace) = head
+    pure $ Zipper
+        { extract: trace.focus :< (zipper.left <> pure zipper.extract <> zipper.right)
+        , trace: tail
+        , left: trace.left
+        , right: trace.right
+        }
+

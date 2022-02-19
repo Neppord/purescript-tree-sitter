@@ -2,15 +2,13 @@ module Test.Control.Comonad.Cofree.Zipper where
 
 import Prelude
 
-import Control.Comonad.Cofree.Zipper (Zipper(..), fromCofree)
 import Control.Comonad.Cofree (Cofree, (:<))
+import Control.Comonad.Cofree.Zipper (Trace(..), Zipper(..), fromCofree, goDown, goUp)
 import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
+import Data.Maybe.First (First(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import Data.Maybe.First (First(..))
-import Control.Comonad.Cofree.Zipper (goDown)
-import Control.Comonad.Cofree.Zipper (Trace(..))
 
 type MaybeCofree a = Cofree Maybe a
 
@@ -24,7 +22,7 @@ spec = describe "Cofree.Zipper" do
                 , right : First Nothing
                 }
         fromCofree (1 :< First Nothing) `shouldEqual` expected
-    it "moves up and down" do
+    it "can go down" do
         (1 :< (First (Just (2 :< First Nothing))))
             # fromCofree
             # goDown
@@ -38,4 +36,17 @@ spec = describe "Cofree.Zipper" do
                 , left : First Nothing
                 , right : First Nothing
                 }
+    it "can go down" do
+        Zipper
+            { extract : 2 :< First Nothing
+            , trace : Trace
+                { left: First Nothing
+                , focus: 1
+                , right: First Nothing
+                } : Nil
+            , left : First Nothing
+            , right : First Nothing
+            }
+            # goUp
+            # shouldEqual $ Just $ fromCofree (1 :< (First (Just (2 :< First Nothing))))
 

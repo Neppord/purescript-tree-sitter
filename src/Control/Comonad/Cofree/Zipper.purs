@@ -36,6 +36,13 @@ instance (Eq1 f, Eq a) => Eq (Trace f a) where
         && a.left `eq1` b.left
         && a.right `eq1` b.right
 
+instance (Functor f) => Functor (Trace f) where
+    map f (Trace trace) = Trace
+        { left: (map <<< map) f trace.left
+        , focus: f trace.focus
+        , right: (map <<< map) f trace.right
+        }
+
 instance (Functor f, Show a, Show (Showfree f a), Show (f String)) => Show (Trace f a) where
     show (Trace trace) = execWriter do
         tell "Trace "
@@ -71,6 +78,13 @@ instance (Show (Showfree f a), Show (Trace f a)) => Show (Zipper f a) where
         tell ", left: "
         tell ", right: "
         tell " })"
+instance (Functor f) =>  Functor (Zipper f) where
+    map f (Zipper {extract, trace, left, right}) = Zipper
+        { extract : map f extract
+        , trace : (map <<< map) f trace
+        , left : (map <<< map) f left
+        , right : (map <<< map) f right
+        }
 
 newtype Showfree f a = Showfree (Cofree f a)
 

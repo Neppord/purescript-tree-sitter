@@ -9,6 +9,7 @@ import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
+import Control.Comonad.Cofree.Zipper (goRight)
 
 type MaybeCofree a = Cofree Maybe a
 
@@ -49,4 +50,15 @@ spec = describe "Cofree.Zipper" do
             }
             # goUp
             # shouldEqual $ Just $ fromCofree (1 :< (First (Just (2 :< First Nothing))))
+    it "can go right" do
+        let maybeZipper = do
+                let zipper = fromCofree (1 :< [2 :< [], 3 :< []])
+                down <- goDown zipper
+                goRight down
+        maybeZipper `shouldEqual` (Just <<< Zipper)
+            { extract: 3 :< []
+            , trace: Trace {left: [], focus: 1, right: []} : Nil
+            , left: [2:< []]
+            , right: []
+            }
 

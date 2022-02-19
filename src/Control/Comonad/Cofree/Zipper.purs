@@ -117,3 +117,22 @@ goUp (Zipper zipper) = do
         , right: trace.right
         }
 
+goRight :: forall a f. Uncons f => Applicative f => Monoid (f (Cofree f a)) => Zipper f a -> Maybe (Zipper f a)
+goRight (Zipper zipper) = do
+    {head: extract, tail: right} <- uncons $ zipper.right
+    pure $ Zipper
+        { extract
+        , trace: zipper.trace
+        , left:  pure zipper.extract <> zipper.left
+        , right
+        }
+
+goLeft :: forall a f. Uncons f => Applicative f => Monoid (f (Cofree f a)) => Zipper f a -> Maybe (Zipper f a)
+goLeft (Zipper zipper) = do
+    {head: extract, tail: left} <- uncons $ zipper.left
+    pure $ Zipper
+        { extract
+        , trace: zipper.trace
+        , left
+        , right:  pure zipper.extract <> zipper.right
+        }

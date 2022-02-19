@@ -15,6 +15,7 @@ import Data.Traversable (class Traversable)
 
 type CST' l r = (Cofree (Compose (Either l) Array) r)
 newtype CST l r = CST (CST' l r)
+
 derive instance Newtype (CST l a) _
 derive newtype instance (Eq a, Eq l) => Eq (CST l a)
 derive newtype instance Functor (CST l)
@@ -25,17 +26,21 @@ derive newtype instance Plated (CST l a)
 instance (Show l, Show r) => Show (CST l r) where
     show (CST cst') = "CST $ " <> loop cst'
         where
-            loop cst = (show $ Cofree.head cst) <> " :< " <> (showTail $ Cofree.tail cst)
-            showTail (Compose (Left str)) =
-                "(Compose (Left " <> show str <> "))"
-            showTail (Compose (Right children)) =
-                "(Compose (Right [" <> (intercalate ", " $ map loop children) <> "]))"
+        loop cst = (show $ Cofree.head cst) <> " :< " <>
+            (showTail $ Cofree.tail cst)
+        showTail (Compose (Left str)) =
+            "(Compose (Left " <> show str <> "))"
+        showTail (Compose (Right children)) =
+            "(Compose (Right [" <> (intercalate ", " $ map loop children) <>
+                "]))"
 
 displayGroups :: forall l r. (Show l) => CST l r -> String
 displayGroups = displayGroups_ show (const "")
 
-displayGroups_ :: forall l r. (l -> String) -> (r -> String) -> CST l r -> String
-displayGroups_ l r (CST cst) = loop cst where
+displayGroups_
+    :: forall l r. (l -> String) -> (r -> String) -> CST l r -> String
+displayGroups_ l r (CST cst) = loop cst
+    where
     prefix node = case r (Cofree.head node) of
         "" -> ""
         a -> a <> " "
@@ -45,22 +50,25 @@ displayGroups_ l r (CST cst) = loop cst where
             prefix node <> "[" <> intercalate ", " (map loop children) <> "]"
 
 sExpression :: forall l r. (r -> String) -> CST l r -> String
-sExpression r (CST cst) = loop cst where
+sExpression r (CST cst) = loop cst
+    where
     loop :: CST' l r -> String
     loop node = case Cofree.tail node of
         Compose (Left _) -> case r (Cofree.head node) of
             "" -> ""
             s -> "(" <> s <> ")"
         Compose (Right children) ->
-            let args = filter (not <<< String.null) $ map loop children
+            let
+                args = filter (not <<< String.null) $ map loop children
                 call = r $ Cofree.head node
-            in "(" <>  intercalate " " (call : args) <>")"
-
+            in
+                "(" <> intercalate " " (call : args) <> ")"
 
 infixr 5 mkCST as :<
 
 mkCST :: forall l r. r -> Either l (Array (CST l r)) -> CST l r
-mkCST node' children' = CST $ mkCofree node' tail' where
+mkCST node' children' = CST $ mkCofree node' tail'
+    where
     tail' :: Compose (Either l) Array (CST' l r)
     tail' = Compose $ map unwrap <$> children'
 

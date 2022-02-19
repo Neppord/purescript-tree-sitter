@@ -25,6 +25,7 @@ import TreeSitter.SyntaxTree (SyntaxTree(..))
 type LanguageName = String
 
 data Named = Named | Unnamed | Missing
+
 derive instance Generic Named _
 derive instance Eq Named
 instance Show Named where
@@ -37,38 +38,38 @@ type Node =
     }
 
 extractText :: String -> Node -> String
-extractText everything {range: {startIndex, endIndex}} =
+extractText everything { range: { startIndex, endIndex } } =
     everything
-    # String.drop startIndex
-    # String.take (endIndex - startIndex)
+        # String.drop startIndex
+        # String.take (endIndex - startIndex)
 
 replace :: String -> Node -> String -> String
-replace everything {range: {startIndex, endIndex}} toInsert =
+replace everything { range: { startIndex, endIndex } } toInsert =
     String.take startIndex everything
-    <> toInsert
-    <> String.drop endIndex everything
-
+        <> toInsert
+        <> String.drop endIndex everything
 
 parseAnnotations :: LanguageName -> String -> SyntaxTree Node
 parseAnnotations name input =
     Lazy.mkParser name
-    # \ parser -> Lazy.parseString parser input
-    # treeToDeclerative
-    # SyntaxTree
+        # \parser -> Lazy.parseString parser input
+              # treeToDeclerative
+              # SyntaxTree
 
 parseCST :: LanguageName -> String -> DeclarativeCST
 parseCST name input =
     Lazy.mkParser name
-    # \ parser -> Lazy.parseString parser input
-    # lazyTreeToCST
+        # \parser -> Lazy.parseString parser input
+              # lazyTreeToCST
 
 type DeclarativeCST = CST String CSTNode
-type CSTNode = {named :: Named , type :: String}
+type CSTNode = { named :: Named, type :: String }
 
 lazyTreeToCST :: Lazy.Tree -> DeclarativeCST
-lazyTreeToCST = CST <<< loop <<< Lazy.rootNode where
-    loop node  = head node :< tail node
-    head node = { named: named' node , type: Lazy.type' node }
+lazyTreeToCST = CST <<< loop <<< Lazy.rootNode
+    where
+    loop node = head node :< tail node
+    head node = { named: named' node, type: Lazy.type' node }
     tail node | null $ Lazy.children node = (Compose (Left $ Lazy.text node))
     tail node = (Compose (Right (loop <$> Lazy.children node)))
 
@@ -89,22 +90,25 @@ named' node | Lazy.isMissing node = Missing
 named' _ = Unnamed
 
 sExpression :: DeclarativeCST -> String
-sExpression cst = CST.sExpression toString cst where
-    toString {named: Named, type: type''} = type''
+sExpression cst = CST.sExpression toString cst
+    where
+    toString { named: Named, type: type'' } = type''
     toString _ = ""
 
 treeToDeclerative :: Lazy.Tree -> Tree Node
 treeToDeclerative = nodeToDeclerative <<< Lazy.rootNode
 
 nodeToDeclerative :: Lazy.SyntaxNode -> Tree Node
-nodeToDeclerative node' = mkTree ({named: named' node', type: type'', range}) children'
+nodeToDeclerative node' = mkTree ({ named: named' node', type: type'', range })
+    children'
     where
-        type'' = Lazy.type' node'
-        children' :: Forest Node
-        children' = fromFoldable $ map nodeToDeclerative $ Lazy.children node'
-        range =
-            { startIndex: Lazy.startIndex node'
-            , endIndex: Lazy.endIndex node'
-            , startPosition: Lazy.startPosition node'
-            , endPosition: Lazy.endPosition node'
-            }
+    type'' = Lazy.type' node'
+
+    children' :: Forest Node
+    children' = fromFoldable $ map nodeToDeclerative $ Lazy.children node'
+    range =
+        { startIndex: Lazy.startIndex node'
+        , endIndex: Lazy.endIndex node'
+        , startPosition: Lazy.startPosition node'
+        , endPosition: Lazy.endPosition node'
+        }

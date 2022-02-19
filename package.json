@@ -11,7 +11,8 @@
     "publish:patch": "spago bump-version patch --no-dry-run && pulp publish",
     "examples": "spago test --main Examples.Main",
     "test": "spago test",
-    "repl": "spago repl"
+    "repl": "spago repl",
+    "purs-tidy": "purs-tidy"
   },
   "keywords": [
     "parser",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "pulp": "^15.0.0",
+    "purs-tidy": "^0.7.0",
     "tree-sitter-bash": "^0.19.0",
     "tree-sitter-swift": "npm:experimental-tree-sitter-swift@^0.0.2"
   }

@@ -32,4 +32,3 @@ spec = describe "SyntaxTree" do
             go _ = Nothing
         rewrite go tree `shouldEqual` mkSyntaxTree 2 Nil
 
-

@@ -14,6 +14,7 @@ import Data.Tree as Tree
 import Data.Lens.Plated (class Plated)
 
 newtype SyntaxTree a = SyntaxTree (Tree.Tree a)
+
 derive instance Newtype (SyntaxTree a) _
 derive newtype instance Eq a => Eq (SyntaxTree a)
 derive newtype instance Functor SyntaxTree
@@ -21,9 +22,8 @@ derive newtype instance Foldable SyntaxTree
 derive newtype instance Traversable SyntaxTree
 derive newtype instance Plated (SyntaxTree a)
 
-instance  Show a => Show (SyntaxTree a) where
+instance Show a => Show (SyntaxTree a) where
     show = showTree <<< unwrap
-
 
 mkSyntaxTree :: forall a. a -> List (SyntaxTree a) -> SyntaxTree a
 mkSyntaxTree node' children' = SyntaxTree $ mkTree node' $ map unwrap children'
@@ -38,4 +38,5 @@ _children :: forall a. Lens' (SyntaxTree a) (List (SyntaxTree a))
 _children = lens children replaceChildren
 
 replaceChildren :: forall a. SyntaxTree a -> List (SyntaxTree a) -> SyntaxTree a
-replaceChildren tree children' = SyntaxTree $ mkTree (node tree) $ map unwrap children'
+replaceChildren tree children' = SyntaxTree $ mkTree (node tree) $ map unwrap
+    children'

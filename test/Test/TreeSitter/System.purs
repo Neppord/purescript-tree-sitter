@@ -12,7 +12,8 @@ import Test.Spec.Assertions (shouldEqual)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
 
 program :: String
-program = """
+program =
+    """
 function_name () {
     cat "my_file"
 }
@@ -20,6 +21,7 @@ other_function_name () {
     function_name
 }
 """
+
 tree :: Cofree Array SyntaxNode
 tree = program
     # parseString (mkParser "bash")
@@ -28,6 +30,7 @@ tree = program
 
 headType :: forall a. Cofree a SyntaxNode -> String
 headType = type' <<< head
+
 headText :: forall a. Cofree a SyntaxNode -> String
 headText = text <<< head
 
@@ -36,25 +39,28 @@ index n = Tuple (startIndex n) (endIndex n)
 
 is :: forall a. Eq a => a -> a -> Boolean
 is a = (_ == a)
+
 headIs :: forall a. String -> Cofree a SyntaxNode -> Boolean
 headIs a = is a <<< headType
 
 spec :: Spec Unit
 spec = describe "System" do
     it "extracts identifiers form a file" do
-        let words = tree
+        let
+            words = tree
                 # fromFoldable
                 # filter (is "word" <<< type')
                 # map text
         words `shouldEqual`
-            ["function_name"
+            [ "function_name"
             , "cat"
             , "other_function_name"
             , "function_name"
             ]
 
     it "extracts function names from file" do
-        let function_names = tree
+        let
+            function_names = tree
                 # universe
                 # fromFoldable
                 # filter (headIs "function_definition")
@@ -62,11 +68,12 @@ spec = describe "System" do
                 # filter (headIs "word")
                 # map headText
         function_names `shouldEqual`
-            ["function_name"
+            [ "function_name"
             , "other_function_name"
             ]
     it "rename function names in file" do
-        let ranges = tree
+        let
+            ranges = tree
                 # fromFoldable
                 # filter (type' >>> is "word")
                 # filter (text >>> is "function_name")

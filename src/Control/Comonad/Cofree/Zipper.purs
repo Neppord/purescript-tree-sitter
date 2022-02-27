@@ -2,7 +2,7 @@ module Control.Comonad.Cofree.Zipper where
 
 import Prelude
 
-import Control.Comonad.Cofree (Cofree, (:<))
+import Control.Comonad.Cofree (Cofree, buildCofree, (:<))
 import Control.Comonad.Cofree as Cofree
 import Control.Monad.Writer (execWriter, tell)
 import Data.Array as Array
@@ -11,9 +11,6 @@ import Data.List (List, (:))
 import Data.List as List
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
-import Data.Maybe (maybe)
-import Data.Maybe (fromMaybe)
-import Control.Comonad.Cofree (buildCofree)
 import Data.Tuple (Tuple(..))
 
 class Uncons f where
@@ -214,3 +211,4 @@ ancestors zipper = case goUp zipper of
             , right: decendants <$> rights focus
             }
         : ancestors focus
+

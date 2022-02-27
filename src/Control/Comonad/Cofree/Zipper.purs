@@ -11,6 +11,10 @@ import Data.List (List, (:))
 import Data.List as List
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
+import Data.Maybe (maybe)
+import Data.Maybe (fromMaybe)
+import Control.Comonad.Cofree (buildCofree)
+import Data.Tuple (Tuple(..))
 
 class Uncons f where
     uncons :: forall a. f a -> Maybe { head :: a, tail :: f a }
@@ -181,3 +185,32 @@ goLeft (Zipper zipper) = do
         , left
         , right: pure zipper.focus <> zipper.right
         }
+
+lefts :: forall a. Zipper Array a -> Array (Zipper Array a )
+lefts zipper = case goLeft zipper of
+    Nothing -> []
+    Just next -> next Array.: lefts next
+
+rights :: forall a. Zipper Array a -> Array (Zipper Array a )
+rights zipper = case goRight zipper of
+    Nothing -> []
+    Just next -> next Array.: lefts next
+
+decendants :: forall a. Zipper Array a -> Cofree Array (Zipper Array a)
+decendants = buildCofree $ \zipper -> Tuple zipper $ children zipper
+
+children :: forall a. Zipper Array a -> Array (Zipper Array a)
+children zipper = case goDown zipper of
+    Nothing -> []
+    Just focus -> lefts focus <> pure focus <> rights focus
+
+ancestors :: forall a. Zipper Array a -> List (Trace Array (Zipper Array a))
+ancestors zipper = case goUp zipper of
+    Nothing -> mempty
+    Just focus ->
+        Trace
+            { left: decendants <$> lefts focus
+            , focus
+            , right: decendants <$> rights focus
+            }
+        : ancestors focus

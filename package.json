@@ -12,7 +12,8 @@
     "examples": "spago test --main Examples.Main",
     "test": "spago test",
     "repl": "spago repl",
-    "purs-tidy": "purs-tidy"
+    "purs-tidy": "purs-tidy",
+    "format": "purs-tidy format-in-place 'src/**/*.purs' 'test/**/*.purs' 'examples/**/*.purs'"
   },
   "keywords": [
     "parser",

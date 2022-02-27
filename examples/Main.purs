@@ -14,15 +14,18 @@ import TreeSitter.Declarative (DeclarativeCST, Named(..), parseCST, sExpression,
 import Data.Lens.Plated (rewrite)
 
 bashSource :: String
-bashSource = """
+bashSource =
+    """
 do_stuff () {
     cat file | grep "foo"
 }
 
 do_stuff
 """
+
 swiftSource :: String
-swiftSource = """
+swiftSource =
+    """
 let a = 1 + 2 + 3
 print("Hello, world!")
 // Prints "Hello, world!"
@@ -38,27 +41,28 @@ collapseAdditions cst = do
     guard $ type' y == "integer_literal"
     xInt <- fromString $ text x
     yInt <- fromString $ text y
-    Just $ {type: "integer_literal", named: Named} :< Left (show (xInt + yInt))
+    Just $ { type: "integer_literal", named: Named } :< Left
+        (show (xInt + yInt))
 
 main :: Effect Unit
 main = do
-  log "show"
-  parseCST "swift" swiftSource
-    # logShow
-  log "displayGroups"
-  parseCST "swift" swiftSource
-    # displayGroups
-    # log
-  log "displayGroups_"
-  parseCST "swift" swiftSource
-    # displayGroups_ show (\ n -> if n.named == Named then n.type else "")
-    # log
-  log "s-expression"
-  parseCST "swift" swiftSource
-    # sExpression
-    # log
-  log "collapseAdditions"
-  parseCST "swift" swiftSource
-    # rewrite collapseAdditions
-    # text
-    # log
+    log "show"
+    parseCST "swift" swiftSource
+        # logShow
+    log "displayGroups"
+    parseCST "swift" swiftSource
+        # displayGroups
+        # log
+    log "displayGroups_"
+    parseCST "swift" swiftSource
+        # displayGroups_ show (\n -> if n.named == Named then n.type else "")
+        # log
+    log "s-expression"
+    parseCST "swift" swiftSource
+        # sExpression
+        # log
+    log "collapseAdditions"
+    parseCST "swift" swiftSource
+        # rewrite collapseAdditions
+        # text
+        # log

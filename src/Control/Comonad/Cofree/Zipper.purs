@@ -63,14 +63,14 @@ instance
         tell "}"
 
 newtype Zipper f a = Zipper
-    { extract :: Cofree f a
+    { focus :: Cofree f a
     , trace :: List (Trace f a)
     , left :: f (Cofree f a)
     , right :: f (Cofree f a)
     }
 
 instance (Eq1 f, Eq a, Eq (Cofree f a)) => Eq (Zipper f a) where
-    eq (Zipper a) (Zipper b) = a.extract == b.extract
+    eq (Zipper a) (Zipper b) = a.focus == b.focus
         && a.trace == b.trace
         && eq1 a.left b.left
         && eq1 a.right b.right
@@ -78,8 +78,8 @@ instance (Eq1 f, Eq a, Eq (Cofree f a)) => Eq (Zipper f a) where
 instance (Show (Showfree f a), Show (Trace f a)) => Show (Zipper f a) where
     show (Zipper zipper) = execWriter do
         tell "(Zipper "
-        tell "{ extract: "
-        tell $ show $ Showfree zipper.extract
+        tell "{ focus: "
+        tell $ show $ Showfree zipper.focus
         tell ", trace: "
         tell $ show zipper.trace
         tell ", left: "
@@ -87,8 +87,8 @@ instance (Show (Showfree f a), Show (Trace f a)) => Show (Zipper f a) where
         tell " })"
 
 instance (Functor f) => Functor (Zipper f) where
-    map f (Zipper { extract, trace, left, right }) = Zipper
-        { extract: map f extract
+    map f (Zipper { focus, trace, left, right }) = Zipper
+        { focus: map f focus
         , trace: (map <<< map) f trace
         , left: (map <<< map) f left
         , right: (map <<< map) f right
@@ -108,7 +108,7 @@ instance (Functor f, Show a, Show (f String)) => Show (Showfree f a) where
 
 fromCofree :: forall f a. Monoid (f (Cofree f a)) => Cofree f a -> Zipper f a
 fromCofree cofree = Zipper
-    { extract: cofree
+    { focus: cofree
     , trace: mempty
     , left: mempty
     , right: mempty
@@ -122,12 +122,12 @@ goDown
     -> Maybe (Zipper f a)
 goDown (Zipper zipper) = do
     let
-        focus = Cofree.head zipper.extract
+        focus = Cofree.head zipper.focus
         trace = Trace { left: zipper.left, focus, right: zipper.right }
         left = mempty
-    { head, tail } <- uncons $ Cofree.tail zipper.extract
+    { head, tail } <- uncons $ Cofree.tail zipper.focus
     pure $ Zipper
-        { extract: head
+        { focus: head
         , trace: trace : zipper.trace
         , left
         , right: tail
@@ -143,8 +143,8 @@ goUp (Zipper zipper) = do
     { head, tail } <- uncons zipper.trace
     let (Trace trace) = head
     pure $ Zipper
-        { extract: trace.focus :<
-              (zipper.left <> pure zipper.extract <> zipper.right)
+        { focus: trace.focus :<
+              (zipper.left <> pure zipper.focus <> zipper.right)
         , trace: tail
         , left: trace.left
         , right: trace.right
@@ -158,11 +158,11 @@ goRight
     => Zipper f a
     -> Maybe (Zipper f a)
 goRight (Zipper zipper) = do
-    { head: extract, tail: right } <- uncons $ zipper.right
+    { head: focus, tail: right } <- uncons $ zipper.right
     pure $ Zipper
-        { extract
+        { focus
         , trace: zipper.trace
-        , left: pure zipper.extract <> zipper.left
+        , left: pure zipper.focus <> zipper.left
         , right
         }
 
@@ -174,10 +174,10 @@ goLeft
     => Zipper f a
     -> Maybe (Zipper f a)
 goLeft (Zipper zipper) = do
-    { head: extract, tail: left } <- uncons $ zipper.left
+    { head: focus, tail: left } <- uncons $ zipper.left
     pure $ Zipper
-        { extract
+        { focus
         , trace: zipper.trace
         , left
-        , right: pure zipper.extract <> zipper.right
+        , right: pure zipper.focus <> zipper.right
         }

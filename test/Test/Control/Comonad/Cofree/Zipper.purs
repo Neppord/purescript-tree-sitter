@@ -17,7 +17,7 @@ spec = describe "Cofree.Zipper" do
     it "creates a Zipper for a simple cofree" do
         let
             expected = Zipper
-                { extract: 1 :< First Nothing
+                { focus: 1 :< First Nothing
                 , trace: Nil
                 , left: First Nothing
                 , right: First Nothing
@@ -28,7 +28,7 @@ spec = describe "Cofree.Zipper" do
             # fromCofree
             # goDown
             # shouldEqual $ Just $ Zipper
-            { extract: 2 :< First Nothing
+            { focus: 2 :< First Nothing
             , trace:
                   Trace
                       { left: First Nothing
@@ -40,7 +40,7 @@ spec = describe "Cofree.Zipper" do
             }
     it "can go down" do
         Zipper
-            { extract: 2 :< First Nothing
+            { focus: 2 :< First Nothing
             , trace:
                   Trace
                       { left: First Nothing
@@ -60,7 +60,7 @@ spec = describe "Cofree.Zipper" do
                 down <- goDown zipper
                 goRight down
         maybeZipper `shouldEqual` (Just <<< Zipper)
-            { extract: 3 :< []
+            { focus: 3 :< []
             , trace: Trace { left: [], focus: 1, right: [] } : Nil
             , left: [ 2 :< [] ]
             , right: []

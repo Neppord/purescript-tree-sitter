@@ -9,6 +9,9 @@ import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
+import Control.Extend (duplicate)
+import Control.Comonad (extract)
+import Data.Array (fromFoldable)
 
 type MaybeCofree a = Cofree Maybe a
 
@@ -65,4 +68,27 @@ spec = describe "Cofree.Zipper" do
             , left: [ 2 :< [] ]
             , right: []
             }
+    it "can duplicate" do
+        let zipper = fromCofree (1 :< [])
+        duplicate zipper `shouldEqual` Zipper
+            { focus: fromCofree (1 :< []) :< []
+            , trace: Nil
+            , left: []
+            , right: []
+            }
+    it "can extract" do
+        let zipper = fromCofree (1 :< [])
+        extract zipper `shouldEqual` 1
+
+    it "duplicate >>> extract = id" do
+        let zipper = fromCofree (1 :< [])
+        (duplicate >>> extract) zipper `shouldEqual` zipper
+
+    it "can fold" do
+        let
+            array :: Array Int
+            array = (1 :< [ 2 :< [], 3 :< [] ])
+                # fromCofree
+                # fromFoldable
+        array `shouldEqual` [ 1, 2, 3 ]
 

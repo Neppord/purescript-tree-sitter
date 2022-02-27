@@ -2,18 +2,18 @@ module Control.Comonad.Cofree.Zipper where
 
 import Prelude
 
+import Control.Comonad (class Comonad, class Extend)
 import Control.Comonad.Cofree (Cofree, buildCofree, (:<))
 import Control.Comonad.Cofree as Cofree
-import Control.Comonad (class Comonad, class Extend)
 import Control.Monad.Writer (execWriter, tell)
 import Data.Array as Array
 import Data.Eq (class Eq1, eq1)
+import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.List (List, (:))
 import Data.List as List
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
 import Data.Tuple (Tuple(..))
-import Data.Newtype (unwrap)
 
 class Uncons f where
     uncons :: forall a. f a -> Maybe { head :: a, tail :: f a }
@@ -185,15 +185,15 @@ goLeft (Zipper zipper) = do
         , right: pure zipper.focus <> zipper.right
         }
 
-lefts :: forall a. Zipper Array a -> Array (Zipper Array a )
+lefts :: forall a. Zipper Array a -> Array (Zipper Array a)
 lefts zipper = case goLeft zipper of
     Nothing -> []
     Just next -> next Array.: lefts next
 
-rights :: forall a. Zipper Array a -> Array (Zipper Array a )
+rights :: forall a. Zipper Array a -> Array (Zipper Array a)
 rights zipper = case goRight zipper of
     Nothing -> []
-    Just next -> next Array.: lefts next
+    Just next -> next Array.: rights next
 
 decendants :: forall a. Zipper Array a -> Cofree Array (Zipper Array a)
 decendants = buildCofree $ \zipper -> Tuple zipper $ children zipper
@@ -212,7 +212,7 @@ ancestors zipper = case goUp zipper of
             , focus
             , right: decendants <$> rights focus
             }
-        : ancestors focus
+            : ancestors focus
 
 instance Extend (Zipper Array) where
     extend f zipper = f <$> Zipper
@@ -223,4 +223,9 @@ instance Extend (Zipper Array) where
         }
 
 instance Comonad (Zipper Array) where
-    extract (Zipper {focus}) = Cofree.head focus
+    extract (Zipper { focus }) = Cofree.head focus
+
+instance Foldable (Zipper Array) where
+    foldr f s (Zipper zipper) = foldr f s zipper.focus
+    foldl f s (Zipper zipper) = foldl f s zipper.focus
+    foldMap f (Zipper zipper) = foldMap f zipper.focus

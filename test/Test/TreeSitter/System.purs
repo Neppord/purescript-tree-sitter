@@ -10,6 +10,12 @@ import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
+import Control.Comonad.Cofree.Zipper (fromCofree)
+import Control.Extend (duplicate)
+import Control.Comonad (extract)
+import Control.Comonad.Cofree.Zipper (goUp)
+import Data.Maybe (Maybe(..))
+import Control.Comonad.Cofree.Zipper (Zipper)
 
 program :: String
 program =
@@ -21,6 +27,24 @@ other_function_name () {
     function_name
 }
 """
+
+swiftProgram =
+    """
+func hello() {
+    print("hello")
+}
+class SomeClass {
+    func hello() {
+        print("hello")
+    }
+}
+"""
+
+swiftTree :: Cofree Array SyntaxNode
+swiftTree = swiftProgram
+    # parseString (mkParser "swift")
+    # rootNode
+    # buildCofree (\s -> Tuple s $ children s)
 
 tree :: Cofree Array SyntaxNode
 tree = program
@@ -90,3 +114,18 @@ other_function_name () {
     new_function_name
 }
 """
+    it "can find class that defines method" do
+        let
+            zipper = fromCofree swiftTree
+
+            nodeType :: Zipper Array SyntaxNode -> String
+            nodeType = extract >>> type'
+            nodeIsFunction = nodeType >>> is "function_declaration"
+            nodeIsClass = nodeType >>> is "class_declaration"
+
+            methods :: Array (Zipper Array SyntaxNode)
+            methods = duplicate zipper
+                # fromFoldable
+                # filter nodeIsFunction
+                # filter ( (goUp >=> goUp) >>> map nodeIsClass >>> is (Just true) )
+        (show $ extract >>> type' <$> methods) `shouldEqual` "[\"function_declaration\"]"

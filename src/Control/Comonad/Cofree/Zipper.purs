@@ -4,6 +4,7 @@ import Prelude
 
 import Control.Comonad.Cofree (Cofree, buildCofree, (:<))
 import Control.Comonad.Cofree as Cofree
+import Control.Comonad (class Comonad, class Extend)
 import Control.Monad.Writer (execWriter, tell)
 import Data.Array as Array
 import Data.Eq (class Eq1, eq1)
@@ -12,6 +13,7 @@ import Data.List as List
 import Data.Maybe (Maybe(..))
 import Data.Maybe.First (First(..))
 import Data.Tuple (Tuple(..))
+import Data.Newtype (unwrap)
 
 class Uncons f where
     uncons :: forall a. f a -> Maybe { head :: a, tail :: f a }
@@ -212,3 +214,13 @@ ancestors zipper = case goUp zipper of
             }
         : ancestors focus
 
+instance Extend (Zipper Array) where
+    extend f zipper = f <$> Zipper
+        { focus: decendants zipper
+        , trace: ancestors zipper
+        , left: decendants <$> lefts zipper
+        , right: decendants <$> rights zipper
+        }
+
+instance Comonad (Zipper Array) where
+    extract (Zipper {focus}) = Cofree.head focus

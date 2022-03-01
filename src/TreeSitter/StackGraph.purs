@@ -3,7 +3,7 @@ module TreeSitter.StackGraph where
 import Prelude
 
 import Data.Generic.Rep (class Generic)
-import Data.List (List(..), head, tail, uncons, (:))
+import Data.List (List(..), uncons, (:))
 import Data.Map (Map, empty, lookup)
 import Data.Map.Internal (insert)
 import Data.Maybe (Maybe(..))

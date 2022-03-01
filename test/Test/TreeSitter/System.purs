@@ -2,20 +2,18 @@ module Test.TreeSitter.System where
 
 import Prelude
 
+import Control.Comonad (extract)
 import Control.Comonad.Cofree (Cofree, buildCofree, head, tail)
+import Control.Comonad.Cofree.Zipper (Zipper, fromCofree, goUp)
+import Control.Extend (duplicate)
 import Data.Array (filter, foldMap, foldr, fromFoldable)
 import Data.Lens.Plated (universe)
+import Data.Maybe (Maybe(..))
 import Data.String as String
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
-import Control.Comonad.Cofree.Zipper (fromCofree)
-import Control.Extend (duplicate)
-import Control.Comonad (extract)
-import Control.Comonad.Cofree.Zipper (goUp)
-import Data.Maybe (Maybe(..))
-import Control.Comonad.Cofree.Zipper (Zipper)
 
 program :: String
 program =
@@ -28,6 +26,7 @@ other_function_name () {
 }
 """
 
+swiftProgram :: String
 swiftProgram =
     """
 func hello() {
@@ -127,5 +126,6 @@ other_function_name () {
             methods = duplicate zipper
                 # fromFoldable
                 # filter nodeIsFunction
-                # filter ( (goUp >=> goUp) >>> map nodeIsClass >>> is (Just true) )
-        (show $ extract >>> type' <$> methods) `shouldEqual` "[\"function_declaration\"]"
+                # filter
+                      ((goUp >=> goUp) >>> map nodeIsClass >>> is (Just true))
+        map (extract >>> type') methods `shouldEqual` [ "function_declaration" ]

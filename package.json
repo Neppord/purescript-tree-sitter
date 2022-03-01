@@ -13,7 +13,7 @@
     "test": "spago test",
     "repl": "spago repl",
     "purs-tidy": "purs-tidy",
-    "format": "purs-tidy format-in-place 'src/**/*.purs' 'test/**/*.purs' 'examples/**/*.purs'"
+    "format": "purs-tidy format-in-place src test examples"
   },
   "keywords": [
     "parser",

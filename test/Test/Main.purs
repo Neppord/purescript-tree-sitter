@@ -6,7 +6,6 @@ import Effect.Aff (launchAff_)
 import Test.Spec.Discovery (discover)
 import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Runner (runSpec)
-import Effect.Console (log)
 
 main :: Effect Unit
 main = launchAff_ do

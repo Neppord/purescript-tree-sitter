@@ -13,7 +13,8 @@ import Data.String as String
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
+import TreeSitter.Lazy (SyntaxNode(..), children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
+import TreeSitter.Raw as Raw
 
 program :: String
 program =

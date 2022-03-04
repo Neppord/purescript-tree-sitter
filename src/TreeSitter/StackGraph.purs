@@ -15,7 +15,6 @@ import Data.Newtype (unwrap)
 import Data.Semigroup.Last (Last(..))
 import Data.Show.Generic (genericShow)
 
-
 type Info = { start :: Int, end :: Int }
 
 data Node next
@@ -42,7 +41,6 @@ type CreateGraph = Free CreateGraphF
 
 type Interp = WriterT (SemigroupMap Int (Last (Node Int))) (State Int)
 
-
 createGraph_ :: forall a. CreateGraph a -> Graph Int
 createGraph_ cg = evalState (execWriterT (foldFree runCreateGraph cg)) 0
     # unwrap
@@ -57,22 +55,25 @@ runCreateGraph (Connect id node a) = do
     tell $ SemigroupMap $ singleton id (Last node)
     pure a
 
-
 newId :: Free CreateGraphF Int
 newId = liftF $ NewNode identity
+
 connect :: Node Int -> Int -> Free CreateGraphF Int
 connect node id = liftF $ Connect id node id
 
-info :: { end :: Int , start :: Int } -> Free CreateGraphF Int
+info :: { end :: Int, start :: Int } -> Free CreateGraphF Int
 info i = newId >>= connect (Info i)
+
 demand :: String -> Int -> Free CreateGraphF Int
 demand i next = newId >>= connect (Pop i next)
+
 scope :: Array Int -> Free CreateGraphF Int
 scope nexts = newId >>= connect (Branch nexts)
+
 supply :: String -> Int -> Free CreateGraphF Int
 supply i next = newId >>= connect (Push i next)
 
-declare :: String -> { end :: Int , start :: Int } -> Free CreateGraphF Int
+declare :: String -> { end :: Int, start :: Int } -> Free CreateGraphF Int
 declare var pos = info pos >>= demand var
 
 findDefinition :: Graph Int -> Int -> Array Info

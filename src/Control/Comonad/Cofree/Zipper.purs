@@ -99,7 +99,14 @@ instance (Functor f) => Functor (Zipper f) where
 
 newtype Showfree f a = Showfree (Cofree f a)
 
-instance (Functor f, Show a, Show (f String)) => Show (Showfree f a) where
+instance (Show a) => Show (Showfree Array a) where
+    show (Showfree cofree) = execWriter do
+        tell "("
+        tell $ show $ Cofree.head cofree
+        tell " :< "
+        tell $ show $ map (Showfree) $ Cofree.tail cofree
+        tell ")"
+else instance (Functor f, Show a, Show (f String)) => Show (Showfree f a) where
     show (Showfree cofree) = execWriter do
         tell "("
         tell $ show $ Cofree.head cofree

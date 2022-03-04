@@ -5,16 +5,7 @@ import Prelude
 import Data.Map (empty, insert)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import TreeSitter.StackGraph (Graph, Node(..), findDefinition)
-import TreeSitter.StackGraph (CreateGraph)
-import TreeSitter.StackGraph (CreateGraphF(..))
-import Control.Monad.Free (liftF)
-import TreeSitter.StackGraph (createGraph_)
-import TreeSitter.StackGraph (declare)
-import TreeSitter.StackGraph (scope)
-import TreeSitter.StackGraph (declare)
-import TreeSitter.StackGraph (scope)
-import TreeSitter.StackGraph (supply)
+import TreeSitter.StackGraph (CreateGraph, Graph, Node(..), createGraph_, declare, findDefinition, scope, supply)
 
 -- | this example is for the code below
 -- | ```swift
@@ -34,18 +25,18 @@ example = empty
     # insert 7 (Push "w" 5)
 
 monadExample :: CreateGraph Unit
-monadExample= do
+monadExample = do
     id1 <- declare "h" { start: 4, end: 5 }
-    id2 <- scope [id1]
+    id2 <- scope [ id1 ]
     id4 <- declare "w" { start: 20, end: 21 }
-    id5 <- scope [id4, id2]
+    id5 <- scope [ id4, id2 ]
     void $ supply "h" id5
     void $ supply "w" id5
 
 spec :: Spec Unit
 spec = describe "StackGraph" do
     it "finds definition" do
-        findDefinition example 7 `shouldEqual` [{ start: 20, end: 21 }]
+        findDefinition example 7 `shouldEqual` [ { start: 20, end: 21 } ]
     it "has a monad that creates correct graphs" do
         let graph = createGraph_ monadExample
         graph `shouldEqual` example

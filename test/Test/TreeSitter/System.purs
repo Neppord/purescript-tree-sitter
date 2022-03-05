@@ -16,7 +16,7 @@ import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it, itOnly)
 import Test.Spec.Assertions (shouldEqual)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
-import TreeSitter.StackGraph (CreateGraph, Node(..), createGraph_, declare, demand, scope, supply)
+import TreeSitter.StackGraph (CreateGraph, Node(..), createGraph_, declare, namedScope, scope, supply)
 
 program :: String
 program =
@@ -117,9 +117,8 @@ other_function_name () {
     new_function_name
 }
 """
-    itOnly "can create stack graphs" do
+    it "can create stack graphs" do
         let
-
             childrenOfType :: String -> Cofree Array SyntaxNode -> Array (Cofree Array SyntaxNode)
             childrenOfType t node = filter (head >>> type' >>> is t)
                 (tail node)
@@ -140,8 +139,6 @@ other_function_name () {
                         # mapMaybe functionDeclaration
                 pure $ namedScope (text identifier) methods
 
-            namedScope :: String -> Array (CreateGraph Int) -> CreateGraph Int
-            namedScope name nodes = demand name =<< scope =<< sequence nodes
             newSourceFile :: Cofree Array SyntaxNode -> CreateGraph Unit
             newSourceFile sourceTree = do
                 ids <- (tail sourceTree)
@@ -155,7 +152,7 @@ other_function_name () {
                     )
                 file <- scope (reverse ids)
                 void $ supply "hello" file
-            graph = createGraph_ $ newSourceFile swiftTree
+            (Tuple _ graph) = createGraph_ $ newSourceFile swiftTree
         toUnfoldable graph `shouldEqual`
             [ (Tuple 0 (Info { end: 11, start: 6 }))
             , (Tuple 1 (Pop "hello" 0))

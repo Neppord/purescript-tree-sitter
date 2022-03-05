@@ -6,6 +6,7 @@ import Data.Map (empty, insert)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import TreeSitter.StackGraph (CreateGraph, Graph, Node(..), createGraph_, declare, findDefinition, scope, supply)
+import Data.Tuple (Tuple(..))
 
 -- | this example is for the code below
 -- | ```swift
@@ -38,5 +39,5 @@ spec = describe "StackGraph" do
     it "finds definition" do
         findDefinition example 7 `shouldEqual` [ { start: 20, end: 21 } ]
     it "has a monad that creates correct graphs" do
-        let graph = createGraph_ monadExample
+        let (Tuple _ graph) = createGraph_ monadExample
         graph `shouldEqual` example

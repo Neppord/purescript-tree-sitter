@@ -2,11 +2,12 @@ module Test.TreeSitter.StackGraph where
 
 import Prelude
 
-import Data.Map (empty, insert)
+import Data.Map (empty, insert, lookup)
+import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import TreeSitter.StackGraph (CreateGraph, Graph, Node(..), createGraph_, declare, findDefinition, scope, supply)
-import Data.Tuple (Tuple(..))
+import TreeSitter.StackGraph (CreateGraph, Graph, Node(..), createGraph_, declare, findDefinition, scope, usage)
+import Data.Maybe (Maybe(..))
 
 -- | this example is for the code below
 -- | ```swift
@@ -31,13 +32,15 @@ monadExample = do
     id2 <- scope [ id1 ]
     id4 <- declare "w" { start: 20, end: 21 }
     id5 <- scope [ id4, id2 ]
-    void $ supply "h" id5
-    void $ supply "w" id5
+    void $ usage "h" { start: 38, end: 39 } id5
+    void $ usage "w" { start: 48, end: 49 } id5
 
 spec :: Spec Unit
 spec = describe "StackGraph" do
     it "finds definition" do
         findDefinition example 7 `shouldEqual` [ { start: 20, end: 21 } ]
     it "has a monad that creates correct graphs" do
-        let (Tuple _ graph) = createGraph_ monadExample
+        let (Tuple index graph) = createGraph_ monadExample
         graph `shouldEqual` example
+        (findDefinition graph <$> (lookup { start: 48, end: 49 } index))
+            `shouldEqual` Just [ { start: 20, end: 21 } ]

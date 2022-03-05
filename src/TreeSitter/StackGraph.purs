@@ -38,15 +38,16 @@ data CreateGraphF a
     = NewNode (Int -> a)
     | Connect Int (Node Int) a
     | EntryPoint Info Int a
+
 derive instance Functor CreateGraphF
 
 type CreateGraph = Free CreateGraphF
 
 type Interp = WriterT
-    (Tuple
-        (SemigroupMap Info (Last Int))
-        (SemigroupMap Int (Last (Node Int)))
-        )
+    ( Tuple
+          (SemigroupMap Info (Last Int))
+          (SemigroupMap Int (Last (Node Int)))
+    )
     (State Int)
 
 createGraph_ :: forall a. CreateGraph a -> Tuple (Map Info Int) (Graph Int)
@@ -64,7 +65,7 @@ runCreateGraph (Connect id node a) = do
         (SemigroupMap $ empty)
         (SemigroupMap $ singleton id (Last node))
     pure a
-runCreateGraph (EntryPoint info index  a) = do
+runCreateGraph (EntryPoint info index a) = do
     tell $ Tuple
         (SemigroupMap $ singleton info (Last index))
         (SemigroupMap $ empty)
@@ -75,6 +76,9 @@ newId = liftF $ NewNode identity
 
 connect :: Node Int -> Int -> Free CreateGraphF Int
 connect node id = liftF $ Connect id node id
+
+entryPoint :: Info -> Int -> Free CreateGraphF Int
+entryPoint info id = liftF $ EntryPoint info id id
 
 info :: { end :: Int, start :: Int } -> Free CreateGraphF Int
 info i = newId >>= connect (Info i)
@@ -87,6 +91,9 @@ scope nexts = newId >>= connect (Branch nexts)
 
 supply :: String -> Int -> Free CreateGraphF Int
 supply i next = newId >>= connect (Push i next)
+
+usage :: String -> Info -> Int -> Free CreateGraphF Int
+usage name info id = supply name id >>= entryPoint info
 
 declare :: String -> { end :: Int, start :: Int } -> Free CreateGraphF Int
 declare var pos = info pos >>= demand var

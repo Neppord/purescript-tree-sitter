@@ -6,14 +6,14 @@ import Control.Comonad (extract)
 import Control.Comonad.Cofree (Cofree, buildCofree, head, tail)
 import Control.Comonad.Cofree.Zipper (Zipper, fromCofree, goUp)
 import Control.Extend (duplicate)
-import Data.Array (concat, elem, filter, foldMap, foldr, fromFoldable)
+import Data.Array (concat, elem, filter, find, foldMap, foldr, fromFoldable, mapMaybe, reverse)
 import Data.Lens.Plated (universe)
 import Data.Map.Internal (toUnfoldable)
 import Data.Maybe (Maybe(..), fromMaybe)
 import Data.String as String
-import Data.Traversable (sequence)
+import Data.Traversable (for, sequence)
 import Data.Tuple (Tuple(..))
-import Test.Spec (Spec, describe, it)
+import Test.Spec (Spec, describe, it, itOnly)
 import Test.Spec.Assertions (shouldEqual)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
 import TreeSitter.StackGraph (CreateGraph, Node(..), createGraph_, declare, demand, scope, supply)
@@ -123,7 +123,7 @@ other_function_name () {
     new_function_name
 }
 """
-    it "can create stack graphs" do
+    itOnly "can create stack graphs" do
         let
             transform n =
                 let
@@ -141,49 +141,39 @@ other_function_name () {
             childrenOfType :: String -> SimpleTree -> Array SimpleTree
             childrenOfType t node = filter (head >>> _.type >>> is t)
                 (tail node)
+            childOfType :: String -> SimpleTree -> Maybe SimpleTree
+            childOfType t node = find (head >>> _.type >>> is t)
+                (tail node)
 
-            functionDeclaration :: SimpleTree -> CreateGraph (Array Int)
-            functionDeclaration tree = sequence do
-                identifier <- head <$> childrenOfType "simple_identifier" tree
+            functionDeclaration :: SimpleTree -> Maybe (CreateGraph  Int)
+            functionDeclaration t = do
+                identifier <- head <$> childOfType "simple_identifier" t
                 pure $ declare (fromMaybe "" identifier.text) identifier.info
 
-            classDeclaration :: SimpleTree -> CreateGraph (Array Int)
-            classDeclaration tree = sequence do
-                identifier <- head <$> childrenOfType "type_identifier" tree
-                classBody <- childrenOfType "class_body" tree
-                pure $ do
-                    (ids :: Array Int) <-
-                        childrenOfType "function_declaration" classBody
-                            # map functionDeclaration
-                            # sequence
-                            # map concat
-                    id <- scope ids
-                    demand (fromMaybe "" identifier.text) id
-
-            callExpression :: SimpleTree -> CreateGraph (Array Int)
-            callExpression _ = pure []
-
-            sourceFile :: SimpleTree -> CreateGraph (Array Int)
-            sourceFile t = case head t of
-                { type: "function_declaration" } -> functionDeclaration t
-                { type: "class_declaration" } -> classDeclaration t
-                { type: "call_expression" } -> callExpression t
-                _ -> pure []
+            classDeclaration :: SimpleTree -> Maybe (CreateGraph Int)
+            classDeclaration t = do
+                identifier <- head <$> childOfType "type_identifier" t
+                classBody <- childOfType "class_body" t
+                className <- identifier.text
+                let methods = childrenOfType "function_declaration" classBody
+                        # mapMaybe functionDeclaration
+                pure $ namedScope className methods
 
             namedScope :: String -> Array (CreateGraph Int) -> CreateGraph Int
             namedScope name nodes = demand name =<< scope =<< sequence nodes
-
-            newSourceFile :: SimpleTree -> CreateGraph (Array Int)
+            newSourceFile :: SimpleTree -> CreateGraph Unit
             newSourceFile sourceTree = do
-                hello <- declare "hello" { end: 11, start: 6 }
-                someClass <- namedScope "SomeClass" do
-                    pure $ declare "hello" { end: 69, start: 64 }
-                file <- scope [ someClass, hello ]
-                call <- supply "hello" file
-                pure [ call ]
-
-            go :: CreateGraph Int -> SimpleTree -> CreateGraph Int
-            go s tree = scope []
+                ids <- (tail sourceTree)
+                    # sequence <<< mapMaybe (\ subtree ->
+                        case head subtree of
+                            {type: "function_declaration" } ->
+                                functionDeclaration subtree
+                            { type: "class_declaration" } ->
+                                classDeclaration subtree
+                            _ -> Nothing
+                    )
+                file <- scope (reverse ids)
+                void $ supply "hello" file
             graph = createGraph_ $ newSourceFile structure
         toUnfoldable graph `shouldEqual`
             [ (Tuple 0 (Info { end: 11, start: 6 }))

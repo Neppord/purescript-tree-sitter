@@ -14,7 +14,7 @@ import Data.String as String
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import Test.TreeSitter.StackGraph.Swift (sourceFile)
+import TreeSitter.StackGraph.Swift (sourceFile)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
 import TreeSitter.StackGraph (Node(..), createGraph_)
 
@@ -118,9 +118,7 @@ other_function_name () {
 }
 """
     it "can create stack graphs" do
-        let
-
-            (Tuple _ graph) = createGraph_ $ sourceFile swiftTree
+        let (Tuple _ graph) = createGraph_ $ sourceFile swiftTree
         toUnfoldable graph `shouldEqual`
             [ (Tuple 0 (Info { end: 11, start: 6 }))
             , (Tuple 1 (Pop "hello" 0))

@@ -1,4 +1,4 @@
-module Test.TreeSitter.StackGraph.Swift where
+module TreeSitter.StackGraph.Swift where
 
 import Prelude
 

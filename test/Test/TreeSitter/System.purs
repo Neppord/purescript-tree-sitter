@@ -6,12 +6,12 @@ import Control.Comonad (extract)
 import Control.Comonad.Cofree (Cofree, buildCofree, head, tail)
 import Control.Comonad.Cofree.Zipper (Zipper, fromCofree, goUp)
 import Control.Extend (duplicate)
-import Data.Array (concat, elem, filter, find, foldMap, foldr, fromFoldable, mapMaybe, reverse)
+import Data.Array (filter, find, foldMap, foldr, fromFoldable, mapMaybe, reverse)
 import Data.Lens.Plated (universe)
 import Data.Map.Internal (toUnfoldable)
-import Data.Maybe (Maybe(..), fromMaybe)
+import Data.Maybe (Maybe(..))
 import Data.String as String
-import Data.Traversable (for, sequence)
+import Data.Traversable (sequence)
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it, itOnly)
 import Test.Spec.Assertions (shouldEqual)
@@ -70,12 +70,6 @@ is a = (_ == a)
 headIs :: forall a. String -> Cofree a SyntaxNode -> Boolean
 headIs a = is a <<< headType
 
-type SimpleTree = Cofree Array
-    { type :: String
-    , info :: { start :: Int, end :: Int }
-    , text :: Maybe String
-    }
-
 spec :: Spec Unit
 spec = describe "System" do
     it "extracts identifiers form a file" do
@@ -125,56 +119,43 @@ other_function_name () {
 """
     itOnly "can create stack graphs" do
         let
-            transform n =
-                let
-                    t = type' n
-                in
-                    { type: t
-                    , info: { start: startIndex n, end: endIndex n }
-                    , text:
-                          if elem t [ "simple_identifier", "type_identifier" ] then
-                              Just (text n)
-                          else Nothing
-                    }
-            structure = transform <$> swiftTree
 
-            childrenOfType :: String -> SimpleTree -> Array SimpleTree
-            childrenOfType t node = filter (head >>> _.type >>> is t)
+            childrenOfType :: String -> Cofree Array SyntaxNode -> Array (Cofree Array SyntaxNode)
+            childrenOfType t node = filter (head >>> type' >>> is t)
                 (tail node)
-            childOfType :: String -> SimpleTree -> Maybe SimpleTree
-            childOfType t node = find (head >>> _.type >>> is t)
+            childOfType :: String -> Cofree Array SyntaxNode -> Maybe (Cofree Array SyntaxNode)
+            childOfType t node = find (head >>> type' >>> is t)
                 (tail node)
 
-            functionDeclaration :: SimpleTree -> Maybe (CreateGraph  Int)
+            functionDeclaration :: Cofree Array SyntaxNode -> Maybe (CreateGraph  Int)
             functionDeclaration t = do
                 identifier <- head <$> childOfType "simple_identifier" t
-                pure $ declare (fromMaybe "" identifier.text) identifier.info
+                pure $ declare (text identifier) {start: startIndex identifier , end: endIndex identifier }
 
-            classDeclaration :: SimpleTree -> Maybe (CreateGraph Int)
+            classDeclaration :: Cofree Array SyntaxNode -> Maybe (CreateGraph Int)
             classDeclaration t = do
                 identifier <- head <$> childOfType "type_identifier" t
                 classBody <- childOfType "class_body" t
-                className <- identifier.text
                 let methods = childrenOfType "function_declaration" classBody
                         # mapMaybe functionDeclaration
-                pure $ namedScope className methods
+                pure $ namedScope (text identifier) methods
 
             namedScope :: String -> Array (CreateGraph Int) -> CreateGraph Int
             namedScope name nodes = demand name =<< scope =<< sequence nodes
-            newSourceFile :: SimpleTree -> CreateGraph Unit
+            newSourceFile :: Cofree Array SyntaxNode -> CreateGraph Unit
             newSourceFile sourceTree = do
                 ids <- (tail sourceTree)
-                    # sequence <<< mapMaybe (\ subtree ->
-                        case head subtree of
-                            {type: "function_declaration" } ->
+                    # sequence <<< mapMaybe (\ (subtree :: Cofree Array SyntaxNode) ->
+                        case type' $ head subtree of
+                            "function_declaration" ->
                                 functionDeclaration subtree
-                            { type: "class_declaration" } ->
+                            "class_declaration" ->
                                 classDeclaration subtree
                             _ -> Nothing
                     )
                 file <- scope (reverse ids)
                 void $ supply "hello" file
-            graph = createGraph_ $ newSourceFile structure
+            graph = createGraph_ $ newSourceFile swiftTree
         toUnfoldable graph `shouldEqual`
             [ (Tuple 0 (Info { end: 11, start: 6 }))
             , (Tuple 1 (Pop "hello" 0))

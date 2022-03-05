@@ -6,17 +6,17 @@ import Control.Comonad (extract)
 import Control.Comonad.Cofree (Cofree, buildCofree, head, tail)
 import Control.Comonad.Cofree.Zipper (Zipper, fromCofree, goUp)
 import Control.Extend (duplicate)
-import Data.Array (filter, find, foldMap, foldr, fromFoldable, mapMaybe, reverse)
+import Data.Array (filter, foldMap, foldr, fromFoldable)
 import Data.Lens.Plated (universe)
 import Data.Map.Internal (toUnfoldable)
 import Data.Maybe (Maybe(..))
 import Data.String as String
-import Data.Traversable (sequence)
 import Data.Tuple (Tuple(..))
-import Test.Spec (Spec, describe, it, itOnly)
+import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
+import Test.TreeSitter.StackGraph.Swift (sourceFile)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
-import TreeSitter.StackGraph (CreateGraph, Node(..), createGraph_, declare, namedScope, scope, supply)
+import TreeSitter.StackGraph (Node(..), createGraph_)
 
 program :: String
 program =
@@ -119,52 +119,8 @@ other_function_name () {
 """
     it "can create stack graphs" do
         let
-            childrenOfType
-                :: String
-                -> Cofree Array SyntaxNode
-                -> Array (Cofree Array SyntaxNode)
-            childrenOfType t node = filter (head >>> type' >>> is t)
-                (tail node)
 
-            childOfType
-                :: String
-                -> Cofree Array SyntaxNode
-                -> Maybe (Cofree Array SyntaxNode)
-            childOfType t node = find (head >>> type' >>> is t)
-                (tail node)
-
-            functionDeclaration
-                :: Cofree Array SyntaxNode -> Maybe (CreateGraph Int)
-            functionDeclaration t = do
-                identifier <- head <$> childOfType "simple_identifier" t
-                pure $ declare (text identifier)
-                    { start: startIndex identifier, end: endIndex identifier }
-
-            classDeclaration
-                :: Cofree Array SyntaxNode -> Maybe (CreateGraph Int)
-            classDeclaration t = do
-                identifier <- head <$> childOfType "type_identifier" t
-                classBody <- childOfType "class_body" t
-                let
-                    methods = childrenOfType "function_declaration" classBody
-                        # mapMaybe functionDeclaration
-                pure $ namedScope (text identifier) methods
-
-            newSourceFile :: Cofree Array SyntaxNode -> CreateGraph Unit
-            newSourceFile sourceTree = do
-                ids <- (tail sourceTree)
-                    # sequence <<< mapMaybe
-                          ( \(subtree :: Cofree Array SyntaxNode) ->
-                                case type' $ head subtree of
-                                    "function_declaration" ->
-                                        functionDeclaration subtree
-                                    "class_declaration" ->
-                                        classDeclaration subtree
-                                    _ -> Nothing
-                          )
-                file <- scope (reverse ids)
-                void $ supply "hello" file
-            (Tuple _ graph) = createGraph_ $ newSourceFile swiftTree
+            (Tuple _ graph) = createGraph_ $ sourceFile swiftTree
         toUnfoldable graph `shouldEqual`
             [ (Tuple 0 (Info { end: 11, start: 6 }))
             , (Tuple 1 (Pop "hello" 0))

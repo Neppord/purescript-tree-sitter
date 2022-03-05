@@ -3,26 +3,20 @@ module Test.TreeSitter.System where
 import Prelude
 
 import Control.Comonad (extract)
-import Control.Comonad.Cofree (Cofree, buildCofree, head, tail, (:<))
+import Control.Comonad.Cofree (Cofree, buildCofree, head, tail)
 import Control.Comonad.Cofree.Zipper (Zipper, fromCofree, goUp)
 import Control.Extend (duplicate)
-import Data.Array (elem, filter, foldMap, foldr, fromFoldable, (!!))
+import Data.Array (concat, elem, filter, foldMap, foldr, fromFoldable)
 import Data.Lens.Plated (universe)
 import Data.Map.Internal (toUnfoldable)
-import Data.Maybe (Maybe(..))
+import Data.Maybe (Maybe(..), fromMaybe)
 import Data.String as String
-import Data.Traversable (for)
+import Data.Traversable (sequence)
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
-import TreeSitter.StackGraph (CreateGraph, createGraph_, declare, demand, scope)
-import Data.Array (find)
-import Data.Maybe (fromMaybe)
-import Data.Traversable (sequence)
-import Data.Array (concat)
-import TreeSitter.StackGraph (supply)
-import TreeSitter.StackGraph (Node(..))
+import TreeSitter.StackGraph (CreateGraph, Node(..), createGraph_, declare, demand, scope, supply)
 
 program :: String
 program =

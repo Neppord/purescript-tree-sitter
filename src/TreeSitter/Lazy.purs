@@ -6,8 +6,10 @@ module TreeSitter.Lazy where
 
 import Prelude
 
+import Control.Comonad.Cofree (Cofree, buildCofree)
 import Data.Array (null)
 import Data.Function.Uncurried (runFn3)
+import Data.Tuple (Tuple(..))
 import Effect.Uncurried (runEffectFn1)
 import Effect.Unsafe (unsafePerformEffect)
 import TreeSitter.Raw as Raw
@@ -18,6 +20,13 @@ type Parser = Raw.Parser
 type Point = Raw.Point
 newtype Tree = Tree Raw.Tree
 newtype SyntaxNode = SyntaxNode Raw.SyntaxNode
+
+
+parse :: LanguageName -> String -> Cofree Array SyntaxNode
+parse languageName =
+    parseString (mkParser languageName)
+    >>> rootNode
+    >>> buildCofree (\s -> Tuple s $ children s)
 
 -- | Imports the language and creates a parser with that language set
 -- | as the language to parse

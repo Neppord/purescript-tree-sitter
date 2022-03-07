@@ -9,8 +9,11 @@ data FileSystem a
 
 derive instance Functor FileSystem
 
-project :: FileSystem String
-project = Dir "Swift"
+projectTennis :: FileSystem String
+projectTennis = Dir "Swift" []
+
+projectParrot :: FileSystem String
+projectParrot = Dir "Swift"
     [ Dir "Parrot"
         [ File "Parrot.swift" """\
 import Foundation

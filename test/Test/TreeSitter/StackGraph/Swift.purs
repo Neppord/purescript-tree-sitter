@@ -6,7 +6,7 @@ import Control.Comonad.Cofree (Cofree, buildCofree)
 import Data.Map.Internal (Map)
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe)
-import Test.TreeSitter.StackGraph.Swift.Source (FileSystem, project)
+import Test.TreeSitter.StackGraph.Swift.Source (FileSystem, projectTennis)
 import TreeSitter.Lazy (SyntaxNode, children, mkParser, parseString, rootNode)
 import TreeSitter.StackGraph (Graph, Info, createGraph_)
 import TreeSitter.StackGraph.Swift (sourceFile)
@@ -18,7 +18,7 @@ parse text = text
     # buildCofree (\s -> Tuple s $ children s)
 
 trees :: FileSystem (Cofree Array SyntaxNode)
-trees = parse <$> project
+trees = parse <$> projectTennis
 
 graphs :: FileSystem (Tuple (Map Info Int) (Graph Int))
 graphs = (createGraph_ <<< sourceFile) <$> trees

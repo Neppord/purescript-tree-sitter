@@ -1,7 +1,8 @@
 module Test.TreeSitter.StackGraph.Swift.Source where
 
 import Prelude
-
+import Data.Array (foldl)
+import Data.Maybe (Maybe(..))
 
 data FileSystem a
     = File String a
@@ -9,11 +10,36 @@ data FileSystem a
 
 derive instance Functor FileSystem
 
+data Finder a
+    = Looking (Array (FileSystem a))
+    | Found a
+    | NotFound
+
+getFile :: forall a. Array String -> FileSystem a -> Maybe a
+getFile path fileSystem = case foldl go (Looking [ fileSystem ]) path of
+    Looking _ -> Nothing
+    NotFound -> Nothing
+    Found x -> Just x
+    where
+    go NotFound _ = NotFound
+    go (Found _) _ = NotFound
+    go (Looking somethings) pathName = somethings
+        # map (help pathName)
+        # foldl folder NotFound
+    folder (Found left) _ = Found left
+    folder (Looking left) _ = Looking left
+    folder _ right = right
+    help pathName something = case something of
+        File fileName x | pathName == fileName -> Found x
+        Dir dirName rest | pathName == dirName -> Looking rest
+        _ -> NotFound
+
 -- find all code and full MIT license at
 -- https://github.com/emilybache/Tennis-Refactoring-Kata/tree/debaaacbd56be2a629f02b8e29455d174575e4d2
 projectTennis :: FileSystem String
 projectTennis = Dir "Swift"
-    [ File "Package.swift" """\
+    [ File "Package.swift"
+          """\
 // swift-tools-version:5.3
 
 import PackageDescription
@@ -32,7 +58,8 @@ let package = Package(
 )
 """
     , Dir "Tennis"
-        [ File "TennisGame.swift" """\
+          [ File "TennisGame.swift"
+                """\
 import Foundation
 
 protocol TennisGame {
@@ -41,7 +68,8 @@ protocol TennisGame {
     var score: String? { get }
 }
 """
-        , File "TennisGame1.swift" """\
+          , File "TennisGame1.swift"
+                """\
 import Foundation
 
 class TennisGame1: TennisGame {
@@ -126,9 +154,10 @@ class TennisGame1: TennisGame {
 
 }
 """
-        ]
-        , Dir "TennisTests"
-            [ File "TennisTests.swift" """\
+          ]
+    , Dir "TennisTests"
+          [ File "TennisTests.swift"
+                """\
 import XCTest
 
 let parameters = [
@@ -240,16 +269,16 @@ extension TennisTests {
     }
 }
 """
-            ]
-     ]
-
+          ]
+    ]
 
 -- find all code and full MIT license at
 -- https://github.com/emilybache/Parrot-Refactoring-Kata/tree/a3fbc6bfea3006802c79555f5b650acc62d0beb0
 projectParrot :: FileSystem String
 projectParrot = Dir "Swift"
     [ Dir "Parrot"
-        [ File "Parrot.swift" """\
+          [ File "Parrot.swift"
+                """\
 import Foundation
 
 class Parrot {
@@ -291,14 +320,16 @@ class Parrot {
     }
 }
 """
-        , File "ParrotTypeEnum.swift" """\
+          , File "ParrotTypeEnum.swift"
+                """\
 import Foundation
 
 enum ParrotTypeEnum {
     case european, african, norwegianBlue
 }
 """
-        , File "TennisGame2.swift" """\
+          , File "TennisGame2.swift"
+                """\
 import Foundation
 
 class TennisGame2: TennisGame {
@@ -433,7 +464,8 @@ class TennisGame2: TennisGame {
     }
 }
 """
-        , File "TennisGame3.swift" """\
+          , File "TennisGame3.swift"
+                """\
 import Foundation
 
 class TennisGame3: TennisGame {
@@ -474,9 +506,10 @@ class TennisGame3: TennisGame {
 
 }
 """
-        ]
+          ]
     , Dir "ParrotTests"
-        [ File "ParrotTests.swift" """\
+          [ File "ParrotTests.swift"
+                """\
 import XCTest
 
 class ParrotTests: XCTestCase {
@@ -516,5 +549,5 @@ class ParrotTests: XCTestCase {
     }
 }
 """
-        ]
+          ]
     ]

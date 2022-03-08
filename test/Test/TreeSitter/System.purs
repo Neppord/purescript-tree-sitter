@@ -8,19 +8,19 @@ import Control.Comonad.Cofree.Zipper (Zipper, fromCofree, goUp)
 import Control.Extend (duplicate)
 import Data.Array (filter, foldMap, foldr, fromFoldable)
 import Data.Lens.Plated (universe)
-import Data.Map.Internal (toUnfoldable)
+import Data.Map (lookup)
 import Data.Maybe (Maybe(..))
 import Data.String as String
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import TreeSitter.StackGraph.Swift (sourceFile)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
-import TreeSitter.StackGraph (Node(..), createGraph_)
+import TreeSitter.StackGraph (createGraph_, findDefinition)
+import TreeSitter.StackGraph.Swift (sourceFile)
 
 program :: String
 program =
-    """
+    """\
 function_name () {
     cat "my_file"
 }
@@ -31,7 +31,7 @@ other_function_name () {
 
 swiftProgram :: String
 swiftProgram =
-    """
+    """\
 func hello() {
     print("hello")
 }
@@ -109,7 +109,7 @@ spec = describe "System" do
                 String.take start p <> string <> String.drop end p
             program' = foldr (replace "new_function_name") program ranges
         program' `shouldEqual`
-            """
+            """\
 new_function_name () {
     cat "my_file"
 }
@@ -118,17 +118,11 @@ other_function_name () {
 }
 """
     it "can create stack graphs" do
-        let (Tuple _ graph) = createGraph_ $ sourceFile swiftTree
-        toUnfoldable graph `shouldEqual`
-            [ (Tuple 0 (Info { end: 11, start: 6 }))
-            , (Tuple 1 (Pop "hello" 0))
-            , (Tuple 2 (Info { end: 69, start: 64 }))
-            , (Tuple 3 (Pop "hello" 2))
-            , (Tuple 4 (Branch [ 3 ]))
-            , (Tuple 5 (Pop "SomeClass" 4))
-            , (Tuple 6 (Branch [ 5, 1 ]))
-            , (Tuple 7 (Push "hello" 6))
-            ]
+        let
+            (Tuple index graph) = createGraph_ $ sourceFile swiftTree
+            id = lookup { start: 104, end: 109 } index
+        (findDefinition graph <$> id) `shouldEqual` Just
+            [ { end: 12, start: 7 } ]
     it "can find class that defines method" do
         let
             zipper = fromCofree swiftTree

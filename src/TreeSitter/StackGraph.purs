@@ -6,6 +6,7 @@ import Control.Monad.Free (Free, foldFree, liftF)
 import Control.Monad.State (State, evalState, get, put)
 import Control.Monad.Writer (WriterT, tell)
 import Control.Monad.Writer.Trans (execWriterT)
+import Data.Bifunctor (bimap)
 import Data.Generic.Rep (class Generic)
 import Data.List (List(..), uncons, (:))
 import Data.Map (Map, SemigroupMap(..), lookup)
@@ -16,7 +17,6 @@ import Data.Semigroup.Last (Last(..))
 import Data.Show.Generic (genericShow)
 import Data.Traversable (sequence)
 import Data.Tuple (Tuple(..))
-import Data.Bifunctor (bimap)
 
 type Info = { start :: Int, end :: Int }
 
@@ -89,17 +89,26 @@ demand i next = newId >>= connect (Pop i next)
 scope :: Array Int -> Free CreateGraphF Int
 scope nexts = newId >>= connect (Branch nexts)
 
+scopeWithId :: Int -> Array Int -> Free CreateGraphF Int
+scopeWithId id nexts = connect (Branch nexts) id
+
 supply :: String -> Int -> Free CreateGraphF Int
 supply i next = newId >>= connect (Push i next)
 
 usage :: String -> Info -> Int -> Free CreateGraphF Int
-usage name info id = supply name id >>= entryPoint info
+usage name i id = supply name id >>= entryPoint i
+
+usage_ :: String -> Info -> Int -> Free CreateGraphF Unit
+usage_ name i id = void $ usage name i id
 
 declare :: String -> { end :: Int, start :: Int } -> Free CreateGraphF Int
 declare var pos = info pos >>= demand var
 
 namedScope :: String -> Array (CreateGraph Int) -> CreateGraph Int
 namedScope name nodes = demand name =<< scope =<< sequence nodes
+
+namedScope' :: String -> CreateGraph (Array Int) -> CreateGraph Int
+namedScope' name nodes = demand name =<< scope =<< nodes
 
 findDefinition :: Graph Int -> Int -> Array Info
 findDefinition = go Nil

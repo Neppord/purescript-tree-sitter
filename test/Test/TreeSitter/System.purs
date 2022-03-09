@@ -17,6 +17,8 @@ import Test.Spec.Assertions (shouldEqual)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
 import TreeSitter.StackGraph (createGraph_, findDefinition)
 import TreeSitter.StackGraph.Swift (sourceFile)
+import Data.Map (keys)
+import Test.Spec.Assertions (shouldContain)
 
 program :: String
 program =
@@ -120,7 +122,10 @@ other_function_name () {
     it "can create stack graphs" do
         let
             (Tuple index graph) = createGraph_ $ sourceFile swiftTree
-            id = lookup { start: 104, end: 109 } index
+            entryPoints = keys index
+            entryPoint = { start: 106, end: 111 }
+            id = lookup entryPoint index
+        entryPoints `shouldContain` entryPoint
         (findDefinition graph <$> id) `shouldEqual` Just
             [ { end: 12, start: 7 } ]
     it "can find class that defines method" do

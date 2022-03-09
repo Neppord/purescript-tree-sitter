@@ -9,22 +9,20 @@ import Data.Traversable (for)
 import TreeSitter.Lazy (SyntaxNode, endIndex, startIndex, text, type')
 import TreeSitter.StackGraph (CreateGraph, declare, namedScope', newId, scope, scopeWithId, usage_)
 
-childrenOfType
-    :: String
-    -> Cofree Array SyntaxNode
-    -> Array (Cofree Array SyntaxNode)
+type Tree = Cofree Array SyntaxNode
+
+childrenOfType :: String -> Tree -> Array (Tree)
 childrenOfType t node = filter (head >>> type' >>> (_ == t))
     (tail node)
 
-childOfType
-    :: String
-    -> Cofree Array SyntaxNode
-    -> Maybe (Cofree Array SyntaxNode)
+childOfType :: String -> Tree -> Maybe (Tree)
 childOfType t node = find (head >>> type' >>> (_ == t))
     (tail node)
 
-functionDeclaration
-    :: Int -> Cofree Array SyntaxNode -> CreateGraph (Array Int)
+assert :: Maybe (CreateGraph (Array Int)) -> CreateGraph (Array Int)
+assert = fromMaybe (pure [])
+
+functionDeclaration :: Int -> Tree -> CreateGraph (Array Int)
 functionDeclaration globalScope t = fromMaybe (pure []) ado
     identifier <- head <$> childOfType "simple_identifier" t
     functionBody <- childOfType "function_body" t
@@ -39,8 +37,7 @@ statement :: Int -> CreateGraph (Array Int)
 statement prevScope = do
     pure []
 
-classDeclaration
-    :: Int -> Cofree Array SyntaxNode -> CreateGraph (Array Int)
+classDeclaration :: Int -> Tree -> CreateGraph (Array Int)
 classDeclaration globalScope t = fromMaybe (pure []) ado
     identifier <- head <$> childOfType "type_identifier" t
     classBody <- childOfType "class_body" t
@@ -54,19 +51,25 @@ classDeclaration globalScope t = fromMaybe (pure []) ado
                 pure $ concat ids
             pure [ id ]
 
-callExpression :: Int -> CreateGraph (Array Int)
-callExpression scope = do
-    usage_ "hello" { start: 104, end: 109 } scope
+callExpression :: Int -> Tree -> CreateGraph (Array Int)
+callExpression scope t = assert ado
+        identifier <- head <$> childOfType "simple_identifier" t
+    in do
+    usage_ (text identifier) (position identifier) scope
     pure []
 
-sourceFile :: Cofree Array SyntaxNode -> CreateGraph Unit
+position :: SyntaxNode -> {start :: Int, end :: Int}
+position node = { start: startIndex node, end: endIndex node }
+
+
+sourceFile :: Tree -> CreateGraph Unit
 sourceFile sourceTree = do
     globalScope <- newId
     ids <- for (tail sourceTree)
         ( \subtree -> case type' $ head subtree of
               "function_declaration" -> functionDeclaration globalScope subtree
               "class_declaration" -> classDeclaration globalScope subtree
-              "call_expression" -> callExpression globalScope
+              "call_expression" -> callExpression globalScope subtree
               _ -> pure []
         )
     void $ scopeWithId globalScope $ concat ids

@@ -22,6 +22,9 @@ childOfType t node = find (head >>> type' >>> (_ == t))
 assert :: Maybe (CreateGraph (Array Int)) -> CreateGraph (Array Int)
 assert = fromMaybe (pure [])
 
+position :: SyntaxNode -> {start :: Int, end :: Int}
+position node = { start: startIndex node, end: endIndex node }
+
 functionDeclaration :: Int -> Tree -> CreateGraph (Array Int)
 functionDeclaration globalScope t = fromMaybe (pure []) ado
     identifier <- head <$> childOfType "simple_identifier" t
@@ -58,18 +61,16 @@ callExpression scope t = assert ado
     usage_ (text identifier) (position identifier) scope
     pure []
 
-position :: SyntaxNode -> {start :: Int, end :: Int}
-position node = { start: startIndex node, end: endIndex node }
 
+expression :: Int -> Tree -> CreateGraph (Array Int)
+expression globalScope subtree = case type' $ head subtree of
+   "function_declaration" -> functionDeclaration globalScope subtree
+   "class_declaration" -> classDeclaration globalScope subtree
+   "call_expression" -> callExpression globalScope subtree
+   _ -> pure []
 
 sourceFile :: Tree -> CreateGraph Unit
 sourceFile sourceTree = do
     globalScope <- newId
-    ids <- for (tail sourceTree)
-        ( \subtree -> case type' $ head subtree of
-              "function_declaration" -> functionDeclaration globalScope subtree
-              "class_declaration" -> classDeclaration globalScope subtree
-              "call_expression" -> callExpression globalScope subtree
-              _ -> pure []
-        )
+    ids <- for (tail sourceTree) (expression globalScope)
     void $ scopeWithId globalScope $ concat ids

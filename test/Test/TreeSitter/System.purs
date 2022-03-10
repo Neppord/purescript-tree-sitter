@@ -8,17 +8,15 @@ import Control.Comonad.Cofree.Zipper (Zipper, fromCofree, goUp)
 import Control.Extend (duplicate)
 import Data.Array (filter, foldMap, foldr, fromFoldable)
 import Data.Lens.Plated (universe)
-import Data.Map (lookup)
+import Data.Map (keys, lookup)
 import Data.Maybe (Maybe(..))
 import Data.String as String
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
-import Test.Spec.Assertions (shouldEqual)
+import Test.Spec.Assertions (shouldContain, shouldEqual)
 import TreeSitter.Lazy (SyntaxNode, children, endIndex, mkParser, parseString, rootNode, startIndex, text, type')
 import TreeSitter.StackGraph (createGraph_, findDefinition)
 import TreeSitter.StackGraph.Swift (sourceFile)
-import Data.Map (keys)
-import Test.Spec.Assertions (shouldContain)
 
 program :: String
 program =

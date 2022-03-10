@@ -33,6 +33,7 @@
     "pulp": "^15.0.0",
     "purs-tidy": "^0.7.0",
     "tree-sitter-bash": "^0.19.0",
+    "tree-sitter-python": "^0.19.0",
     "tree-sitter-swift": "^0.1.4"
   }
 }

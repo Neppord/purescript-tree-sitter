@@ -3,13 +3,11 @@ module Test.TreeSitter.StackGraph where
 import Prelude
 
 import Data.Map (empty, insert, lookup)
+import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import TreeSitter.StackGraph (CreateGraph, Graph, Node(..), createGraph_, declare, findDefinition, scope, usage)
-import Data.Maybe (Maybe(..))
-import TreeSitter.StackGraph (usage_)
-
+import TreeSitter.StackGraph (CreateGraph, Graph, Node(..), createGraph_, declare, findDefinition, scope, usage_)
 
 example :: Graph Int
 example = empty

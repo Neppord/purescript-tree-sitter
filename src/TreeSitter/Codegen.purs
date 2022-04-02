@@ -15,6 +15,8 @@ import PureScript.CST.Types (DataCtor, Declaration, Module)
 import PureScript.CST.Types as CST
 import Tidy.Codegen (dataCtor, declData, typeApp, typeCtor, typeRecord, typeVar)
 import Tidy.Codegen.Monad (codegenModule)
+import Tidy.Codegen (declNewtype)
+import Data.Unfoldable (fromMaybe)
 
 type ChildType =
   { types ::
@@ -67,3 +69,26 @@ render :: String -> Array NodeType -> Module Void
 render name nodeTypes = unsafePartial $ codegenModule name do
   let named = nodeTypes # Array.filter _.named
   tell $ [declData "Node" [] $ map renderCtor named]
+
+
+renderVariantFields :: Object ChildType -> Tuple String (CST.Type Void)
+renderVariantFields fields = Tuple "fileds" value where
+    value = (typeRecord ([] :: Array (Tuple String (CST.Type Void))) Nothing)
+
+renderVariantChildren :: Partial => ChildType -> Tuple String (CST.Type Void)
+renderVariantChildren children = Tuple "children" value where
+    value = (typeApp (typeCtor "Array") [typeCtor "Node"])
+
+renderVariantNewType :: Partial => NodeType -> Declaration Void
+renderVariantNewType {type: type', fields, children} = declNewtype name [] name record where
+    name = toProper type'
+    record = typeRecord ( children' <> fields' ) Nothing
+    fields' = renderVariantFields <$> fromMaybe fields
+    children' = renderVariantChildren <$> fromMaybe children
+
+renderVariant :: String -> Array NodeType -> Module Void
+renderVariant name nodeTypes = unsafePartial $ codegenModule name do
+  nodeTypes
+    # Array.filter _.named
+    # map renderVariantNewType
+    # tell

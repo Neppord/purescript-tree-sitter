@@ -14,7 +14,9 @@ import TreeSitter.Codegen (renderVariant)
 
 main :: Effect Unit
 main = do
-  json <- readTextFile UTF8 "node_modules/tree-sitter-swift/src/node-types.json"
-  case runExcept (parse json) of
-    Right a -> log $ printModule $ renderVariant "TreeSitteer.Codegen.Swift" a
-    Left err -> logShow err
+    json <- readTextFile UTF8
+        "node_modules/tree-sitter-swift/src/node-types.json"
+    case runExcept (parse json) of
+        Right a -> log $ printModule $ renderVariant "TreeSitteer.Codegen.Swift"
+            a
+        Left err -> logShow err

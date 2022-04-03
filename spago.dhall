@@ -41,6 +41,7 @@ to generate this file without the comments in this block.
   , "tidy-codegen"
   , "transformers"
   , "tuples"
+  , "unfoldable"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]

@@ -18,7 +18,8 @@ main = do
         "node_modules/tree-sitter-swift/src/node-types.json"
     case runExcept (parse json) of
         Right a -> do
-            let cst = renderVariantModule "TreeSitteer.Codegen.Swift" a
+            let
+                cst = renderVariantModule "TreeSitteer.Codegen.Swift" a
                 source = printModule cst
             writeTextFile UTF8 "src/TreeSitter/Codegen/Swift.purs" source
         Left err -> logShow err

@@ -57,9 +57,8 @@ renderVariantType types = node
     row { type: type' } = Tuple type' $ typeCtor $ toProper type'
 
 renderVariantNewType :: Partial => NodeType -> Declaration Void
-renderVariantNewType { type: type', fields, children } = declNewtype name []
-    name
-    record
+renderVariantNewType { type: type', fields, children } =
+    declNewtype name [] name record
     where
     name = toProper type'
     record = typeRecord (children' <> fields') Nothing

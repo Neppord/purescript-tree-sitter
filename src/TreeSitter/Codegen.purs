@@ -7,8 +7,6 @@ import Data.Array as Array
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tuple (Tuple(..))
 import Data.Unfoldable (fromMaybe)
-import Foreign (F)
-import Foreign.Generic (decodeJSON)
 import Foreign.Object (Object)
 import Foreign.Object as Object
 import Partial.Unsafe (unsafePartial)
@@ -16,26 +14,7 @@ import PureScript.CST.Types (DataCtor, Declaration, Module)
 import PureScript.CST.Types as CST
 import Tidy.Codegen (dataCtor, declData, declNewtype, typeApp, typeCtor, typeRecord, typeRow)
 import Tidy.Codegen.Monad (codegenModule)
-
-type ChildType =
-    { types ::
-          Array
-              { type :: String
-              , named :: Boolean
-              }
-    , multiple :: Boolean
-    , required :: Maybe Boolean
-    }
-
-type NodeType =
-    { type :: String
-    , named :: Boolean
-    , fields :: Maybe (Object ChildType)
-    , children :: Maybe ChildType
-    }
-
-parse :: String -> F (Array NodeType)
-parse = decodeJSON
+import TreeSitter.Codegen.NodeTypes (ChildType, NodeType)
 
 toProper :: String -> String
 toProper = ("N" <> _)

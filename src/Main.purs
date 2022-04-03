@@ -9,7 +9,8 @@ import Effect.Console (log, logShow)
 import Node.Encoding (Encoding(..))
 import Node.FS.Sync (readTextFile)
 import Tidy.Codegen (printModule)
-import TreeSitter.Codegen (parse, renderVariantModule)
+import TreeSitter.Codegen (renderVariantModule)
+import TreeSitter.Codegen.NodeTypes (parse)
 
 main :: Effect Unit
 main = do

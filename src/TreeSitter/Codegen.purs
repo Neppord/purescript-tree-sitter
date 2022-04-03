@@ -6,6 +6,7 @@ import Control.Monad.Writer (tell)
 import Data.Array as Array
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tuple (Tuple(..))
+import Data.Unfoldable (fromMaybe)
 import Foreign (F)
 import Foreign.Generic (decodeJSON)
 import Foreign.Object (Object)
@@ -13,12 +14,8 @@ import Foreign.Object as Object
 import Partial.Unsafe (unsafePartial)
 import PureScript.CST.Types (DataCtor, Declaration, Module)
 import PureScript.CST.Types as CST
-import Tidy.Codegen (dataCtor, declData, typeApp, typeCtor, typeRecord, typeVar)
+import Tidy.Codegen (dataCtor, declData, declNewtype, typeApp, typeCtor, typeRecord, typeRow)
 import Tidy.Codegen.Monad (codegenModule)
-import Tidy.Codegen (declNewtype)
-import Data.Unfoldable (fromMaybe)
-import Tidy.Codegen (typeRow)
-import Tidy.Codegen (typeRowEmpty)
 
 type ChildType =
     { types ::
@@ -80,13 +77,16 @@ render name nodeTypes = unsafePartial $ codegenModule name do
     let named = nodeTypes # Array.filter _.named
     tell $ [ declData "Node" [] $ map renderCtor named ]
 
-renderVariantFields :: Partial => Object ChildType -> Tuple String (CST.Type Void)
+renderVariantFields
+    :: Partial => Object ChildType -> Tuple String (CST.Type Void)
 renderVariantFields fields = Tuple "fields" value
     where
-    value =  typeRecord rows Nothing
-    rows  :: Array (Tuple String (CST.Type Void))
-    rows = Object.foldMap (\name childType -> [Tuple name (renderVariantChildType childType)]) fields
+    value = typeRecord rows Nothing
 
+    rows :: Array (Tuple String (CST.Type Void))
+    rows = Object.foldMap
+        (\name childType -> [ Tuple name (renderVariantChildType childType) ])
+        fields
 
 renderVariantChildType :: Partial => ChildType -> CST.Type Void
 renderVariantChildType { types, multiple, required } = case multiple of

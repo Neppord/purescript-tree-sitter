@@ -11,6 +11,8 @@ import Node.FS.Sync (readTextFile, writeTextFile)
 import Tidy.Codegen (printModule)
 import TreeSitter.Codegen (renderVariantModule)
 import TreeSitter.Codegen.NodeTypes (parse)
+import Tidy.Codegen (printModuleWithOptions)
+import Tidy.Codegen (defaultPrintOptions)
 
 main :: Effect Unit
 main = do
@@ -20,6 +22,8 @@ main = do
         Right a -> do
             let
                 cst = renderVariantModule "TreeSitteer.Codegen.Swift" a
-                source = printModule cst
+                source = printModuleWithOptions
+                    (defaultPrintOptions { indentWidth = 4, pageWidth = 80 })
+                    cst
             writeTextFile UTF8 "src/TreeSitter/Codegen/Swift.purs" source
         Left err -> logShow err

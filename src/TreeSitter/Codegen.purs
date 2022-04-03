@@ -80,10 +80,13 @@ render name nodeTypes = unsafePartial $ codegenModule name do
     let named = nodeTypes # Array.filter _.named
     tell $ [ declData "Node" [] $ map renderCtor named ]
 
-renderVariantFields :: Object ChildType -> Tuple String (CST.Type Void)
-renderVariantFields fields = Tuple "fileds" value
+renderVariantFields :: Partial => Object ChildType -> Tuple String (CST.Type Void)
+renderVariantFields fields = Tuple "fields" value
     where
-    value = (typeRecord ([] :: Array (Tuple String (CST.Type Void))) Nothing)
+    value =  typeRecord rows Nothing
+    rows  :: Array (Tuple String (CST.Type Void))
+    rows = Object.foldMap (\name childType -> [Tuple name (renderVariantChildType childType)]) fields
+
 
 renderVariantChildType :: Partial => ChildType -> CST.Type Void
 renderVariantChildType { types, multiple, required } = case multiple of

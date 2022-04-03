@@ -8,11 +8,9 @@ import Effect (Effect)
 import Effect.Console (logShow)
 import Node.Encoding (Encoding(..))
 import Node.FS.Sync (readTextFile, writeTextFile)
-import Tidy.Codegen (printModule)
+import Tidy.Codegen (defaultPrintOptions, printModuleWithOptions)
 import TreeSitter.Codegen (renderVariantModule)
 import TreeSitter.Codegen.NodeTypes (parse)
-import Tidy.Codegen (printModuleWithOptions)
-import Tidy.Codegen (defaultPrintOptions)
 
 main :: Effect Unit
 main = do
@@ -23,7 +21,12 @@ main = do
             let
                 cst = renderVariantModule "TreeSitteer.Codegen.Swift" a
                 source = printModuleWithOptions
-                    (defaultPrintOptions { indentWidth = 4, pageWidth = 80 })
+                    defaultPrintOptions
+                        { indentWidth = 4
+                        , indentUnit = "    "
+                        , pageWidth = 80
+                        , ribbonRatio = 1.0
+                        }
                     cst
             writeTextFile UTF8 "src/TreeSitter/Codegen/Swift.purs" source
         Left err -> logShow err

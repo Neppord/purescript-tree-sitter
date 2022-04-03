@@ -124,8 +124,8 @@ renderVariantNewType { type: type', fields, children } = declNewtype name []
     fields' = renderVariantFields <$> fromMaybe fields
     children' = renderVariantChildren <$> fromMaybe children
 
-renderVariant :: String -> Array NodeType -> Module Void
-renderVariant name nodeTypes = unsafePartial $ codegenModule name do
+renderVariantModule :: String -> Array NodeType -> Module Void
+renderVariantModule name nodeTypes = unsafePartial $ codegenModule name do
     nodeTypes
         # Array.filter _.named
         # map renderVariantNewType

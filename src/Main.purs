@@ -9,14 +9,13 @@ import Effect.Console (log, logShow)
 import Node.Encoding (Encoding(..))
 import Node.FS.Sync (readTextFile)
 import Tidy.Codegen (printModule)
-import TreeSitter.Codegen (parse, render)
-import TreeSitter.Codegen (renderVariant)
+import TreeSitter.Codegen (parse, renderVariantModule)
 
 main :: Effect Unit
 main = do
     json <- readTextFile UTF8
         "node_modules/tree-sitter-swift/src/node-types.json"
     case runExcept (parse json) of
-        Right a -> log $ printModule $ renderVariant "TreeSitteer.Codegen.Swift"
+        Right a -> log $ printModule $ renderVariantModule "TreeSitteer.Codegen.Swift"
             a
         Left err -> logShow err

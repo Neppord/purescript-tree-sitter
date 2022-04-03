@@ -4,57 +4,20 @@ import Prelude
 
 import Control.Monad.Writer (tell)
 import Data.Array as Array
-import Data.Maybe (Maybe(..), maybe)
+import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
 import Data.Unfoldable (fromMaybe)
 import Foreign.Object (Object)
 import Foreign.Object as Object
 import Partial.Unsafe (unsafePartial)
-import PureScript.CST.Types (DataCtor, Declaration, Module)
+import PureScript.CST.Types (Declaration, Module)
 import PureScript.CST.Types as CST
-import Tidy.Codegen (dataCtor, declData, declNewtype, typeApp, typeCtor, typeRecord, typeRow)
-import Tidy.Codegen.Monad (codegenModule)
+import Tidy.Codegen (declNewtype, typeApp, typeCtor, typeRecord, typeRow)
+import Tidy.Codegen.Monad (codegenModule, importOpen)
 import TreeSitter.Codegen.NodeTypes (ChildType, NodeType)
 
 toProper :: String -> String
 toProper = ("N" <> _)
-
-renderFields :: Partial => Object ChildType -> Array (CST.Type Void)
-renderFields object = [ typeRecord (Object.foldMap go object) Nothing ]
-    where
-    go field childType =
-        [ ( Tuple field $ typeCtor
-                ( childType.types # Array.filter _.named # map _.type
-                      # Array.intercalate "__"
-                      # toProper
-                )
-          )
-        ]
-
-renderData :: Partial => NodeType -> Declaration Void
-renderData { type: type', fields } = declData properName []
-    [ dataCtor properName $ maybe [] renderFields fields ]
-    where
-    properName = toProper type'
-
-renderCtor :: Partial => NodeType -> DataCtor Void
-renderCtor { type: type', fields } = dataCtor (toProper type')
-    [ typeRecord
-          [ Tuple "fields" $ typeRecord fields' Nothing
-          , Tuple "children" $ typeApp (typeCtor "Array") [ typeCtor "Node" ]
-          ]
-          Nothing
-    ]
-    where
-    fields' = maybe
-        ([] :: Array (Tuple String (CST.Type Void)))
-        (Object.foldMap \key _ -> [ Tuple key (typeCtor "Node") ])
-        fields
-
-render :: String -> Array NodeType -> Module Void
-render name nodeTypes = unsafePartial $ codegenModule name do
-    let named = nodeTypes # Array.filter _.named
-    tell $ [ declData "Node" [] $ map renderCtor named ]
 
 renderVariantFields
     :: Partial => Object ChildType -> Tuple String (CST.Type Void)
@@ -105,6 +68,9 @@ renderVariantNewType { type: type', fields, children } = declNewtype name []
 
 renderVariantModule :: String -> Array NodeType -> Module Void
 renderVariantModule name nodeTypes = unsafePartial $ codegenModule name do
+    importOpen "Data.Variant"
+    importOpen "Data.Maybe"
+    importOpen "Data.Array"
     nodeTypes
         # Array.filter _.named
         # map renderVariantNewType

@@ -4,3883 +4,3717 @@ import Data.Array
 import Data.Maybe
 import Data.Variant
 
-newtype Nadditive_expression = Nadditive_expression
+newtype AdditiveExpression = AdditiveExpression
     { fields ::
           { lhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , op :: Variant ()
           , rhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Narray_literal = Narray_literal
+newtype ArrayLiteral = ArrayLiteral
     { fields ::
           { element ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Narray_type = Narray_type
+newtype ArrayType = ArrayType
     { fields ::
           { element ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           , name ::
                 Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , function_type :: Nfunction_type
-                    , metatype :: Nmetatype
-                    , opaque_type :: Nopaque_type
-                    , optional_type :: Noptional_type
-                    , protocol_composition_type :: Nprotocol_composition_type
-                    , tuple_type :: Ntuple_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , function_type :: FunctionType
+                    , metatype :: Metatype
+                    , opaque_type :: OpaqueType
+                    , optional_type :: OptionalType
+                    , protocol_composition_type :: ProtocolCompositionType
+                    , tuple_type :: TupleType
+                    , user_type :: UserType
                     )
           }
     }
 
-newtype Nas_expression = Nas_expression
-    { child :: Variant (as_operator :: Nas_operator)
+newtype AsExpression = AsExpression
+    { child :: Variant (as_operator :: AsOperator)
     , fields ::
           { expr ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , name ::
                 Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , function_type :: Nfunction_type
-                    , metatype :: Nmetatype
-                    , opaque_type :: Nopaque_type
-                    , optional_type :: Noptional_type
-                    , protocol_composition_type :: Nprotocol_composition_type
-                    , tuple_type :: Ntuple_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , function_type :: FunctionType
+                    , metatype :: Metatype
+                    , opaque_type :: OpaqueType
+                    , optional_type :: OptionalType
+                    , protocol_composition_type :: ProtocolCompositionType
+                    , tuple_type :: TupleType
+                    , user_type :: UserType
                     )
           , type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nas_operator = Nas_operator { fields :: {} }
-newtype Nassignment = Nassignment
+newtype AsOperator = AsOperator { fields :: {} }
+newtype Assignment = Assignment
     { fields ::
           { operator :: Variant ()
           , result ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , target ::
                 Variant
                     ( directly_assignable_expression ::
-                          Ndirectly_assignable_expression
+                          DirectlyAssignableExpression
                     )
           }
     }
 
-newtype Nassociatedtype_declaration = Nassociatedtype_declaration
+newtype AssociatedtypeDeclaration = AssociatedtypeDeclaration
     { children ::
           Array
               ( Variant
-                    ( modifiers :: Nmodifiers
-                    , type_constraints :: Ntype_constraints
+                    ( modifiers :: Modifiers
+                    , type_constraints :: TypeConstraints
                     )
               )
     , fields ::
           { default_value ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           , must_inherit ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           , name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_identifier :: Ntype_identifier
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_identifier :: TypeIdentifier
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nasync = Nasync { fields :: {} }
-newtype Nattribute = Nattribute
+newtype Async = Async { fields :: {} }
+newtype Attribute = Attribute
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
-                    , user_type :: Nuser_type
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
+                    , user_type :: UserType
                     )
               )
     , fields :: {}
     }
 
-newtype Navailability_condition = Navailability_condition
+newtype AvailabilityCondition = AvailabilityCondition
     { children ::
           Array
               ( Variant
-                    ( identifier :: Nidentifier
-                    , integer_literal :: Ninteger_literal
+                    ( identifier :: Identifier
+                    , integer_literal :: IntegerLiteral
                     )
               )
     , fields :: {}
     }
 
-newtype Nawait_expression = Nawait_expression
+newtype AwaitExpression = AwaitExpression
     { fields ::
           { expr ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nbinding_pattern = Nbinding_pattern
+newtype BindingPattern = BindingPattern
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , binding_pattern :: Nbinding_pattern
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , non_binding_pattern :: Nnon_binding_pattern
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
-                    , type_modifiers :: Ntype_modifiers
-                    , user_type :: Nuser_type
-                    , wildcard_pattern :: Nwildcard_pattern
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , binding_pattern :: BindingPattern
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , non_binding_pattern :: NonBindingPattern
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
+                    , type_modifiers :: TypeModifiers
+                    , user_type :: UserType
+                    , wildcard_pattern :: WildcardPattern
                     )
               )
     , fields ::
           { name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nbitwise_operation = Nbitwise_operation
+newtype BitwiseOperation = BitwiseOperation
     { fields ::
           { lhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , op :: Variant ()
           , rhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nboolean_literal = Nboolean_literal { fields :: {} }
-newtype Ncall_expression = Ncall_expression
+newtype BooleanLiteral = BooleanLiteral { fields :: {} }
+newtype CallExpression = CallExpression
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , call_suffix :: Ncall_suffix
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , call_suffix :: CallSuffix
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
                     )
               )
     , fields :: {}
     }
 
-newtype Ncall_suffix = Ncall_suffix
+newtype CallSuffix = CallSuffix
     { children ::
           Array
               ( Variant
-                    ( lambda_literal :: Nlambda_literal
-                    , value_arguments :: Nvalue_arguments
+                    ( lambda_literal :: LambdaLiteral
+                    , value_arguments :: ValueArguments
                     )
               )
     , fields ::
-          { name :: Array (Variant (simple_identifier :: Nsimple_identifier)) }
+          { name :: Array (Variant (simple_identifier :: SimpleIdentifier)) }
     }
 
-newtype Ncapture_list = Ncapture_list
+newtype CaptureList = CaptureList
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , capture_list_item :: Ncapture_list_item
+                    ( attribute :: Attribute
+                    , capture_list_item :: CaptureListItem
                     )
               )
     , fields :: {}
     }
 
-newtype Ncapture_list_item = Ncapture_list_item
-    { child :: Maybe (Variant (ownership_modifier :: Nownership_modifier))
+newtype CaptureListItem = CaptureListItem
+    { child :: Maybe (Variant (ownership_modifier :: OwnershipModifier))
     , fields ::
           { name ::
                 Variant
-                    ( self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
+                    ( self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
                     )
           , value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Ncatch_block = Ncatch_block
+newtype CatchBlock = CatchBlock
     { children ::
           Array
               ( Variant
-                    ( catch_keyword :: Ncatch_keyword
-                    , statements :: Nstatements
-                    , where_clause :: Nwhere_clause
+                    ( catch_keyword :: CatchKeyword
+                    , statements :: Statements
+                    , where_clause :: WhereClause
                     )
               )
-    , fields ::
-          { error :: Maybe (Variant (binding_pattern :: Nbinding_pattern)) }
+    , fields :: { error :: Maybe (Variant (binding_pattern :: BindingPattern)) }
     }
 
-newtype Ncheck_expression = Ncheck_expression
+newtype CheckExpression = CheckExpression
     { fields ::
           { name ::
                 Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , function_type :: Nfunction_type
-                    , metatype :: Nmetatype
-                    , opaque_type :: Nopaque_type
-                    , optional_type :: Noptional_type
-                    , protocol_composition_type :: Nprotocol_composition_type
-                    , tuple_type :: Ntuple_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , function_type :: FunctionType
+                    , metatype :: Metatype
+                    , opaque_type :: OpaqueType
+                    , optional_type :: OptionalType
+                    , protocol_composition_type :: ProtocolCompositionType
+                    , tuple_type :: TupleType
+                    , user_type :: UserType
                     )
           , op :: Variant ()
           , target ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nclass_body = Nclass_body
+newtype ClassBody = ClassBody
     { children ::
           Array
               ( Variant
-                    ( associatedtype_declaration :: Nassociatedtype_declaration
-                    , class_declaration :: Nclass_declaration
-                    , deinit_declaration :: Ndeinit_declaration
-                    , function_declaration :: Nfunction_declaration
-                    , import_declaration :: Nimport_declaration
-                    , multiline_comment :: Nmultiline_comment
-                    , operator_declaration :: Noperator_declaration
-                    , precedence_group_declaration ::
-                          Nprecedence_group_declaration
-                    , property_declaration :: Nproperty_declaration
-                    , protocol_declaration :: Nprotocol_declaration
-                    , subscript_declaration :: Nsubscript_declaration
-                    , typealias_declaration :: Ntypealias_declaration
+                    ( associatedtype_declaration :: AssociatedtypeDeclaration
+                    , class_declaration :: ClassDeclaration
+                    , deinit_declaration :: DeinitDeclaration
+                    , function_declaration :: FunctionDeclaration
+                    , import_declaration :: ImportDeclaration
+                    , multiline_comment :: MultilineComment
+                    , operator_declaration :: OperatorDeclaration
+                    , precedence_group_declaration :: PrecedenceGroupDeclaration
+                    , property_declaration :: PropertyDeclaration
+                    , protocol_declaration :: ProtocolDeclaration
+                    , subscript_declaration :: SubscriptDeclaration
+                    , typealias_declaration :: TypealiasDeclaration
                     )
               )
     , fields :: {}
     }
 
-newtype Nclass_declaration = Nclass_declaration
+newtype ClassDeclaration = ClassDeclaration
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , inheritance_modifier :: Ninheritance_modifier
-                    , inheritance_specifier :: Ninheritance_specifier
-                    , modifiers :: Nmodifiers
-                    , ownership_modifier :: Nownership_modifier
-                    , property_behavior_modifier :: Nproperty_behavior_modifier
-                    , type_constraints :: Ntype_constraints
-                    , type_parameters :: Ntype_parameters
+                    ( attribute :: Attribute
+                    , inheritance_modifier :: InheritanceModifier
+                    , inheritance_specifier :: InheritanceSpecifier
+                    , modifiers :: Modifiers
+                    , ownership_modifier :: OwnershipModifier
+                    , property_behavior_modifier :: PropertyBehaviorModifier
+                    , type_constraints :: TypeConstraints
+                    , type_parameters :: TypeParameters
                     )
               )
     , fields ::
           { body ::
                 Variant
-                    ( class_body :: Nclass_body
-                    , enum_class_body :: Nenum_class_body
-                    )
+                    (class_body :: ClassBody, enum_class_body :: EnumClassBody)
           , declaration_kind :: Variant ()
           , name ::
                 Variant
-                    ( type_identifier :: Ntype_identifier
-                    , user_type :: Nuser_type
-                    )
+                    (type_identifier :: TypeIdentifier, user_type :: UserType)
           }
     }
 
-newtype Ncomparison_expression = Ncomparison_expression
+newtype ComparisonExpression = ComparisonExpression
     { fields ::
           { lhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , op :: Variant ()
           , rhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Ncomputed_getter = Ncomputed_getter
+newtype ComputedGetter = ComputedGetter
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , getter_specifier :: Ngetter_specifier
-                    , statements :: Nstatements
+                    ( attribute :: Attribute
+                    , getter_specifier :: GetterSpecifier
+                    , statements :: Statements
                     )
               )
     , fields :: {}
     }
 
-newtype Ncomputed_modify = Ncomputed_modify
+newtype ComputedModify = ComputedModify
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , modify_specifier :: Nmodify_specifier
-                    , statements :: Nstatements
+                    ( attribute :: Attribute
+                    , modify_specifier :: ModifySpecifier
+                    , statements :: Statements
                     )
               )
     , fields :: {}
     }
 
-newtype Ncomputed_property = Ncomputed_property
+newtype ComputedProperty = ComputedProperty
     { children ::
           Array
               ( Variant
-                    ( computed_getter :: Ncomputed_getter
-                    , computed_modify :: Ncomputed_modify
-                    , computed_setter :: Ncomputed_setter
-                    , statements :: Nstatements
+                    ( computed_getter :: ComputedGetter
+                    , computed_modify :: ComputedModify
+                    , computed_setter :: ComputedSetter
+                    , statements :: Statements
                     )
               )
     , fields :: {}
     }
 
-newtype Ncomputed_setter = Ncomputed_setter
+newtype ComputedSetter = ComputedSetter
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , setter_specifier :: Nsetter_specifier
-                    , simple_identifier :: Nsimple_identifier
-                    , statements :: Nstatements
+                    ( attribute :: Attribute
+                    , setter_specifier :: SetterSpecifier
+                    , simple_identifier :: SimpleIdentifier
+                    , statements :: Statements
                     )
               )
     , fields :: {}
     }
 
-newtype Nconjunction_expression = Nconjunction_expression
+newtype ConjunctionExpression = ConjunctionExpression
     { fields ::
           { lhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , op :: Variant ()
           , rhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nconstructor_expression = Nconstructor_expression
-    { child :: Variant (constructor_suffix :: Nconstructor_suffix)
+newtype ConstructorExpression = ConstructorExpression
+    { child :: Variant (constructor_suffix :: ConstructorSuffix)
     , fields ::
           { constructed_type ::
                 Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , user_type :: UserType
                     )
           }
     }
 
-newtype Nconstructor_suffix = Nconstructor_suffix
+newtype ConstructorSuffix = ConstructorSuffix
     { child ::
           Variant
-              ( lambda_literal :: Nlambda_literal
-              , value_arguments :: Nvalue_arguments
+              ( lambda_literal :: LambdaLiteral
+              , value_arguments :: ValueArguments
               )
     , fields :: {}
     }
 
-newtype Ncontrol_transfer_statement = Ncontrol_transfer_statement
+newtype ControlTransferStatement = ControlTransferStatement
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , throw_keyword :: Nthrow_keyword
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , throw_keyword :: ThrowKeyword
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
                     )
               )
     , fields ::
           { result ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Ncustom_operator = Ncustom_operator { fields :: {} }
-newtype Ndeinit_declaration = Ndeinit_declaration
-    { child :: Maybe (Variant (modifiers :: Nmodifiers))
-    , fields :: { body :: Variant (function_body :: Nfunction_body) }
+newtype CustomOperator = CustomOperator { fields :: {} }
+newtype DeinitDeclaration = DeinitDeclaration
+    { child :: Maybe (Variant (modifiers :: Modifiers))
+    , fields :: { body :: Variant (function_body :: FunctionBody) }
     }
 
-newtype Ndictionary_literal = Ndictionary_literal
+newtype DictionaryLiteral = DictionaryLiteral
     { fields ::
           { key ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Ndictionary_type = Ndictionary_type
+newtype DictionaryType = DictionaryType
     { fields ::
           { key ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           , name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           , value ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Ndirectly_assignable_expression = Ndirectly_assignable_expression
+newtype DirectlyAssignableExpression = DirectlyAssignableExpression
     { child ::
           Variant
-              ( call_expression :: Ncall_expression
-              , navigation_expression :: Nnavigation_expression
-              , self_expression :: Nself_expression
-              , simple_identifier :: Nsimple_identifier
-              , tuple_expression :: Ntuple_expression
+              ( call_expression :: CallExpression
+              , navigation_expression :: NavigationExpression
+              , self_expression :: SelfExpression
+              , simple_identifier :: SimpleIdentifier
+              , tuple_expression :: TupleExpression
               )
     , fields :: {}
     }
 
-newtype Ndisjunction_expression = Ndisjunction_expression
+newtype DisjunctionExpression = DisjunctionExpression
     { fields ::
           { lhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , op :: Variant ()
           , rhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Ndo_statement = Ndo_statement
+newtype DoStatement = DoStatement
     { children ::
-          Array
-              (Variant (catch_block :: Ncatch_block, statements :: Nstatements))
+          Array (Variant (catch_block :: CatchBlock, statements :: Statements))
     , fields :: {}
     }
 
-newtype Nenum_class_body = Nenum_class_body
+newtype EnumClassBody = EnumClassBody
     { children ::
           Array
               ( Variant
-                    ( associatedtype_declaration :: Nassociatedtype_declaration
-                    , class_declaration :: Nclass_declaration
-                    , deinit_declaration :: Ndeinit_declaration
-                    , enum_entry :: Nenum_entry
-                    , function_declaration :: Nfunction_declaration
-                    , import_declaration :: Nimport_declaration
-                    , operator_declaration :: Noperator_declaration
-                    , precedence_group_declaration ::
-                          Nprecedence_group_declaration
-                    , property_declaration :: Nproperty_declaration
-                    , protocol_declaration :: Nprotocol_declaration
-                    , subscript_declaration :: Nsubscript_declaration
-                    , typealias_declaration :: Ntypealias_declaration
+                    ( associatedtype_declaration :: AssociatedtypeDeclaration
+                    , class_declaration :: ClassDeclaration
+                    , deinit_declaration :: DeinitDeclaration
+                    , enum_entry :: EnumEntry
+                    , function_declaration :: FunctionDeclaration
+                    , import_declaration :: ImportDeclaration
+                    , operator_declaration :: OperatorDeclaration
+                    , precedence_group_declaration :: PrecedenceGroupDeclaration
+                    , property_declaration :: PropertyDeclaration
+                    , protocol_declaration :: ProtocolDeclaration
+                    , subscript_declaration :: SubscriptDeclaration
+                    , typealias_declaration :: TypealiasDeclaration
                     )
               )
     , fields :: {}
     }
 
-newtype Nenum_entry = Nenum_entry
-    { child :: Maybe (Variant (modifiers :: Nmodifiers))
+newtype EnumEntry = EnumEntry
+    { child :: Maybe (Variant (modifiers :: Modifiers))
     , fields ::
           { data_contents ::
-                Array (Variant (enum_type_parameters :: Nenum_type_parameters))
-          , name :: Array (Variant (simple_identifier :: Nsimple_identifier))
+                Array (Variant (enum_type_parameters :: EnumTypeParameters))
+          , name :: Array (Variant (simple_identifier :: SimpleIdentifier))
           , raw_value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nenum_type_parameters = Nenum_type_parameters
+newtype EnumTypeParameters = EnumTypeParameters
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
-                    , type_modifiers :: Ntype_modifiers
-                    , wildcard_pattern :: Nwildcard_pattern
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
+                    , type_modifiers :: TypeModifiers
+                    , wildcard_pattern :: WildcardPattern
                     )
               )
     , fields ::
           { name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nequality_constraint = Nequality_constraint
-    { children :: Array (Variant (attribute :: Nattribute))
+newtype EqualityConstraint = EqualityConstraint
+    { children :: Array (Variant (attribute :: Attribute))
     , fields ::
-          { constrained_type :: Variant (identifier :: Nidentifier)
+          { constrained_type :: Variant (identifier :: Identifier)
           , must_equal ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           , name ::
                 Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , function_type :: Nfunction_type
-                    , metatype :: Nmetatype
-                    , opaque_type :: Nopaque_type
-                    , optional_type :: Noptional_type
-                    , protocol_composition_type :: Nprotocol_composition_type
-                    , tuple_type :: Ntuple_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , function_type :: FunctionType
+                    , metatype :: Metatype
+                    , opaque_type :: OpaqueType
+                    , optional_type :: OptionalType
+                    , protocol_composition_type :: ProtocolCompositionType
+                    , tuple_type :: TupleType
+                    , user_type :: UserType
                     )
           }
     }
 
-newtype Nequality_expression = Nequality_expression
+newtype EqualityExpression = EqualityExpression
     { fields ::
           { lhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , op :: Variant ()
           , rhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nfor_statement = Nfor_statement
+newtype ForStatement = ForStatement
     { children ::
           Array
               ( Variant
-                    ( statements :: Nstatements
-                    , type_annotation :: Ntype_annotation
-                    , where_clause :: Nwhere_clause
+                    ( statements :: Statements
+                    , type_annotation :: TypeAnnotation
+                    , where_clause :: WhereClause
                     )
               )
     , fields ::
           { collection ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , item ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , array_type :: Narray_type
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , binding_pattern :: Nbinding_pattern
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , dictionary_type :: Ndictionary_type
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , function_type :: Nfunction_type
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , array_type :: ArrayType
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , binding_pattern :: BindingPattern
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , dictionary_type :: DictionaryType
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , function_type :: FunctionType
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , metatype :: Nmetatype
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , metatype :: Metatype
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , non_binding_pattern :: Nnon_binding_pattern
-                          , oct_literal :: Noct_literal
-                          , opaque_type :: Nopaque_type
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , non_binding_pattern :: NonBindingPattern
+                          , oct_literal :: OctLiteral
+                          , opaque_type :: OpaqueType
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , optional_type :: Noptional_type
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
-                          , wildcard_pattern :: Nwildcard_pattern
+                                OpenStartRangeExpression
+                          , optional_type :: OptionalType
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
+                          , wildcard_pattern :: WildcardPattern
                           )
                     )
           , name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nfully_open_range = Nfully_open_range { fields :: {} }
-newtype Nfunction_body = Nfunction_body
-    { child :: Maybe (Variant (statements :: Nstatements)), fields :: {} }
+newtype FullyOpenRange = FullyOpenRange { fields :: {} }
+newtype FunctionBody = FunctionBody
+    { child :: Maybe (Variant (statements :: Statements)), fields :: {} }
 
-newtype Nfunction_declaration = Nfunction_declaration
+newtype FunctionDeclaration = FunctionDeclaration
     { children ::
           Array
               ( Variant
-                    ( async :: Nasync
-                    , attribute :: Nattribute
-                    , bang :: Nbang
-                    , inheritance_modifier :: Ninheritance_modifier
-                    , modifiers :: Nmodifiers
-                    , ownership_modifier :: Nownership_modifier
-                    , parameter :: Nparameter
-                    , property_behavior_modifier :: Nproperty_behavior_modifier
-                    , throws :: Nthrows
-                    , type_constraints :: Ntype_constraints
-                    , type_parameters :: Ntype_parameters
+                    ( async :: Async
+                    , attribute :: Attribute
+                    , bang :: Bang
+                    , inheritance_modifier :: InheritanceModifier
+                    , modifiers :: Modifiers
+                    , ownership_modifier :: OwnershipModifier
+                    , parameter :: Parameter
+                    , property_behavior_modifier :: PropertyBehaviorModifier
+                    , throws :: Throws
+                    , type_constraints :: TypeConstraints
+                    , type_parameters :: TypeParameters
                     )
               )
     , fields ::
-          { body :: Variant (function_body :: Nfunction_body)
+          { body :: Variant (function_body :: FunctionBody)
           , default_value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , bang :: Nbang
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , simple_identifier :: Nsimple_identifier
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , bang :: Bang
+                          , custom_operator :: CustomOperator
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , simple_identifier :: SimpleIdentifier
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           , return_type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nfunction_modifier = Nfunction_modifier { fields :: {} }
-newtype Nfunction_type = Nfunction_type
-    { children :: Array (Variant (async :: Nasync, throws :: Nthrows))
+newtype FunctionModifier = FunctionModifier { fields :: {} }
+newtype FunctionType = FunctionType
+    { children :: Array (Variant (async :: Async, throws :: Throws))
     , fields ::
           { name ::
                 Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , function_type :: Nfunction_type
-                    , metatype :: Nmetatype
-                    , opaque_type :: Nopaque_type
-                    , optional_type :: Noptional_type
-                    , protocol_composition_type :: Nprotocol_composition_type
-                    , tuple_type :: Ntuple_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , function_type :: FunctionType
+                    , metatype :: Metatype
+                    , opaque_type :: OpaqueType
+                    , optional_type :: OptionalType
+                    , protocol_composition_type :: ProtocolCompositionType
+                    , tuple_type :: TupleType
+                    , user_type :: UserType
                     )
-          , params :: Variant (tuple_type :: Ntuple_type)
+          , params :: Variant (tuple_type :: TupleType)
           , return_type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Ngetter_specifier = Ngetter_specifier
+newtype GetterSpecifier = GetterSpecifier
     { children ::
           Array
               ( Variant
-                    ( async :: Nasync
-                    , mutation_modifier :: Nmutation_modifier
-                    , throws :: Nthrows
+                    ( async :: Async
+                    , mutation_modifier :: MutationModifier
+                    , throws :: Throws
                     )
               )
     , fields :: {}
     }
 
-newtype Nguard_statement = Nguard_statement
-    { children :: Array (Variant (else :: Nelse, statements :: Nstatements))
+newtype GuardStatement = GuardStatement
+    { children :: Array (Variant (else :: Else, statements :: Statements))
     , fields ::
           { condition ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , availability_condition :: Navailability_condition
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , binding_pattern :: Nbinding_pattern
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , availability_condition :: AvailabilityCondition
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , binding_pattern :: BindingPattern
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
-                          , type_annotation :: Ntype_annotation
-                          , value_binding_pattern :: Nvalue_binding_pattern
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
+                          , type_annotation :: TypeAnnotation
+                          , value_binding_pattern :: ValueBindingPattern
                           )
                     )
           }
     }
 
-newtype Nidentifier = Nidentifier
-    { children :: Array (Variant (simple_identifier :: Nsimple_identifier))
+newtype Identifier = Identifier
+    { children :: Array (Variant (simple_identifier :: SimpleIdentifier))
     , fields :: {}
     }
 
-newtype Nif_statement = Nif_statement
+newtype IfStatement = IfStatement
     { children ::
           Array
               ( Variant
-                    ( else :: Nelse
-                    , if_statement :: Nif_statement
-                    , statements :: Nstatements
+                    ( else :: Else
+                    , if_statement :: IfStatement
+                    , statements :: Statements
                     )
               )
     , fields ::
           { condition ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , availability_condition :: Navailability_condition
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , binding_pattern :: Nbinding_pattern
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , availability_condition :: AvailabilityCondition
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , binding_pattern :: BindingPattern
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
-                          , type_annotation :: Ntype_annotation
-                          , value_binding_pattern :: Nvalue_binding_pattern
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
+                          , type_annotation :: TypeAnnotation
+                          , value_binding_pattern :: ValueBindingPattern
                           )
                     )
           }
     }
 
-newtype Nimport_declaration = Nimport_declaration
+newtype ImportDeclaration = ImportDeclaration
     { children ::
-          Array (Variant (identifier :: Nidentifier, modifiers :: Nmodifiers))
+          Array (Variant (identifier :: Identifier, modifiers :: Modifiers))
     , fields :: {}
     }
 
-newtype Ninfix_expression = Ninfix_expression
+newtype InfixExpression = InfixExpression
     { fields ::
           { lhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
-          , op :: Variant (custom_operator :: Ncustom_operator)
+          , op :: Variant (custom_operator :: CustomOperator)
           , rhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Ninheritance_constraint = Ninheritance_constraint
-    { children :: Array (Variant (attribute :: Nattribute))
+newtype InheritanceConstraint = InheritanceConstraint
+    { children :: Array (Variant (attribute :: Attribute))
     , fields ::
-          { constrained_type :: Variant (identifier :: Nidentifier)
+          { constrained_type :: Variant (identifier :: Identifier)
           , inherits_from ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           , name ::
                 Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , function_type :: Nfunction_type
-                    , metatype :: Nmetatype
-                    , opaque_type :: Nopaque_type
-                    , optional_type :: Noptional_type
-                    , protocol_composition_type :: Nprotocol_composition_type
-                    , tuple_type :: Ntuple_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , function_type :: FunctionType
+                    , metatype :: Metatype
+                    , opaque_type :: OpaqueType
+                    , optional_type :: OptionalType
+                    , protocol_composition_type :: ProtocolCompositionType
+                    , tuple_type :: TupleType
+                    , user_type :: UserType
                     )
           }
     }
 
-newtype Ninheritance_modifier = Ninheritance_modifier { fields :: {} }
-newtype Ninheritance_specifier = Ninheritance_specifier
+newtype InheritanceModifier = InheritanceModifier { fields :: {} }
+newtype InheritanceSpecifier = InheritanceSpecifier
     { fields ::
           { inherits_from ::
-                Variant
-                    (function_type :: Nfunction_type, user_type :: Nuser_type)
+                Variant (function_type :: FunctionType, user_type :: UserType)
           }
     }
 
-newtype Ninterpolated_expression = Ninterpolated_expression
-    { child :: Maybe (Variant (type_modifiers :: Ntype_modifiers))
+newtype InterpolatedExpression = InterpolatedExpression
+    { child :: Maybe (Variant (type_modifiers :: TypeModifiers))
     , fields ::
-          { name :: Maybe (Variant (simple_identifier :: Nsimple_identifier))
+          { name :: Maybe (Variant (simple_identifier :: SimpleIdentifier))
           , reference_specifier ::
-                Array (Variant (simple_identifier :: Nsimple_identifier))
+                Array (Variant (simple_identifier :: SimpleIdentifier))
           , value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nkey_path_expression = Nkey_path_expression
+newtype KeyPathExpression = KeyPathExpression
     { children ::
           Array
               ( Variant
-                    ( array_type :: Narray_type
-                    , bang :: Nbang
-                    , dictionary_type :: Ndictionary_type
-                    , simple_identifier :: Nsimple_identifier
-                    , type_arguments :: Ntype_arguments
-                    , type_identifier :: Ntype_identifier
-                    , value_argument :: Nvalue_argument
+                    ( array_type :: ArrayType
+                    , bang :: Bang
+                    , dictionary_type :: DictionaryType
+                    , simple_identifier :: SimpleIdentifier
+                    , type_arguments :: TypeArguments
+                    , type_identifier :: TypeIdentifier
+                    , value_argument :: ValueArgument
                     )
               )
     , fields :: {}
     }
 
-newtype Nkey_path_string_expression = Nkey_path_string_expression
+newtype KeyPathStringExpression = KeyPathStringExpression
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
                     )
               )
     , fields :: {}
     }
 
-newtype Nlambda_function_type = Nlambda_function_type
+newtype LambdaFunctionType = LambdaFunctionType
     { children ::
           Array
               ( Variant
-                    ( async :: Nasync
+                    ( async :: Async
                     , lambda_function_type_parameters ::
-                          Nlambda_function_type_parameters
-                    , throws :: Nthrows
+                          LambdaFunctionTypeParameters
+                    , throws :: Throws
                     )
               )
     , fields ::
           { name ::
                 Maybe
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           , return_type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nlambda_function_type_parameters = Nlambda_function_type_parameters
-    { children :: Array (Variant (lambda_parameter :: Nlambda_parameter))
+newtype LambdaFunctionTypeParameters = LambdaFunctionTypeParameters
+    { children :: Array (Variant (lambda_parameter :: LambdaParameter))
     , fields :: {}
     }
 
-newtype Nlambda_literal = Nlambda_literal
-    { child :: Maybe (Variant (statements :: Nstatements))
+newtype LambdaLiteral = LambdaLiteral
+    { child :: Maybe (Variant (statements :: Statements))
     , fields ::
-          { captures :: Maybe (Variant (capture_list :: Ncapture_list))
-          , type ::
-                Maybe (Variant (lambda_function_type :: Nlambda_function_type))
+          { captures :: Maybe (Variant (capture_list :: CaptureList))
+          , type :: Maybe (Variant (lambda_function_type :: LambdaFunctionType))
           }
     }
 
-newtype Nlambda_parameter = Nlambda_parameter
+newtype LambdaParameter = LambdaParameter
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , parameter_modifiers :: Nparameter_modifiers
-                    , self_expression :: Nself_expression
+                    ( attribute :: Attribute
+                    , parameter_modifiers :: ParameterModifiers
+                    , self_expression :: SelfExpression
                     )
               )
     , fields ::
           { external_name ::
-                Maybe (Variant (simple_identifier :: Nsimple_identifier))
+                Maybe (Variant (simple_identifier :: SimpleIdentifier))
           , name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , simple_identifier :: Nsimple_identifier
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , simple_identifier :: SimpleIdentifier
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           , type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nline_str_text = Nline_str_text { fields :: {} }
-newtype Nline_string_literal = Nline_string_literal
+newtype LineStrText = LineStrText { fields :: {} }
+newtype LineStringLiteral = LineStringLiteral
     { fields ::
           { interpolation ::
                 Array
                     ( Variant
-                          (interpolated_expression :: Ninterpolated_expression)
+                          (interpolated_expression :: InterpolatedExpression)
                     )
           , text ::
                 Array
                     ( Variant
-                          ( line_str_text :: Nline_str_text
-                          , str_escaped_char :: Nstr_escaped_char
+                          ( line_str_text :: LineStrText
+                          , str_escaped_char :: StrEscapedChar
                           )
                     )
           }
     }
 
-newtype Nmember_modifier = Nmember_modifier { fields :: {} }
-newtype Nmetatype = Nmetatype
+newtype MemberModifier = MemberModifier { fields :: {} }
+newtype Metatype = Metatype
     { child ::
           Variant
-              ( array_type :: Narray_type
-              , dictionary_type :: Ndictionary_type
-              , function_type :: Nfunction_type
-              , metatype :: Nmetatype
-              , opaque_type :: Nopaque_type
-              , optional_type :: Noptional_type
-              , protocol_composition_type :: Nprotocol_composition_type
-              , tuple_type :: Ntuple_type
-              , user_type :: Nuser_type
+              ( array_type :: ArrayType
+              , dictionary_type :: DictionaryType
+              , function_type :: FunctionType
+              , metatype :: Metatype
+              , opaque_type :: OpaqueType
+              , optional_type :: OptionalType
+              , protocol_composition_type :: ProtocolCompositionType
+              , tuple_type :: TupleType
+              , user_type :: UserType
               )
     , fields :: {}
     }
 
-newtype Nmodifiers = Nmodifiers
+newtype Modifiers = Modifiers
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , function_modifier :: Nfunction_modifier
-                    , inheritance_modifier :: Ninheritance_modifier
-                    , member_modifier :: Nmember_modifier
-                    , mutation_modifier :: Nmutation_modifier
-                    , ownership_modifier :: Nownership_modifier
-                    , parameter_modifier :: Nparameter_modifier
-                    , property_behavior_modifier :: Nproperty_behavior_modifier
-                    , property_modifier :: Nproperty_modifier
-                    , visibility_modifier :: Nvisibility_modifier
+                    ( attribute :: Attribute
+                    , function_modifier :: FunctionModifier
+                    , inheritance_modifier :: InheritanceModifier
+                    , member_modifier :: MemberModifier
+                    , mutation_modifier :: MutationModifier
+                    , ownership_modifier :: OwnershipModifier
+                    , parameter_modifier :: ParameterModifier
+                    , property_behavior_modifier :: PropertyBehaviorModifier
+                    , property_modifier :: PropertyModifier
+                    , visibility_modifier :: VisibilityModifier
                     )
               )
     , fields :: {}
     }
 
-newtype Nmodify_specifier = Nmodify_specifier
-    { child :: Maybe (Variant (mutation_modifier :: Nmutation_modifier))
+newtype ModifySpecifier = ModifySpecifier
+    { child :: Maybe (Variant (mutation_modifier :: MutationModifier))
     , fields :: {}
     }
 
-newtype Nmulti_line_str_text = Nmulti_line_str_text { fields :: {} }
-newtype Nmulti_line_string_literal = Nmulti_line_string_literal
+newtype MultiLineStrText = MultiLineStrText { fields :: {} }
+newtype MultiLineStringLiteral = MultiLineStringLiteral
     { fields ::
           { interpolation ::
                 Array
                     ( Variant
-                          (interpolated_expression :: Ninterpolated_expression)
+                          (interpolated_expression :: InterpolatedExpression)
                     )
           , text ::
                 Array
                     ( Variant
-                          ( multi_line_str_text :: Nmulti_line_str_text
-                          , str_escaped_char :: Nstr_escaped_char
+                          ( multi_line_str_text :: MultiLineStrText
+                          , str_escaped_char :: StrEscapedChar
                           )
                     )
           }
     }
 
-newtype Nmultiplicative_expression = Nmultiplicative_expression
+newtype MultiplicativeExpression = MultiplicativeExpression
     { fields ::
           { lhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , op :: Variant ()
           , rhs ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nmutation_modifier = Nmutation_modifier { fields :: {} }
-newtype Nnavigation_expression = Nnavigation_expression
+newtype MutationModifier = MutationModifier { fields :: {} }
+newtype NavigationExpression = NavigationExpression
     { fields ::
-          { suffix :: Variant (navigation_suffix :: Nnavigation_suffix)
+          { suffix :: Variant (navigation_suffix :: NavigationSuffix)
           , target ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , array_type :: Narray_type
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , dictionary_type :: Ndictionary_type
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , array_type :: ArrayType
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , dictionary_type :: DictionaryType
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
-                          , user_type :: Nuser_type
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nnavigation_suffix = Nnavigation_suffix
+newtype NavigationSuffix = NavigationSuffix
     { fields ::
           { suffix ::
                 Variant
-                    ( integer_literal :: Ninteger_literal
-                    , simple_identifier :: Nsimple_identifier
+                    ( integer_literal :: IntegerLiteral
+                    , simple_identifier :: SimpleIdentifier
                     )
           }
     }
 
-newtype Nnil_coalescing_expression = Nnil_coalescing_expression
+newtype NilCoalescingExpression = NilCoalescingExpression
     { fields ::
           { if_nil ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nnon_binding_pattern = Nnon_binding_pattern
+newtype NonBindingPattern = NonBindingPattern
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , non_binding_pattern :: Nnon_binding_pattern
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
-                    , type_modifiers :: Ntype_modifiers
-                    , user_type :: Nuser_type
-                    , wildcard_pattern :: Nwildcard_pattern
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , non_binding_pattern :: NonBindingPattern
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
+                    , type_modifiers :: TypeModifiers
+                    , user_type :: UserType
+                    , wildcard_pattern :: WildcardPattern
                     )
               )
     , fields ::
           { name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nopaque_type = Nopaque_type
-    { child :: Variant (user_type :: Nuser_type), fields :: {} }
+newtype OpaqueType = OpaqueType
+    { child :: Variant (user_type :: UserType), fields :: {} }
 
-newtype Nopen_end_range_expression = Nopen_end_range_expression
+newtype OpenEndRangeExpression = OpenEndRangeExpression
     { fields ::
           { start ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nopen_start_range_expression = Nopen_start_range_expression
+newtype OpenStartRangeExpression = OpenStartRangeExpression
     { fields ::
           { end ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Noperator_declaration = Noperator_declaration
+newtype OperatorDeclaration = OperatorDeclaration
     { children ::
           Array
               ( Variant
-                    ( custom_operator :: Ncustom_operator
-                    , simple_identifier :: Nsimple_identifier
+                    ( custom_operator :: CustomOperator
+                    , simple_identifier :: SimpleIdentifier
                     )
               )
     , fields :: {}
     }
 
-newtype Noptional_type = Noptional_type
+newtype OptionalType = OptionalType
     { fields ::
           { wrapped ::
                 Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , tuple_type :: Ntuple_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , tuple_type :: TupleType
+                    , user_type :: UserType
                     )
           }
     }
 
-newtype Nownership_modifier = Nownership_modifier { fields :: {} }
-newtype Nparameter = Nparameter
-    { child :: Maybe (Variant (parameter_modifiers :: Nparameter_modifiers))
+newtype OwnershipModifier = OwnershipModifier { fields :: {} }
+newtype Parameter = Parameter
+    { child :: Maybe (Variant (parameter_modifiers :: ParameterModifiers))
     , fields ::
           { external_name ::
-                Maybe (Variant (simple_identifier :: Nsimple_identifier))
+                Maybe (Variant (simple_identifier :: SimpleIdentifier))
           , name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , simple_identifier :: Nsimple_identifier
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , simple_identifier :: SimpleIdentifier
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           , type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nparameter_modifier = Nparameter_modifier { fields :: {} }
-newtype Nparameter_modifiers = Nparameter_modifiers
-    { children :: Array (Variant (parameter_modifier :: Nparameter_modifier))
+newtype ParameterModifier = ParameterModifier { fields :: {} }
+newtype ParameterModifiers = ParameterModifiers
+    { children :: Array (Variant (parameter_modifier :: ParameterModifier))
     , fields :: {}
     }
 
-newtype Npostfix_expression = Npostfix_expression
+newtype PostfixExpression = PostfixExpression
     { fields ::
-          { operation :: Variant (bang :: Nbang)
+          { operation :: Variant (bang :: Bang)
           , target ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nprecedence_group_attribute = Nprecedence_group_attribute
+newtype PrecedenceGroupAttribute = PrecedenceGroupAttribute
     { children ::
           Array
               ( Variant
-                    ( boolean_literal :: Nboolean_literal
-                    , simple_identifier :: Nsimple_identifier
+                    ( boolean_literal :: BooleanLiteral
+                    , simple_identifier :: SimpleIdentifier
                     )
               )
     , fields :: {}
     }
 
-newtype Nprecedence_group_attributes = Nprecedence_group_attributes
+newtype PrecedenceGroupAttributes = PrecedenceGroupAttributes
     { children ::
           Array
-              ( Variant
-                    (precedence_group_attribute :: Nprecedence_group_attribute)
-              )
+              (Variant (precedence_group_attribute :: PrecedenceGroupAttribute))
     , fields :: {}
     }
 
-newtype Nprecedence_group_declaration = Nprecedence_group_declaration
+newtype PrecedenceGroupDeclaration = PrecedenceGroupDeclaration
     { children ::
           Array
               ( Variant
-                    ( precedence_group_attributes ::
-                          Nprecedence_group_attributes
-                    , simple_identifier :: Nsimple_identifier
+                    ( precedence_group_attributes :: PrecedenceGroupAttributes
+                    , simple_identifier :: SimpleIdentifier
                     )
               )
     , fields :: {}
     }
 
-newtype Nprefix_expression = Nprefix_expression
+newtype PrefixExpression = PrefixExpression
     { fields ::
           { operation ::
-                Variant (bang :: Nbang, custom_operator :: Ncustom_operator)
+                Variant (bang :: Bang, custom_operator :: CustomOperator)
           , target ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nproperty_declaration = Nproperty_declaration
+newtype PropertyDeclaration = PropertyDeclaration
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , inheritance_modifier :: Ninheritance_modifier
-                    , modifiers :: Nmodifiers
-                    , ownership_modifier :: Nownership_modifier
-                    , property_behavior_modifier :: Nproperty_behavior_modifier
-                    , type_annotation :: Ntype_annotation
-                    , type_constraints :: Ntype_constraints
+                    ( attribute :: Attribute
+                    , inheritance_modifier :: InheritanceModifier
+                    , modifiers :: Modifiers
+                    , ownership_modifier :: OwnershipModifier
+                    , property_behavior_modifier :: PropertyBehaviorModifier
+                    , type_annotation :: TypeAnnotation
+                    , type_constraints :: TypeConstraints
                     )
               )
     , fields ::
           { computed_value ::
-                Array (Variant (computed_property :: Ncomputed_property))
+                Array (Variant (computed_property :: ComputedProperty))
           , name ::
-                Array
-                    (Variant (value_binding_pattern :: Nvalue_binding_pattern))
+                Array (Variant (value_binding_pattern :: ValueBindingPattern))
           , value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nproperty_modifier = Nproperty_modifier { fields :: {} }
-newtype Nprotocol_body = Nprotocol_body
+newtype PropertyModifier = PropertyModifier { fields :: {} }
+newtype ProtocolBody = ProtocolBody
     { children ::
           Array
               ( Variant
-                    ( associatedtype_declaration :: Nassociatedtype_declaration
-                    , deinit_declaration :: Ndeinit_declaration
+                    ( associatedtype_declaration :: AssociatedtypeDeclaration
+                    , deinit_declaration :: DeinitDeclaration
                     , protocol_function_declaration ::
-                          Nprotocol_function_declaration
+                          ProtocolFunctionDeclaration
                     , protocol_property_declaration ::
-                          Nprotocol_property_declaration
-                    , subscript_declaration :: Nsubscript_declaration
-                    , typealias_declaration :: Ntypealias_declaration
+                          ProtocolPropertyDeclaration
+                    , subscript_declaration :: SubscriptDeclaration
+                    , typealias_declaration :: TypealiasDeclaration
                     )
               )
     , fields ::
@@ -3888,1649 +3722,1587 @@ newtype Nprotocol_body = Nprotocol_body
                 Array
                     ( Variant
                           ( protocol_function_declaration ::
-                                Nprotocol_function_declaration
+                                ProtocolFunctionDeclaration
                           )
                     )
           }
     }
 
-newtype Nprotocol_composition_type = Nprotocol_composition_type
+newtype ProtocolCompositionType = ProtocolCompositionType
     { children ::
           Array
               ( Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , function_type :: Nfunction_type
-                    , metatype :: Nmetatype
-                    , opaque_type :: Nopaque_type
-                    , optional_type :: Noptional_type
-                    , protocol_composition_type :: Nprotocol_composition_type
-                    , tuple_type :: Ntuple_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , function_type :: FunctionType
+                    , metatype :: Metatype
+                    , opaque_type :: OpaqueType
+                    , optional_type :: OptionalType
+                    , protocol_composition_type :: ProtocolCompositionType
+                    , tuple_type :: TupleType
+                    , user_type :: UserType
                     )
               )
     , fields :: {}
     }
 
-newtype Nprotocol_declaration = Nprotocol_declaration
+newtype ProtocolDeclaration = ProtocolDeclaration
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , inheritance_specifier :: Ninheritance_specifier
-                    , modifiers :: Nmodifiers
-                    , type_constraints :: Ntype_constraints
-                    , type_parameters :: Ntype_parameters
+                    ( attribute :: Attribute
+                    , inheritance_specifier :: InheritanceSpecifier
+                    , modifiers :: Modifiers
+                    , type_constraints :: TypeConstraints
+                    , type_parameters :: TypeParameters
                     )
               )
     , fields ::
-          { body :: Variant (protocol_body :: Nprotocol_body)
+          { body :: Variant (protocol_body :: ProtocolBody)
           , declaration_kind :: Variant ()
-          , name :: Variant (type_identifier :: Ntype_identifier)
+          , name :: Variant (type_identifier :: TypeIdentifier)
           }
     }
 
-newtype Nprotocol_function_declaration = Nprotocol_function_declaration
+newtype ProtocolFunctionDeclaration = ProtocolFunctionDeclaration
     { children ::
           Array
               ( Variant
-                    ( async :: Nasync
-                    , attribute :: Nattribute
-                    , bang :: Nbang
-                    , modifiers :: Nmodifiers
-                    , parameter :: Nparameter
-                    , statements :: Nstatements
-                    , throws :: Nthrows
-                    , type_constraints :: Ntype_constraints
-                    , type_parameters :: Ntype_parameters
+                    ( async :: Async
+                    , attribute :: Attribute
+                    , bang :: Bang
+                    , modifiers :: Modifiers
+                    , parameter :: Parameter
+                    , statements :: Statements
+                    , throws :: Throws
+                    , type_constraints :: TypeConstraints
+                    , type_parameters :: TypeParameters
                     )
               )
     , fields ::
           { default_value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , bang :: Nbang
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , simple_identifier :: Nsimple_identifier
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , bang :: Bang
+                          , custom_operator :: CustomOperator
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , simple_identifier :: SimpleIdentifier
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           , return_type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nprotocol_property_declaration = Nprotocol_property_declaration
+newtype ProtocolPropertyDeclaration = ProtocolPropertyDeclaration
     { children ::
           Array
               ( Variant
-                    ( modifiers :: Nmodifiers
+                    ( modifiers :: Modifiers
                     , protocol_property_requirements ::
-                          Nprotocol_property_requirements
-                    , type_annotation :: Ntype_annotation
-                    , type_constraints :: Ntype_constraints
+                          ProtocolPropertyRequirements
+                    , type_annotation :: TypeAnnotation
+                    , type_constraints :: TypeConstraints
                     )
               )
     , fields ::
-          { name :: Variant (value_binding_pattern :: Nvalue_binding_pattern) }
+          { name :: Variant (value_binding_pattern :: ValueBindingPattern) }
     }
 
-newtype Nprotocol_property_requirements = Nprotocol_property_requirements
+newtype ProtocolPropertyRequirements = ProtocolPropertyRequirements
     { children ::
           Array
               ( Variant
-                    ( getter_specifier :: Ngetter_specifier
-                    , setter_specifier :: Nsetter_specifier
+                    ( getter_specifier :: GetterSpecifier
+                    , setter_specifier :: SetterSpecifier
                     )
               )
     , fields :: {}
     }
 
-newtype Nrange_expression = Nrange_expression
+newtype RangeExpression = RangeExpression
     { fields ::
           { end ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , op :: Variant ()
           , start ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nraw_str_interpolation = Nraw_str_interpolation
-    { child ::
-          Variant (raw_str_interpolation_start :: Nraw_str_interpolation_start)
+newtype RawStrInterpolation = RawStrInterpolation
+    { child :: Variant (raw_str_interpolation_start :: RawStrInterpolationStart)
     , fields ::
           { interpolation ::
                 Array
                     ( Variant
-                          (interpolated_expression :: Ninterpolated_expression)
+                          (interpolated_expression :: InterpolatedExpression)
                     )
           }
     }
 
-newtype Nraw_string_literal = Nraw_string_literal
+newtype RawStringLiteral = RawStringLiteral
     { children ::
           Array
               ( Variant
-                    ( raw_str_continuing_indicator ::
-                          Nraw_str_continuing_indicator
-                    )
+                    (raw_str_continuing_indicator :: RawStrContinuingIndicator)
               )
     , fields ::
           { interpolation ::
-                Array
-                    (Variant (raw_str_interpolation :: Nraw_str_interpolation))
+                Array (Variant (raw_str_interpolation :: RawStrInterpolation))
           , text ::
                 Array
                     ( Variant
-                          ( raw_str_end_part :: Nraw_str_end_part
-                          , raw_str_part :: Nraw_str_part
+                          ( raw_str_end_part :: RawStrEndPart
+                          , raw_str_part :: RawStrPart
                           )
                     )
           }
     }
 
-newtype Nrepeat_while_statement = Nrepeat_while_statement
-    { child :: Maybe (Variant (statements :: Nstatements))
+newtype RepeatWhileStatement = RepeatWhileStatement
+    { child :: Maybe (Variant (statements :: Statements))
     , fields ::
           { condition ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , availability_condition :: Navailability_condition
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , binding_pattern :: Nbinding_pattern
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , availability_condition :: AvailabilityCondition
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , binding_pattern :: BindingPattern
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
-                          , type_annotation :: Ntype_annotation
-                          , value_binding_pattern :: Nvalue_binding_pattern
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
+                          , type_annotation :: TypeAnnotation
+                          , value_binding_pattern :: ValueBindingPattern
                           )
                     )
           }
     }
 
-newtype Nselector_expression = Nselector_expression
+newtype SelectorExpression = SelectorExpression
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
                     )
               )
     , fields :: {}
     }
 
-newtype Nself_expression = Nself_expression { fields :: {} }
-newtype Nsetter_specifier = Nsetter_specifier
-    { child :: Maybe (Variant (mutation_modifier :: Nmutation_modifier))
+newtype SelfExpression = SelfExpression { fields :: {} }
+newtype SetterSpecifier = SetterSpecifier
+    { child :: Maybe (Variant (mutation_modifier :: MutationModifier))
     , fields :: {}
     }
 
-newtype Nshebang_line = Nshebang_line { fields :: {} }
-newtype Nsimple_identifier = Nsimple_identifier { fields :: {} }
-newtype Nsource_file = Nsource_file
+newtype ShebangLine = ShebangLine { fields :: {} }
+newtype SimpleIdentifier = SimpleIdentifier { fields :: {} }
+newtype SourceFile = SourceFile
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , associatedtype_declaration :: Nassociatedtype_declaration
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , class_declaration :: Nclass_declaration
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , do_statement :: Ndo_statement
-                    , equality_expression :: Nequality_expression
-                    , for_statement :: Nfor_statement
-                    , fully_open_range :: Nfully_open_range
-                    , function_declaration :: Nfunction_declaration
-                    , guard_statement :: Nguard_statement
-                    , hex_literal :: Nhex_literal
-                    , if_statement :: Nif_statement
-                    , import_declaration :: Nimport_declaration
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , operator_declaration :: Noperator_declaration
-                    , postfix_expression :: Npostfix_expression
-                    , precedence_group_declaration ::
-                          Nprecedence_group_declaration
-                    , prefix_expression :: Nprefix_expression
-                    , property_declaration :: Nproperty_declaration
-                    , protocol_declaration :: Nprotocol_declaration
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , repeat_while_statement :: Nrepeat_while_statement
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , shebang_line :: Nshebang_line
-                    , simple_identifier :: Nsimple_identifier
-                    , statement_label :: Nstatement_label
-                    , super_expression :: Nsuper_expression
-                    , switch_statement :: Nswitch_statement
-                    , ternary_expression :: Nternary_expression
-                    , throw_keyword :: Nthrow_keyword
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
-                    , typealias_declaration :: Ntypealias_declaration
-                    , while_statement :: Nwhile_statement
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , associatedtype_declaration :: AssociatedtypeDeclaration
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , class_declaration :: ClassDeclaration
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , do_statement :: DoStatement
+                    , equality_expression :: EqualityExpression
+                    , for_statement :: ForStatement
+                    , fully_open_range :: FullyOpenRange
+                    , function_declaration :: FunctionDeclaration
+                    , guard_statement :: GuardStatement
+                    , hex_literal :: HexLiteral
+                    , if_statement :: IfStatement
+                    , import_declaration :: ImportDeclaration
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , operator_declaration :: OperatorDeclaration
+                    , postfix_expression :: PostfixExpression
+                    , precedence_group_declaration :: PrecedenceGroupDeclaration
+                    , prefix_expression :: PrefixExpression
+                    , property_declaration :: PropertyDeclaration
+                    , protocol_declaration :: ProtocolDeclaration
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , repeat_while_statement :: RepeatWhileStatement
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , shebang_line :: ShebangLine
+                    , simple_identifier :: SimpleIdentifier
+                    , statement_label :: StatementLabel
+                    , super_expression :: SuperExpression
+                    , switch_statement :: SwitchStatement
+                    , ternary_expression :: TernaryExpression
+                    , throw_keyword :: ThrowKeyword
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
+                    , typealias_declaration :: TypealiasDeclaration
+                    , while_statement :: WhileStatement
                     )
               )
     , fields :: {}
     }
 
-newtype Nstatements = Nstatements
+newtype Statements = Statements
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , class_declaration :: Nclass_declaration
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , control_transfer_statement :: Ncontrol_transfer_statement
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , do_statement :: Ndo_statement
-                    , equality_expression :: Nequality_expression
-                    , for_statement :: Nfor_statement
-                    , fully_open_range :: Nfully_open_range
-                    , function_declaration :: Nfunction_declaration
-                    , guard_statement :: Nguard_statement
-                    , hex_literal :: Nhex_literal
-                    , if_statement :: Nif_statement
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , property_declaration :: Nproperty_declaration
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , repeat_while_statement :: Nrepeat_while_statement
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , statement_label :: Nstatement_label
-                    , super_expression :: Nsuper_expression
-                    , switch_statement :: Nswitch_statement
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
-                    , typealias_declaration :: Ntypealias_declaration
-                    , while_statement :: Nwhile_statement
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , class_declaration :: ClassDeclaration
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , control_transfer_statement :: ControlTransferStatement
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , do_statement :: DoStatement
+                    , equality_expression :: EqualityExpression
+                    , for_statement :: ForStatement
+                    , fully_open_range :: FullyOpenRange
+                    , function_declaration :: FunctionDeclaration
+                    , guard_statement :: GuardStatement
+                    , hex_literal :: HexLiteral
+                    , if_statement :: IfStatement
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , property_declaration :: PropertyDeclaration
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , repeat_while_statement :: RepeatWhileStatement
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , statement_label :: StatementLabel
+                    , super_expression :: SuperExpression
+                    , switch_statement :: SwitchStatement
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
+                    , typealias_declaration :: TypealiasDeclaration
+                    , while_statement :: WhileStatement
                     )
               )
     , fields :: {}
     }
 
-newtype Nstr_escaped_char = Nstr_escaped_char { fields :: {} }
-newtype Nsubscript_declaration = Nsubscript_declaration
+newtype StrEscapedChar = StrEscapedChar { fields :: {} }
+newtype SubscriptDeclaration = SubscriptDeclaration
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , computed_getter :: Ncomputed_getter
-                    , computed_modify :: Ncomputed_modify
-                    , computed_setter :: Ncomputed_setter
-                    , modifiers :: Nmodifiers
-                    , parameter :: Nparameter
-                    , statements :: Nstatements
-                    , type_constraints :: Ntype_constraints
-                    , type_parameters :: Ntype_parameters
+                    ( attribute :: Attribute
+                    , computed_getter :: ComputedGetter
+                    , computed_modify :: ComputedModify
+                    , computed_setter :: ComputedSetter
+                    , modifiers :: Modifiers
+                    , parameter :: Parameter
+                    , statements :: Statements
+                    , type_constraints :: TypeConstraints
+                    , type_parameters :: TypeParameters
                     )
               )
     , fields ::
           { default_value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , name ::
                 Maybe
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           , return_type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nsuper_expression = Nsuper_expression { fields :: {} }
-newtype Nswitch_entry = Nswitch_entry
+newtype SuperExpression = SuperExpression { fields :: {} }
+newtype SwitchEntry = SwitchEntry
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , default_keyword :: Ndefault_keyword
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , modifiers :: Nmodifiers
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , statements :: Nstatements
-                    , super_expression :: Nsuper_expression
-                    , switch_pattern :: Nswitch_pattern
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
-                    , where_keyword :: Nwhere_keyword
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , default_keyword :: DefaultKeyword
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , modifiers :: Modifiers
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , statements :: Statements
+                    , super_expression :: SuperExpression
+                    , switch_pattern :: SwitchPattern
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
+                    , where_keyword :: WhereKeyword
                     )
               )
     , fields :: {}
     }
 
-newtype Nswitch_pattern = Nswitch_pattern
+newtype SwitchPattern = SwitchPattern
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , binding_pattern :: Nbinding_pattern
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , non_binding_pattern :: Nnon_binding_pattern
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
-                    , type_modifiers :: Ntype_modifiers
-                    , user_type :: Nuser_type
-                    , wildcard_pattern :: Nwildcard_pattern
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , binding_pattern :: BindingPattern
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , non_binding_pattern :: NonBindingPattern
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
+                    , type_modifiers :: TypeModifiers
+                    , user_type :: UserType
+                    , wildcard_pattern :: WildcardPattern
                     )
               )
     , fields ::
           { name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nswitch_statement = Nswitch_statement
-    { children :: Array (Variant (switch_entry :: Nswitch_entry))
+newtype SwitchStatement = SwitchStatement
+    { children :: Array (Variant (switch_entry :: SwitchEntry))
     , fields ::
           { expr ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nternary_expression = Nternary_expression
+newtype TernaryExpression = TernaryExpression
     { fields ::
           { condition ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , if_false ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           , if_true ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nthrows = Nthrows { fields :: {} }
-newtype Ntry_expression = Ntry_expression
+newtype Throws = Throws { fields :: {} }
+newtype TryExpression = TryExpression
     { fields ::
           { expr ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Ntuple_expression = Ntuple_expression
+newtype TupleExpression = TupleExpression
     { fields ::
-          { name :: Array (Variant (simple_identifier :: Nsimple_identifier))
+          { name :: Array (Variant (simple_identifier :: SimpleIdentifier))
           , value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Ntuple_type = Ntuple_type
+newtype TupleType = TupleType
     { fields ::
-          { element :: Array (Variant (tuple_type_item :: Ntuple_type_item)) }
+          { element :: Array (Variant (tuple_type_item :: TupleTypeItem)) }
     }
 
-newtype Ntuple_type_item = Ntuple_type_item
+newtype TupleTypeItem = TupleTypeItem
     { children ::
           Array
               ( Variant
-                    ( parameter_modifiers :: Nparameter_modifiers
-                    , wildcard_pattern :: Nwildcard_pattern
+                    ( parameter_modifiers :: ParameterModifiers
+                    , wildcard_pattern :: WildcardPattern
                     )
               )
     , fields ::
           { name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , simple_identifier :: Nsimple_identifier
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , simple_identifier :: SimpleIdentifier
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           , type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Ntype_annotation = Ntype_annotation
+newtype TypeAnnotation = TypeAnnotation
     { fields ::
           { name ::
                 Variant
-                    ( array_type :: Narray_type
-                    , dictionary_type :: Ndictionary_type
-                    , function_type :: Nfunction_type
-                    , metatype :: Nmetatype
-                    , opaque_type :: Nopaque_type
-                    , optional_type :: Noptional_type
-                    , protocol_composition_type :: Nprotocol_composition_type
-                    , tuple_type :: Ntuple_type
-                    , user_type :: Nuser_type
+                    ( array_type :: ArrayType
+                    , dictionary_type :: DictionaryType
+                    , function_type :: FunctionType
+                    , metatype :: Metatype
+                    , opaque_type :: OpaqueType
+                    , optional_type :: OptionalType
+                    , protocol_composition_type :: ProtocolCompositionType
+                    , tuple_type :: TupleType
+                    , user_type :: UserType
                     )
           , type ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Ntype_arguments = Ntype_arguments
-    { children :: Array (Variant (type_modifiers :: Ntype_modifiers))
+newtype TypeArguments = TypeArguments
+    { children :: Array (Variant (type_modifiers :: TypeModifiers))
     , fields ::
           { name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Ntype_constraint = Ntype_constraint
+newtype TypeConstraint = TypeConstraint
     { child ::
           Variant
-              ( equality_constraint :: Nequality_constraint
-              , inheritance_constraint :: Ninheritance_constraint
+              ( equality_constraint :: EqualityConstraint
+              , inheritance_constraint :: InheritanceConstraint
               )
     , fields :: {}
     }
 
-newtype Ntype_constraints = Ntype_constraints
+newtype TypeConstraints = TypeConstraints
     { children ::
           Array
               ( Variant
-                    ( type_constraint :: Ntype_constraint
-                    , where_keyword :: Nwhere_keyword
+                    ( type_constraint :: TypeConstraint
+                    , where_keyword :: WhereKeyword
                     )
               )
     , fields :: {}
     }
 
-newtype Ntype_identifier = Ntype_identifier { fields :: {} }
-newtype Ntype_modifiers = Ntype_modifiers
-    { children :: Array (Variant (attribute :: Nattribute)), fields :: {} }
+newtype TypeIdentifier = TypeIdentifier { fields :: {} }
+newtype TypeModifiers = TypeModifiers
+    { children :: Array (Variant (attribute :: Attribute)), fields :: {} }
 
-newtype Ntype_parameter = Ntype_parameter
+newtype TypeParameter = TypeParameter
     { children ::
           Array
               ( Variant
-                    ( type_identifier :: Ntype_identifier
-                    , type_modifiers :: Ntype_modifiers
-                    , type_parameter_modifiers :: Ntype_parameter_modifiers
+                    ( type_identifier :: TypeIdentifier
+                    , type_modifiers :: TypeModifiers
+                    , type_parameter_modifiers :: TypeParameterModifiers
                     )
               )
     , fields ::
           { name ::
                 Maybe
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Ntype_parameter_modifiers = Ntype_parameter_modifiers
-    { children :: Array (Variant (attribute :: Nattribute)), fields :: {} }
+newtype TypeParameterModifiers = TypeParameterModifiers
+    { children :: Array (Variant (attribute :: Attribute)), fields :: {} }
 
-newtype Ntype_parameters = Ntype_parameters
-    { children :: Array (Variant (type_parameter :: Ntype_parameter))
+newtype TypeParameters = TypeParameters
+    { children :: Array (Variant (type_parameter :: TypeParameter))
     , fields :: {}
     }
 
-newtype Ntypealias_declaration = Ntypealias_declaration
+newtype TypealiasDeclaration = TypealiasDeclaration
     { children ::
           Array
               ( Variant
-                    ( attribute :: Nattribute
-                    , inheritance_modifier :: Ninheritance_modifier
-                    , modifiers :: Nmodifiers
-                    , ownership_modifier :: Nownership_modifier
-                    , property_behavior_modifier :: Nproperty_behavior_modifier
-                    , type_parameters :: Ntype_parameters
+                    ( attribute :: Attribute
+                    , inheritance_modifier :: InheritanceModifier
+                    , modifiers :: Modifiers
+                    , ownership_modifier :: OwnershipModifier
+                    , property_behavior_modifier :: PropertyBehaviorModifier
+                    , type_parameters :: TypeParameters
                     )
               )
     , fields ::
           { name ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_identifier :: Ntype_identifier
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_identifier :: TypeIdentifier
+                          , user_type :: UserType
                           )
                     )
           , value ::
                 Array
                     ( Variant
-                          ( array_type :: Narray_type
-                          , dictionary_type :: Ndictionary_type
-                          , function_type :: Nfunction_type
-                          , metatype :: Nmetatype
-                          , opaque_type :: Nopaque_type
-                          , optional_type :: Noptional_type
-                          , protocol_composition_type ::
-                                Nprotocol_composition_type
-                          , tuple_type :: Ntuple_type
-                          , type_modifiers :: Ntype_modifiers
-                          , user_type :: Nuser_type
+                          ( array_type :: ArrayType
+                          , dictionary_type :: DictionaryType
+                          , function_type :: FunctionType
+                          , metatype :: Metatype
+                          , opaque_type :: OpaqueType
+                          , optional_type :: OptionalType
+                          , protocol_composition_type :: ProtocolCompositionType
+                          , tuple_type :: TupleType
+                          , type_modifiers :: TypeModifiers
+                          , user_type :: UserType
                           )
                     )
           }
     }
 
-newtype Nuser_type = Nuser_type
+newtype UserType = UserType
     { children ::
           Array
               ( Variant
-                    ( type_arguments :: Ntype_arguments
-                    , type_identifier :: Ntype_identifier
+                    ( type_arguments :: TypeArguments
+                    , type_identifier :: TypeIdentifier
                     )
               )
     , fields :: {}
     }
 
-newtype Nvalue_argument = Nvalue_argument
-    { child :: Maybe (Variant (type_modifiers :: Ntype_modifiers))
+newtype ValueArgument = ValueArgument
+    { child :: Maybe (Variant (type_modifiers :: TypeModifiers))
     , fields ::
-          { name :: Maybe (Variant (simple_identifier :: Nsimple_identifier))
+          { name :: Maybe (Variant (simple_identifier :: SimpleIdentifier))
           , reference_specifier ::
-                Array (Variant (simple_identifier :: Nsimple_identifier))
+                Array (Variant (simple_identifier :: SimpleIdentifier))
           , value ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
                           )
                     )
           }
     }
 
-newtype Nvalue_arguments = Nvalue_arguments
-    { children :: Array (Variant (value_argument :: Nvalue_argument))
+newtype ValueArguments = ValueArguments
+    { children :: Array (Variant (value_argument :: ValueArgument))
     , fields :: {}
     }
 
-newtype Nvalue_binding_pattern = Nvalue_binding_pattern
-    { child :: Variant (non_binding_pattern :: Nnon_binding_pattern)
+newtype ValueBindingPattern = ValueBindingPattern
+    { child :: Variant (non_binding_pattern :: NonBindingPattern)
     , fields :: {}
     }
 
-newtype Nvisibility_modifier = Nvisibility_modifier { fields :: {} }
-newtype Nwhere_clause = Nwhere_clause
+newtype VisibilityModifier = VisibilityModifier { fields :: {} }
+newtype WhereClause = WhereClause
     { children ::
           Array
               ( Variant
-                    ( additive_expression :: Nadditive_expression
-                    , array_literal :: Narray_literal
-                    , as_expression :: Nas_expression
-                    , assignment :: Nassignment
-                    , await_expression :: Nawait_expression
-                    , bang :: Nbang
-                    , bin_literal :: Nbin_literal
-                    , bitwise_operation :: Nbitwise_operation
-                    , boolean_literal :: Nboolean_literal
-                    , call_expression :: Ncall_expression
-                    , check_expression :: Ncheck_expression
-                    , comparison_expression :: Ncomparison_expression
-                    , conjunction_expression :: Nconjunction_expression
-                    , constructor_expression :: Nconstructor_expression
-                    , custom_operator :: Ncustom_operator
-                    , dictionary_literal :: Ndictionary_literal
-                    , disjunction_expression :: Ndisjunction_expression
-                    , equality_expression :: Nequality_expression
-                    , fully_open_range :: Nfully_open_range
-                    , hex_literal :: Nhex_literal
-                    , infix_expression :: Ninfix_expression
-                    , integer_literal :: Ninteger_literal
-                    , key_path_expression :: Nkey_path_expression
-                    , key_path_string_expression :: Nkey_path_string_expression
-                    , lambda_literal :: Nlambda_literal
-                    , line_string_literal :: Nline_string_literal
-                    , multi_line_string_literal :: Nmulti_line_string_literal
-                    , multiplicative_expression :: Nmultiplicative_expression
-                    , navigation_expression :: Nnavigation_expression
-                    , nil_coalescing_expression :: Nnil_coalescing_expression
-                    , oct_literal :: Noct_literal
-                    , open_end_range_expression :: Nopen_end_range_expression
-                    , open_start_range_expression ::
-                          Nopen_start_range_expression
-                    , postfix_expression :: Npostfix_expression
-                    , prefix_expression :: Nprefix_expression
-                    , range_expression :: Nrange_expression
-                    , raw_string_literal :: Nraw_string_literal
-                    , real_literal :: Nreal_literal
-                    , selector_expression :: Nselector_expression
-                    , self_expression :: Nself_expression
-                    , simple_identifier :: Nsimple_identifier
-                    , super_expression :: Nsuper_expression
-                    , ternary_expression :: Nternary_expression
-                    , try_expression :: Ntry_expression
-                    , tuple_expression :: Ntuple_expression
-                    , where_keyword :: Nwhere_keyword
+                    ( additive_expression :: AdditiveExpression
+                    , array_literal :: ArrayLiteral
+                    , as_expression :: AsExpression
+                    , assignment :: Assignment
+                    , await_expression :: AwaitExpression
+                    , bang :: Bang
+                    , bin_literal :: BinLiteral
+                    , bitwise_operation :: BitwiseOperation
+                    , boolean_literal :: BooleanLiteral
+                    , call_expression :: CallExpression
+                    , check_expression :: CheckExpression
+                    , comparison_expression :: ComparisonExpression
+                    , conjunction_expression :: ConjunctionExpression
+                    , constructor_expression :: ConstructorExpression
+                    , custom_operator :: CustomOperator
+                    , dictionary_literal :: DictionaryLiteral
+                    , disjunction_expression :: DisjunctionExpression
+                    , equality_expression :: EqualityExpression
+                    , fully_open_range :: FullyOpenRange
+                    , hex_literal :: HexLiteral
+                    , infix_expression :: InfixExpression
+                    , integer_literal :: IntegerLiteral
+                    , key_path_expression :: KeyPathExpression
+                    , key_path_string_expression :: KeyPathStringExpression
+                    , lambda_literal :: LambdaLiteral
+                    , line_string_literal :: LineStringLiteral
+                    , multi_line_string_literal :: MultiLineStringLiteral
+                    , multiplicative_expression :: MultiplicativeExpression
+                    , navigation_expression :: NavigationExpression
+                    , nil_coalescing_expression :: NilCoalescingExpression
+                    , oct_literal :: OctLiteral
+                    , open_end_range_expression :: OpenEndRangeExpression
+                    , open_start_range_expression :: OpenStartRangeExpression
+                    , postfix_expression :: PostfixExpression
+                    , prefix_expression :: PrefixExpression
+                    , range_expression :: RangeExpression
+                    , raw_string_literal :: RawStringLiteral
+                    , real_literal :: RealLiteral
+                    , selector_expression :: SelectorExpression
+                    , self_expression :: SelfExpression
+                    , simple_identifier :: SimpleIdentifier
+                    , super_expression :: SuperExpression
+                    , ternary_expression :: TernaryExpression
+                    , try_expression :: TryExpression
+                    , tuple_expression :: TupleExpression
+                    , where_keyword :: WhereKeyword
                     )
               )
     , fields :: {}
     }
 
-newtype Nwhile_statement = Nwhile_statement
-    { child :: Maybe (Variant (statements :: Nstatements))
+newtype WhileStatement = WhileStatement
+    { child :: Maybe (Variant (statements :: Statements))
     , fields ::
           { condition ::
                 Array
                     ( Variant
-                          ( additive_expression :: Nadditive_expression
-                          , array_literal :: Narray_literal
-                          , as_expression :: Nas_expression
-                          , assignment :: Nassignment
-                          , availability_condition :: Navailability_condition
-                          , await_expression :: Nawait_expression
-                          , bang :: Nbang
-                          , bin_literal :: Nbin_literal
-                          , binding_pattern :: Nbinding_pattern
-                          , bitwise_operation :: Nbitwise_operation
-                          , boolean_literal :: Nboolean_literal
-                          , call_expression :: Ncall_expression
-                          , check_expression :: Ncheck_expression
-                          , comparison_expression :: Ncomparison_expression
-                          , conjunction_expression :: Nconjunction_expression
-                          , constructor_expression :: Nconstructor_expression
-                          , custom_operator :: Ncustom_operator
-                          , dictionary_literal :: Ndictionary_literal
-                          , disjunction_expression :: Ndisjunction_expression
-                          , equality_expression :: Nequality_expression
-                          , fully_open_range :: Nfully_open_range
-                          , hex_literal :: Nhex_literal
-                          , infix_expression :: Ninfix_expression
-                          , integer_literal :: Ninteger_literal
-                          , key_path_expression :: Nkey_path_expression
+                          ( additive_expression :: AdditiveExpression
+                          , array_literal :: ArrayLiteral
+                          , as_expression :: AsExpression
+                          , assignment :: Assignment
+                          , availability_condition :: AvailabilityCondition
+                          , await_expression :: AwaitExpression
+                          , bang :: Bang
+                          , bin_literal :: BinLiteral
+                          , binding_pattern :: BindingPattern
+                          , bitwise_operation :: BitwiseOperation
+                          , boolean_literal :: BooleanLiteral
+                          , call_expression :: CallExpression
+                          , check_expression :: CheckExpression
+                          , comparison_expression :: ComparisonExpression
+                          , conjunction_expression :: ConjunctionExpression
+                          , constructor_expression :: ConstructorExpression
+                          , custom_operator :: CustomOperator
+                          , dictionary_literal :: DictionaryLiteral
+                          , disjunction_expression :: DisjunctionExpression
+                          , equality_expression :: EqualityExpression
+                          , fully_open_range :: FullyOpenRange
+                          , hex_literal :: HexLiteral
+                          , infix_expression :: InfixExpression
+                          , integer_literal :: IntegerLiteral
+                          , key_path_expression :: KeyPathExpression
                           , key_path_string_expression ::
-                                Nkey_path_string_expression
-                          , lambda_literal :: Nlambda_literal
-                          , line_string_literal :: Nline_string_literal
-                          , multi_line_string_literal ::
-                                Nmulti_line_string_literal
+                                KeyPathStringExpression
+                          , lambda_literal :: LambdaLiteral
+                          , line_string_literal :: LineStringLiteral
+                          , multi_line_string_literal :: MultiLineStringLiteral
                           , multiplicative_expression ::
-                                Nmultiplicative_expression
-                          , navigation_expression :: Nnavigation_expression
-                          , nil_coalescing_expression ::
-                                Nnil_coalescing_expression
-                          , oct_literal :: Noct_literal
-                          , open_end_range_expression ::
-                                Nopen_end_range_expression
+                                MultiplicativeExpression
+                          , navigation_expression :: NavigationExpression
+                          , nil_coalescing_expression :: NilCoalescingExpression
+                          , oct_literal :: OctLiteral
+                          , open_end_range_expression :: OpenEndRangeExpression
                           , open_start_range_expression ::
-                                Nopen_start_range_expression
-                          , postfix_expression :: Npostfix_expression
-                          , prefix_expression :: Nprefix_expression
-                          , range_expression :: Nrange_expression
-                          , raw_string_literal :: Nraw_string_literal
-                          , real_literal :: Nreal_literal
-                          , selector_expression :: Nselector_expression
-                          , self_expression :: Nself_expression
-                          , simple_identifier :: Nsimple_identifier
-                          , super_expression :: Nsuper_expression
-                          , ternary_expression :: Nternary_expression
-                          , try_expression :: Ntry_expression
-                          , tuple_expression :: Ntuple_expression
-                          , type_annotation :: Ntype_annotation
-                          , value_binding_pattern :: Nvalue_binding_pattern
+                                OpenStartRangeExpression
+                          , postfix_expression :: PostfixExpression
+                          , prefix_expression :: PrefixExpression
+                          , range_expression :: RangeExpression
+                          , raw_string_literal :: RawStringLiteral
+                          , real_literal :: RealLiteral
+                          , selector_expression :: SelectorExpression
+                          , self_expression :: SelfExpression
+                          , simple_identifier :: SimpleIdentifier
+                          , super_expression :: SuperExpression
+                          , ternary_expression :: TernaryExpression
+                          , try_expression :: TryExpression
+                          , tuple_expression :: TupleExpression
+                          , type_annotation :: TypeAnnotation
+                          , value_binding_pattern :: ValueBindingPattern
                           )
                     )
           }
     }
 
-newtype Nbang = Nbang {}
-newtype Nbin_literal = Nbin_literal {}
-newtype Ncatch_keyword = Ncatch_keyword {}
-newtype Ncomment = Ncomment {}
-newtype Ndefault_keyword = Ndefault_keyword {}
-newtype Ndiagnostic = Ndiagnostic {}
-newtype Ndirective = Ndirective {}
-newtype Nelse = Nelse {}
-newtype Nhex_literal = Nhex_literal {}
-newtype Ninteger_literal = Ninteger_literal {}
-newtype Nmultiline_comment = Nmultiline_comment {}
-newtype Noct_literal = Noct_literal {}
-newtype Nproperty_behavior_modifier = Nproperty_behavior_modifier {}
-newtype Nraw_str_continuing_indicator = Nraw_str_continuing_indicator {}
-newtype Nraw_str_end_part = Nraw_str_end_part {}
-newtype Nraw_str_interpolation_start = Nraw_str_interpolation_start {}
-newtype Nraw_str_part = Nraw_str_part {}
-newtype Nreal_literal = Nreal_literal {}
-newtype Nstatement_label = Nstatement_label {}
-newtype Nthrow_keyword = Nthrow_keyword {}
-newtype Nwhere_keyword = Nwhere_keyword {}
-newtype Nwildcard_pattern = Nwildcard_pattern {}
+newtype Bang = Bang {}
+newtype BinLiteral = BinLiteral {}
+newtype CatchKeyword = CatchKeyword {}
+newtype Comment = Comment {}
+newtype DefaultKeyword = DefaultKeyword {}
+newtype Diagnostic = Diagnostic {}
+newtype Directive = Directive {}
+newtype Else = Else {}
+newtype HexLiteral = HexLiteral {}
+newtype IntegerLiteral = IntegerLiteral {}
+newtype MultilineComment = MultilineComment {}
+newtype OctLiteral = OctLiteral {}
+newtype PropertyBehaviorModifier = PropertyBehaviorModifier {}
+newtype RawStrContinuingIndicator = RawStrContinuingIndicator {}
+newtype RawStrEndPart = RawStrEndPart {}
+newtype RawStrInterpolationStart = RawStrInterpolationStart {}
+newtype RawStrPart = RawStrPart {}
+newtype RealLiteral = RealLiteral {}
+newtype StatementLabel = StatementLabel {}
+newtype ThrowKeyword = ThrowKeyword {}
+newtype WhereKeyword = WhereKeyword {}
+newtype WildcardPattern = WildcardPattern {}

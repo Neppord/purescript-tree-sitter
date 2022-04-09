@@ -5,6 +5,7 @@ import Prelude
 import Control.Monad.Writer (tell)
 import Data.Array as Array
 import Data.Maybe (Maybe(..))
+import Data.String as String
 import Data.Tuple (Tuple(..))
 import Data.Unfoldable (fromMaybe)
 import Foreign.Object (Object)
@@ -16,8 +17,14 @@ import Tidy.Codegen (declNewtype, typeApp, typeCtor, typeRecord, typeRow)
 import Tidy.Codegen.Monad (codegenModule, importOpen)
 import TreeSitter.Codegen.NodeTypes (ChildType, NodeType)
 
+capitalize :: String -> String
+capitalize word =
+    String.toUpper (String.take 1 word) <> String.drop 1 word
+
 toProper :: String -> String
-toProper = ("N" <> _)
+toProper name = String.split (String.Pattern "_") name
+    # map capitalize
+    # String.joinWith ""
 
 renderVariantFields
     :: Partial => Object ChildType -> Tuple String (CST.Type Void)

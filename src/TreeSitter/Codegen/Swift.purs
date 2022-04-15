@@ -1,14 +1,16 @@
 module TreeSitteer.Codegen.Swift where
 
+import Prelude
 import Data.Array
+import Data.Functor.Variant
 import Data.Maybe
-import Data.Variant
 
-newtype AdditiveExpression = AdditiveExpression
-    { fields ::
+newtype AdditiveExpression a = AdditiveExpression
+    { value :: a
+    , fields ::
           { lhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -58,11 +60,12 @@ newtype AdditiveExpression = AdditiveExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
-          , op :: Variant ()
+          , op :: VariantF () a
           , rhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -112,15 +115,18 @@ newtype AdditiveExpression = AdditiveExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype ArrayLiteral = ArrayLiteral
-    { fields ::
+derive instance Functor AdditiveExpression
+newtype ArrayLiteral a = ArrayLiteral
+    { value :: a
+    , fields ::
           { element ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -170,15 +176,18 @@ newtype ArrayLiteral = ArrayLiteral
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype ArrayType = ArrayType
-    { fields ::
+derive instance Functor ArrayLiteral
+newtype ArrayType a = ArrayType
+    { value :: a
+    , fields ::
           { element ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -190,9 +199,10 @@ newtype ArrayType = ArrayType
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           , name ::
-                Variant
+                VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , function_type :: FunctionType
@@ -203,15 +213,18 @@ newtype ArrayType = ArrayType
                     , tuple_type :: TupleType
                     , user_type :: UserType
                     )
+                    a
           }
     }
 
-newtype AsExpression = AsExpression
-    { child :: Variant (as_operator :: AsOperator)
+derive instance Functor ArrayType
+newtype AsExpression a = AsExpression
+    { value :: a
+    , child :: VariantF (as_operator :: AsOperator) a
     , fields ::
           { expr ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -261,9 +274,10 @@ newtype AsExpression = AsExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , name ::
-                Variant
+                VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , function_type :: FunctionType
@@ -274,9 +288,10 @@ newtype AsExpression = AsExpression
                     , tuple_type :: TupleType
                     , user_type :: UserType
                     )
+                    a
           , type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -288,17 +303,22 @@ newtype AsExpression = AsExpression
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype AsOperator = AsOperator { fields :: {} }
-newtype Assignment = Assignment
-    { fields ::
-          { operator :: Variant ()
+derive instance Functor AsExpression
+newtype AsOperator a = AsOperator { value :: a, fields :: {} }
+
+derive instance Functor AsOperator
+newtype Assignment a = Assignment
+    { value :: a
+    , fields ::
+          { operator :: VariantF () a
           , result ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -348,27 +368,32 @@ newtype Assignment = Assignment
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , target ::
-                Variant
+                VariantF
                     ( directly_assignable_expression ::
                           DirectlyAssignableExpression
                     )
+                    a
           }
     }
 
-newtype AssociatedtypeDeclaration = AssociatedtypeDeclaration
-    { children ::
+derive instance Functor Assignment
+newtype AssociatedtypeDeclaration a = AssociatedtypeDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( modifiers :: Modifiers
                     , type_constraints :: TypeConstraints
                     )
+                    a
               )
     , fields ::
           { default_value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -380,10 +405,11 @@ newtype AssociatedtypeDeclaration = AssociatedtypeDeclaration
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           , must_inherit ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -395,10 +421,11 @@ newtype AssociatedtypeDeclaration = AssociatedtypeDeclaration
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           , name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -410,15 +437,20 @@ newtype AssociatedtypeDeclaration = AssociatedtypeDeclaration
                           , type_identifier :: TypeIdentifier
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype Async = Async { fields :: {} }
-newtype Attribute = Attribute
-    { children ::
+derive instance Functor AssociatedtypeDeclaration
+newtype Async a = Async { value :: a, fields :: {} }
+
+derive instance Functor Async
+newtype Attribute a = Attribute
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -466,26 +498,32 @@ newtype Attribute = Attribute
                     , tuple_expression :: TupleExpression
                     , user_type :: UserType
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype AvailabilityCondition = AvailabilityCondition
-    { children ::
+derive instance Functor Attribute
+newtype AvailabilityCondition a = AvailabilityCondition
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( identifier :: Identifier
                     , integer_literal :: IntegerLiteral
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype AwaitExpression = AwaitExpression
-    { fields ::
+derive instance Functor AvailabilityCondition
+newtype AwaitExpression a = AwaitExpression
+    { value :: a
+    , fields ::
           { expr ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -535,14 +573,17 @@ newtype AwaitExpression = AwaitExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype BindingPattern = BindingPattern
-    { children ::
+derive instance Functor AwaitExpression
+newtype BindingPattern a = BindingPattern
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -594,11 +635,12 @@ newtype BindingPattern = BindingPattern
                     , user_type :: UserType
                     , wildcard_pattern :: WildcardPattern
                     )
+                    a
               )
     , fields ::
           { name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -609,15 +651,18 @@ newtype BindingPattern = BindingPattern
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype BitwiseOperation = BitwiseOperation
-    { fields ::
+derive instance Functor BindingPattern
+newtype BitwiseOperation a = BitwiseOperation
+    { value :: a
+    , fields ::
           { lhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -667,11 +712,12 @@ newtype BitwiseOperation = BitwiseOperation
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
-          , op :: Variant ()
+          , op :: VariantF () a
           , rhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -721,15 +767,20 @@ newtype BitwiseOperation = BitwiseOperation
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype BooleanLiteral = BooleanLiteral { fields :: {} }
-newtype CallExpression = CallExpression
-    { children ::
+derive instance Functor BitwiseOperation
+newtype BooleanLiteral a = BooleanLiteral { value :: a, fields :: {} }
+
+derive instance Functor BooleanLiteral
+newtype CallExpression a = CallExpression
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -777,44 +828,54 @@ newtype CallExpression = CallExpression
                     , try_expression :: TryExpression
                     , tuple_expression :: TupleExpression
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype CallSuffix = CallSuffix
-    { children ::
+derive instance Functor CallExpression
+newtype CallSuffix a = CallSuffix
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( lambda_literal :: LambdaLiteral
                     , value_arguments :: ValueArguments
                     )
+                    a
               )
     , fields ::
-          { name :: Array (Variant (simple_identifier :: SimpleIdentifier)) }
+          { name :: Array (VariantF (simple_identifier :: SimpleIdentifier) a) }
     }
 
-newtype CaptureList = CaptureList
-    { children ::
+derive instance Functor CallSuffix
+newtype CaptureList a = CaptureList
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , capture_list_item :: CaptureListItem
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype CaptureListItem = CaptureListItem
-    { child :: Maybe (Variant (ownership_modifier :: OwnershipModifier))
+derive instance Functor CaptureList
+newtype CaptureListItem a = CaptureListItem
+    { value :: a
+    , child :: Maybe (VariantF (ownership_modifier :: OwnershipModifier) a)
     , fields ::
           { name ::
-                Variant
+                VariantF
                     ( self_expression :: SelfExpression
                     , simple_identifier :: SimpleIdentifier
                     )
+                    a
           , value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -864,26 +925,33 @@ newtype CaptureListItem = CaptureListItem
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype CatchBlock = CatchBlock
-    { children ::
+derive instance Functor CaptureListItem
+newtype CatchBlock a = CatchBlock
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( catch_keyword :: CatchKeyword
                     , statements :: Statements
                     , where_clause :: WhereClause
                     )
+                    a
               )
-    , fields :: { error :: Maybe (Variant (binding_pattern :: BindingPattern)) }
+    , fields ::
+          { error :: Maybe (VariantF (binding_pattern :: BindingPattern) a) }
     }
 
-newtype CheckExpression = CheckExpression
-    { fields ::
+derive instance Functor CatchBlock
+newtype CheckExpression a = CheckExpression
+    { value :: a
+    , fields ::
           { name ::
-                Variant
+                VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , function_type :: FunctionType
@@ -894,10 +962,11 @@ newtype CheckExpression = CheckExpression
                     , tuple_type :: TupleType
                     , user_type :: UserType
                     )
-          , op :: Variant ()
+                    a
+          , op :: VariantF () a
           , target ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -947,10 +1016,11 @@ newtype CheckExpression = CheckExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -962,14 +1032,17 @@ newtype CheckExpression = CheckExpression
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype ClassBody = ClassBody
-    { children ::
+derive instance Functor CheckExpression
+newtype ClassBody a = ClassBody
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( associatedtype_declaration :: AssociatedtypeDeclaration
                     , class_declaration :: ClassDeclaration
                     , deinit_declaration :: DeinitDeclaration
@@ -983,14 +1056,17 @@ newtype ClassBody = ClassBody
                     , subscript_declaration :: SubscriptDeclaration
                     , typealias_declaration :: TypealiasDeclaration
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype ClassDeclaration = ClassDeclaration
-    { children ::
+derive instance Functor ClassBody
+newtype ClassDeclaration a = ClassDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , inheritance_modifier :: InheritanceModifier
                     , inheritance_specifier :: InheritanceSpecifier
@@ -1000,23 +1076,28 @@ newtype ClassDeclaration = ClassDeclaration
                     , type_constraints :: TypeConstraints
                     , type_parameters :: TypeParameters
                     )
+                    a
               )
     , fields ::
           { body ::
-                Variant
+                VariantF
                     (class_body :: ClassBody, enum_class_body :: EnumClassBody)
-          , declaration_kind :: Variant ()
+                    a
+          , declaration_kind :: VariantF () a
           , name ::
-                Variant
+                VariantF
                     (type_identifier :: TypeIdentifier, user_type :: UserType)
+                    a
           }
     }
 
-newtype ComparisonExpression = ComparisonExpression
-    { fields ::
+derive instance Functor ClassDeclaration
+newtype ComparisonExpression a = ComparisonExpression
+    { value :: a
+    , fields ::
           { lhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1066,11 +1147,12 @@ newtype ComparisonExpression = ComparisonExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
-          , op :: Variant ()
+          , op :: VariantF () a
           , rhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1120,65 +1202,80 @@ newtype ComparisonExpression = ComparisonExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype ComputedGetter = ComputedGetter
-    { children ::
+derive instance Functor ComparisonExpression
+newtype ComputedGetter a = ComputedGetter
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , getter_specifier :: GetterSpecifier
                     , statements :: Statements
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype ComputedModify = ComputedModify
-    { children ::
+derive instance Functor ComputedGetter
+newtype ComputedModify a = ComputedModify
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , modify_specifier :: ModifySpecifier
                     , statements :: Statements
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype ComputedProperty = ComputedProperty
-    { children ::
+derive instance Functor ComputedModify
+newtype ComputedProperty a = ComputedProperty
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( computed_getter :: ComputedGetter
                     , computed_modify :: ComputedModify
                     , computed_setter :: ComputedSetter
                     , statements :: Statements
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype ComputedSetter = ComputedSetter
-    { children ::
+derive instance Functor ComputedProperty
+newtype ComputedSetter a = ComputedSetter
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , setter_specifier :: SetterSpecifier
                     , simple_identifier :: SimpleIdentifier
                     , statements :: Statements
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype ConjunctionExpression = ConjunctionExpression
-    { fields ::
+derive instance Functor ComputedSetter
+newtype ConjunctionExpression a = ConjunctionExpression
+    { value :: a
+    , fields ::
           { lhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1228,11 +1325,12 @@ newtype ConjunctionExpression = ConjunctionExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
-          , op :: Variant ()
+          , op :: VariantF () a
           , rhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1282,35 +1380,44 @@ newtype ConjunctionExpression = ConjunctionExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype ConstructorExpression = ConstructorExpression
-    { child :: Variant (constructor_suffix :: ConstructorSuffix)
+derive instance Functor ConjunctionExpression
+newtype ConstructorExpression a = ConstructorExpression
+    { value :: a
+    , child :: VariantF (constructor_suffix :: ConstructorSuffix) a
     , fields ::
           { constructed_type ::
-                Variant
+                VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , user_type :: UserType
                     )
+                    a
           }
     }
 
-newtype ConstructorSuffix = ConstructorSuffix
-    { child ::
-          Variant
+derive instance Functor ConstructorExpression
+newtype ConstructorSuffix a = ConstructorSuffix
+    { value :: a
+    , child ::
+          VariantF
               ( lambda_literal :: LambdaLiteral
               , value_arguments :: ValueArguments
               )
+              a
     , fields :: {}
     }
 
-newtype ControlTransferStatement = ControlTransferStatement
-    { children ::
+derive instance Functor ConstructorSuffix
+newtype ControlTransferStatement a = ControlTransferStatement
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -1358,11 +1465,12 @@ newtype ControlTransferStatement = ControlTransferStatement
                     , try_expression :: TryExpression
                     , tuple_expression :: TupleExpression
                     )
+                    a
               )
     , fields ::
           { result ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1412,21 +1520,28 @@ newtype ControlTransferStatement = ControlTransferStatement
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype CustomOperator = CustomOperator { fields :: {} }
-newtype DeinitDeclaration = DeinitDeclaration
-    { child :: Maybe (Variant (modifiers :: Modifiers))
-    , fields :: { body :: Variant (function_body :: FunctionBody) }
+derive instance Functor ControlTransferStatement
+newtype CustomOperator a = CustomOperator { value :: a, fields :: {} }
+
+derive instance Functor CustomOperator
+newtype DeinitDeclaration a = DeinitDeclaration
+    { value :: a
+    , child :: Maybe (VariantF (modifiers :: Modifiers) a)
+    , fields :: { body :: VariantF (function_body :: FunctionBody) a }
     }
 
-newtype DictionaryLiteral = DictionaryLiteral
-    { fields ::
+derive instance Functor DeinitDeclaration
+newtype DictionaryLiteral a = DictionaryLiteral
+    { value :: a
+    , fields ::
           { key ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1476,10 +1591,11 @@ newtype DictionaryLiteral = DictionaryLiteral
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1529,15 +1645,18 @@ newtype DictionaryLiteral = DictionaryLiteral
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype DictionaryType = DictionaryType
-    { fields ::
+derive instance Functor DictionaryLiteral
+newtype DictionaryType a = DictionaryType
+    { value :: a
+    , fields ::
           { key ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -1549,10 +1668,11 @@ newtype DictionaryType = DictionaryType
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           , name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -1563,10 +1683,11 @@ newtype DictionaryType = DictionaryType
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           , value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -1578,27 +1699,33 @@ newtype DictionaryType = DictionaryType
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype DirectlyAssignableExpression = DirectlyAssignableExpression
-    { child ::
-          Variant
+derive instance Functor DictionaryType
+newtype DirectlyAssignableExpression a = DirectlyAssignableExpression
+    { value :: a
+    , child ::
+          VariantF
               ( call_expression :: CallExpression
               , navigation_expression :: NavigationExpression
               , self_expression :: SelfExpression
               , simple_identifier :: SimpleIdentifier
               , tuple_expression :: TupleExpression
               )
+              a
     , fields :: {}
     }
 
-newtype DisjunctionExpression = DisjunctionExpression
-    { fields ::
+derive instance Functor DirectlyAssignableExpression
+newtype DisjunctionExpression a = DisjunctionExpression
+    { value :: a
+    , fields ::
           { lhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1648,11 +1775,12 @@ newtype DisjunctionExpression = DisjunctionExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
-          , op :: Variant ()
+          , op :: VariantF () a
           , rhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1702,20 +1830,26 @@ newtype DisjunctionExpression = DisjunctionExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype DoStatement = DoStatement
-    { children ::
-          Array (Variant (catch_block :: CatchBlock, statements :: Statements))
+derive instance Functor DisjunctionExpression
+newtype DoStatement a = DoStatement
+    { value :: a
+    , children ::
+          Array
+              (VariantF (catch_block :: CatchBlock, statements :: Statements) a)
     , fields :: {}
     }
 
-newtype EnumClassBody = EnumClassBody
-    { children ::
+derive instance Functor DoStatement
+newtype EnumClassBody a = EnumClassBody
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( associatedtype_declaration :: AssociatedtypeDeclaration
                     , class_declaration :: ClassDeclaration
                     , deinit_declaration :: DeinitDeclaration
@@ -1729,19 +1863,22 @@ newtype EnumClassBody = EnumClassBody
                     , subscript_declaration :: SubscriptDeclaration
                     , typealias_declaration :: TypealiasDeclaration
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype EnumEntry = EnumEntry
-    { child :: Maybe (Variant (modifiers :: Modifiers))
+derive instance Functor EnumClassBody
+newtype EnumEntry a = EnumEntry
+    { value :: a
+    , child :: Maybe (VariantF (modifiers :: Modifiers) a)
     , fields ::
           { data_contents ::
-                Array (Variant (enum_type_parameters :: EnumTypeParameters))
-          , name :: Array (Variant (simple_identifier :: SimpleIdentifier))
+                Array (VariantF (enum_type_parameters :: EnumTypeParameters) a)
+          , name :: Array (VariantF (simple_identifier :: SimpleIdentifier) a)
           , raw_value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1791,14 +1928,17 @@ newtype EnumEntry = EnumEntry
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype EnumTypeParameters = EnumTypeParameters
-    { children ::
+derive instance Functor EnumEntry
+newtype EnumTypeParameters a = EnumTypeParameters
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -1847,11 +1987,12 @@ newtype EnumTypeParameters = EnumTypeParameters
                     , type_modifiers :: TypeModifiers
                     , wildcard_pattern :: WildcardPattern
                     )
+                    a
               )
     , fields ::
           { name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -1862,17 +2003,20 @@ newtype EnumTypeParameters = EnumTypeParameters
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype EqualityConstraint = EqualityConstraint
-    { children :: Array (Variant (attribute :: Attribute))
+derive instance Functor EnumTypeParameters
+newtype EqualityConstraint a = EqualityConstraint
+    { value :: a
+    , children :: Array (VariantF (attribute :: Attribute) a)
     , fields ::
-          { constrained_type :: Variant (identifier :: Identifier)
+          { constrained_type :: VariantF (identifier :: Identifier) a
           , must_equal ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -1884,9 +2028,10 @@ newtype EqualityConstraint = EqualityConstraint
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           , name ::
-                Variant
+                VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , function_type :: FunctionType
@@ -1897,14 +2042,17 @@ newtype EqualityConstraint = EqualityConstraint
                     , tuple_type :: TupleType
                     , user_type :: UserType
                     )
+                    a
           }
     }
 
-newtype EqualityExpression = EqualityExpression
-    { fields ::
+derive instance Functor EqualityConstraint
+newtype EqualityExpression a = EqualityExpression
+    { value :: a
+    , fields ::
           { lhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -1954,11 +2102,12 @@ newtype EqualityExpression = EqualityExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
-          , op :: Variant ()
+          , op :: VariantF () a
           , rhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -2008,23 +2157,27 @@ newtype EqualityExpression = EqualityExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype ForStatement = ForStatement
-    { children ::
+derive instance Functor EqualityExpression
+newtype ForStatement a = ForStatement
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( statements :: Statements
                     , type_annotation :: TypeAnnotation
                     , where_clause :: WhereClause
                     )
+                    a
               )
     , fields ::
           { collection ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -2074,10 +2227,11 @@ newtype ForStatement = ForStatement
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , item ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , array_type :: ArrayType
@@ -2140,10 +2294,11 @@ newtype ForStatement = ForStatement
                           , user_type :: UserType
                           , wildcard_pattern :: WildcardPattern
                           )
+                          a
                     )
           , name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -2154,18 +2309,27 @@ newtype ForStatement = ForStatement
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype FullyOpenRange = FullyOpenRange { fields :: {} }
-newtype FunctionBody = FunctionBody
-    { child :: Maybe (Variant (statements :: Statements)), fields :: {} }
+derive instance Functor ForStatement
+newtype FullyOpenRange a = FullyOpenRange { value :: a, fields :: {} }
 
-newtype FunctionDeclaration = FunctionDeclaration
-    { children ::
+derive instance Functor FullyOpenRange
+newtype FunctionBody a = FunctionBody
+    { value :: a
+    , child :: Maybe (VariantF (statements :: Statements) a)
+    , fields :: {}
+    }
+
+derive instance Functor FunctionBody
+newtype FunctionDeclaration a = FunctionDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( async :: Async
                     , attribute :: Attribute
                     , bang :: Bang
@@ -2178,12 +2342,13 @@ newtype FunctionDeclaration = FunctionDeclaration
                     , type_constraints :: TypeConstraints
                     , type_parameters :: TypeParameters
                     )
+                    a
               )
     , fields ::
-          { body :: Variant (function_body :: FunctionBody)
+          { body :: VariantF (function_body :: FunctionBody) a
           , default_value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -2233,10 +2398,11 @@ newtype FunctionDeclaration = FunctionDeclaration
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , bang :: Bang
                           , custom_operator :: CustomOperator
@@ -2250,10 +2416,11 @@ newtype FunctionDeclaration = FunctionDeclaration
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           , return_type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -2265,16 +2432,21 @@ newtype FunctionDeclaration = FunctionDeclaration
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype FunctionModifier = FunctionModifier { fields :: {} }
-newtype FunctionType = FunctionType
-    { children :: Array (Variant (async :: Async, throws :: Throws))
+derive instance Functor FunctionDeclaration
+newtype FunctionModifier a = FunctionModifier { value :: a, fields :: {} }
+
+derive instance Functor FunctionModifier
+newtype FunctionType a = FunctionType
+    { value :: a
+    , children :: Array (VariantF (async :: Async, throws :: Throws) a)
     , fields ::
           { name ::
-                Variant
+                VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , function_type :: FunctionType
@@ -2285,10 +2457,11 @@ newtype FunctionType = FunctionType
                     , tuple_type :: TupleType
                     , user_type :: UserType
                     )
-          , params :: Variant (tuple_type :: TupleType)
+                    a
+          , params :: VariantF (tuple_type :: TupleType) a
           , return_type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -2300,28 +2473,34 @@ newtype FunctionType = FunctionType
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype GetterSpecifier = GetterSpecifier
-    { children ::
+derive instance Functor FunctionType
+newtype GetterSpecifier a = GetterSpecifier
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( async :: Async
                     , mutation_modifier :: MutationModifier
                     , throws :: Throws
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype GuardStatement = GuardStatement
-    { children :: Array (Variant (else :: Else, statements :: Statements))
+derive instance Functor GetterSpecifier
+newtype GuardStatement a = GuardStatement
+    { value :: a
+    , children :: Array (VariantF (else :: Else, statements :: Statements) a)
     , fields ::
           { condition ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -2375,28 +2554,34 @@ newtype GuardStatement = GuardStatement
                           , type_annotation :: TypeAnnotation
                           , value_binding_pattern :: ValueBindingPattern
                           )
+                          a
                     )
           }
     }
 
-newtype Identifier = Identifier
-    { children :: Array (Variant (simple_identifier :: SimpleIdentifier))
+derive instance Functor GuardStatement
+newtype Identifier a = Identifier
+    { value :: a
+    , children :: Array (VariantF (simple_identifier :: SimpleIdentifier) a)
     , fields :: {}
     }
 
-newtype IfStatement = IfStatement
-    { children ::
+derive instance Functor Identifier
+newtype IfStatement a = IfStatement
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( else :: Else
                     , if_statement :: IfStatement
                     , statements :: Statements
                     )
+                    a
               )
     , fields ::
           { condition ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -2450,21 +2635,26 @@ newtype IfStatement = IfStatement
                           , type_annotation :: TypeAnnotation
                           , value_binding_pattern :: ValueBindingPattern
                           )
+                          a
                     )
           }
     }
 
-newtype ImportDeclaration = ImportDeclaration
-    { children ::
-          Array (Variant (identifier :: Identifier, modifiers :: Modifiers))
+derive instance Functor IfStatement
+newtype ImportDeclaration a = ImportDeclaration
+    { value :: a
+    , children ::
+          Array (VariantF (identifier :: Identifier, modifiers :: Modifiers) a)
     , fields :: {}
     }
 
-newtype InfixExpression = InfixExpression
-    { fields ::
+derive instance Functor ImportDeclaration
+newtype InfixExpression a = InfixExpression
+    { value :: a
+    , fields ::
           { lhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -2514,11 +2704,12 @@ newtype InfixExpression = InfixExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
-          , op :: Variant (custom_operator :: CustomOperator)
+          , op :: VariantF (custom_operator :: CustomOperator) a
           , rhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -2568,17 +2759,20 @@ newtype InfixExpression = InfixExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype InheritanceConstraint = InheritanceConstraint
-    { children :: Array (Variant (attribute :: Attribute))
+derive instance Functor InfixExpression
+newtype InheritanceConstraint a = InheritanceConstraint
+    { value :: a
+    , children :: Array (VariantF (attribute :: Attribute) a)
     , fields ::
-          { constrained_type :: Variant (identifier :: Identifier)
+          { constrained_type :: VariantF (identifier :: Identifier) a
           , inherits_from ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -2590,9 +2784,10 @@ newtype InheritanceConstraint = InheritanceConstraint
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           , name ::
-                Variant
+                VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , function_type :: FunctionType
@@ -2603,26 +2798,34 @@ newtype InheritanceConstraint = InheritanceConstraint
                     , tuple_type :: TupleType
                     , user_type :: UserType
                     )
+                    a
           }
     }
 
-newtype InheritanceModifier = InheritanceModifier { fields :: {} }
-newtype InheritanceSpecifier = InheritanceSpecifier
-    { fields ::
-          { inherits_from ::
-                Variant (function_type :: FunctionType, user_type :: UserType)
-          }
-    }
+derive instance Functor InheritanceConstraint
+newtype InheritanceModifier a = InheritanceModifier { value :: a, fields :: {} }
 
-newtype InterpolatedExpression = InterpolatedExpression
-    { child :: Maybe (Variant (type_modifiers :: TypeModifiers))
+derive instance Functor InheritanceModifier
+newtype InheritanceSpecifier a = InheritanceSpecifier
+    { value :: a
     , fields ::
-          { name :: Maybe (Variant (simple_identifier :: SimpleIdentifier))
+          { inherits_from ::
+                VariantF (function_type :: FunctionType, user_type :: UserType)
+                    a
+          }
+    }
+
+derive instance Functor InheritanceSpecifier
+newtype InterpolatedExpression a = InterpolatedExpression
+    { value :: a
+    , child :: Maybe (VariantF (type_modifiers :: TypeModifiers) a)
+    , fields ::
+          { name :: Maybe (VariantF (simple_identifier :: SimpleIdentifier) a)
           , reference_specifier ::
-                Array (Variant (simple_identifier :: SimpleIdentifier))
+                Array (VariantF (simple_identifier :: SimpleIdentifier) a)
           , value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -2672,14 +2875,17 @@ newtype InterpolatedExpression = InterpolatedExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype KeyPathExpression = KeyPathExpression
-    { children ::
+derive instance Functor InterpolatedExpression
+newtype KeyPathExpression a = KeyPathExpression
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( array_type :: ArrayType
                     , bang :: Bang
                     , dictionary_type :: DictionaryType
@@ -2688,14 +2894,17 @@ newtype KeyPathExpression = KeyPathExpression
                     , type_identifier :: TypeIdentifier
                     , value_argument :: ValueArgument
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype KeyPathStringExpression = KeyPathStringExpression
-    { children ::
+derive instance Functor KeyPathExpression
+newtype KeyPathStringExpression a = KeyPathStringExpression
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -2742,24 +2951,28 @@ newtype KeyPathStringExpression = KeyPathStringExpression
                     , try_expression :: TryExpression
                     , tuple_expression :: TupleExpression
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype LambdaFunctionType = LambdaFunctionType
-    { children ::
+derive instance Functor KeyPathStringExpression
+newtype LambdaFunctionType a = LambdaFunctionType
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( async :: Async
                     , lambda_function_type_parameters ::
                           LambdaFunctionTypeParameters
                     , throws :: Throws
                     )
+                    a
               )
     , fields ::
           { name ::
                 Maybe
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -2770,10 +2983,11 @@ newtype LambdaFunctionType = LambdaFunctionType
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           , return_type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -2785,38 +2999,47 @@ newtype LambdaFunctionType = LambdaFunctionType
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype LambdaFunctionTypeParameters = LambdaFunctionTypeParameters
-    { children :: Array (Variant (lambda_parameter :: LambdaParameter))
+derive instance Functor LambdaFunctionType
+newtype LambdaFunctionTypeParameters a = LambdaFunctionTypeParameters
+    { value :: a
+    , children :: Array (VariantF (lambda_parameter :: LambdaParameter) a)
     , fields :: {}
     }
 
-newtype LambdaLiteral = LambdaLiteral
-    { child :: Maybe (Variant (statements :: Statements))
+derive instance Functor LambdaFunctionTypeParameters
+newtype LambdaLiteral a = LambdaLiteral
+    { value :: a
+    , child :: Maybe (VariantF (statements :: Statements) a)
     , fields ::
-          { captures :: Maybe (Variant (capture_list :: CaptureList))
-          , type :: Maybe (Variant (lambda_function_type :: LambdaFunctionType))
+          { captures :: Maybe (VariantF (capture_list :: CaptureList) a)
+          , type ::
+                Maybe (VariantF (lambda_function_type :: LambdaFunctionType) a)
           }
     }
 
-newtype LambdaParameter = LambdaParameter
-    { children ::
+derive instance Functor LambdaLiteral
+newtype LambdaParameter a = LambdaParameter
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , parameter_modifiers :: ParameterModifiers
                     , self_expression :: SelfExpression
                     )
+                    a
               )
     , fields ::
           { external_name ::
-                Maybe (Variant (simple_identifier :: SimpleIdentifier))
+                Maybe (VariantF (simple_identifier :: SimpleIdentifier) a)
           , name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -2828,10 +3051,11 @@ newtype LambdaParameter = LambdaParameter
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           , type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -2843,32 +3067,43 @@ newtype LambdaParameter = LambdaParameter
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype LineStrText = LineStrText { fields :: {} }
-newtype LineStringLiteral = LineStringLiteral
-    { fields ::
+derive instance Functor LambdaParameter
+newtype LineStrText a = LineStrText { value :: a, fields :: {} }
+
+derive instance Functor LineStrText
+newtype LineStringLiteral a = LineStringLiteral
+    { value :: a
+    , fields ::
           { interpolation ::
                 Array
-                    ( Variant
+                    ( VariantF
                           (interpolated_expression :: InterpolatedExpression)
+                          a
                     )
           , text ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( line_str_text :: LineStrText
                           , str_escaped_char :: StrEscapedChar
                           )
+                          a
                     )
           }
     }
 
-newtype MemberModifier = MemberModifier { fields :: {} }
-newtype Metatype = Metatype
-    { child ::
-          Variant
+derive instance Functor LineStringLiteral
+newtype MemberModifier a = MemberModifier { value :: a, fields :: {} }
+
+derive instance Functor MemberModifier
+newtype Metatype a = Metatype
+    { value :: a
+    , child ::
+          VariantF
               ( array_type :: ArrayType
               , dictionary_type :: DictionaryType
               , function_type :: FunctionType
@@ -2879,13 +3114,16 @@ newtype Metatype = Metatype
               , tuple_type :: TupleType
               , user_type :: UserType
               )
+              a
     , fields :: {}
     }
 
-newtype Modifiers = Modifiers
-    { children ::
+derive instance Functor Metatype
+newtype Modifiers a = Modifiers
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , function_modifier :: FunctionModifier
                     , inheritance_modifier :: InheritanceModifier
@@ -2897,38 +3135,49 @@ newtype Modifiers = Modifiers
                     , property_modifier :: PropertyModifier
                     , visibility_modifier :: VisibilityModifier
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype ModifySpecifier = ModifySpecifier
-    { child :: Maybe (Variant (mutation_modifier :: MutationModifier))
+derive instance Functor Modifiers
+newtype ModifySpecifier a = ModifySpecifier
+    { value :: a
+    , child :: Maybe (VariantF (mutation_modifier :: MutationModifier) a)
     , fields :: {}
     }
 
-newtype MultiLineStrText = MultiLineStrText { fields :: {} }
-newtype MultiLineStringLiteral = MultiLineStringLiteral
-    { fields ::
+derive instance Functor ModifySpecifier
+newtype MultiLineStrText a = MultiLineStrText { value :: a, fields :: {} }
+
+derive instance Functor MultiLineStrText
+newtype MultiLineStringLiteral a = MultiLineStringLiteral
+    { value :: a
+    , fields ::
           { interpolation ::
                 Array
-                    ( Variant
+                    ( VariantF
                           (interpolated_expression :: InterpolatedExpression)
+                          a
                     )
           , text ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( multi_line_str_text :: MultiLineStrText
                           , str_escaped_char :: StrEscapedChar
                           )
+                          a
                     )
           }
     }
 
-newtype MultiplicativeExpression = MultiplicativeExpression
-    { fields ::
+derive instance Functor MultiLineStringLiteral
+newtype MultiplicativeExpression a = MultiplicativeExpression
+    { value :: a
+    , fields ::
           { lhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -2978,11 +3227,12 @@ newtype MultiplicativeExpression = MultiplicativeExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
-          , op :: Variant ()
+          , op :: VariantF () a
           , rhs ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3032,17 +3282,22 @@ newtype MultiplicativeExpression = MultiplicativeExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype MutationModifier = MutationModifier { fields :: {} }
-newtype NavigationExpression = NavigationExpression
-    { fields ::
-          { suffix :: Variant (navigation_suffix :: NavigationSuffix)
+derive instance Functor MultiplicativeExpression
+newtype MutationModifier a = MutationModifier { value :: a, fields :: {} }
+
+derive instance Functor MutationModifier
+newtype NavigationExpression a = NavigationExpression
+    { value :: a
+    , fields ::
+          { suffix :: VariantF (navigation_suffix :: NavigationSuffix) a
           , target ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , array_type :: ArrayType
@@ -3095,25 +3350,31 @@ newtype NavigationExpression = NavigationExpression
                           , tuple_expression :: TupleExpression
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype NavigationSuffix = NavigationSuffix
-    { fields ::
+derive instance Functor NavigationExpression
+newtype NavigationSuffix a = NavigationSuffix
+    { value :: a
+    , fields ::
           { suffix ::
-                Variant
+                VariantF
                     ( integer_literal :: IntegerLiteral
                     , simple_identifier :: SimpleIdentifier
                     )
+                    a
           }
     }
 
-newtype NilCoalescingExpression = NilCoalescingExpression
-    { fields ::
+derive instance Functor NavigationSuffix
+newtype NilCoalescingExpression a = NilCoalescingExpression
+    { value :: a
+    , fields ::
           { if_nil ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3163,10 +3424,11 @@ newtype NilCoalescingExpression = NilCoalescingExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3216,14 +3478,17 @@ newtype NilCoalescingExpression = NilCoalescingExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype NonBindingPattern = NonBindingPattern
-    { children ::
+derive instance Functor NilCoalescingExpression
+newtype NonBindingPattern a = NonBindingPattern
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -3274,11 +3539,12 @@ newtype NonBindingPattern = NonBindingPattern
                     , user_type :: UserType
                     , wildcard_pattern :: WildcardPattern
                     )
+                    a
               )
     , fields ::
           { name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -3289,18 +3555,22 @@ newtype NonBindingPattern = NonBindingPattern
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype OpaqueType = OpaqueType
-    { child :: Variant (user_type :: UserType), fields :: {} }
+derive instance Functor NonBindingPattern
+newtype OpaqueType a = OpaqueType
+    { value :: a, child :: VariantF (user_type :: UserType) a, fields :: {} }
 
-newtype OpenEndRangeExpression = OpenEndRangeExpression
-    { fields ::
+derive instance Functor OpaqueType
+newtype OpenEndRangeExpression a = OpenEndRangeExpression
+    { value :: a
+    , fields ::
           { start ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3350,15 +3620,18 @@ newtype OpenEndRangeExpression = OpenEndRangeExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype OpenStartRangeExpression = OpenStartRangeExpression
-    { fields ::
+derive instance Functor OpenEndRangeExpression
+newtype OpenStartRangeExpression a = OpenStartRangeExpression
+    { value :: a
+    , fields ::
           { end ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3408,42 +3681,53 @@ newtype OpenStartRangeExpression = OpenStartRangeExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype OperatorDeclaration = OperatorDeclaration
-    { children ::
+derive instance Functor OpenStartRangeExpression
+newtype OperatorDeclaration a = OperatorDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( custom_operator :: CustomOperator
                     , simple_identifier :: SimpleIdentifier
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype OptionalType = OptionalType
-    { fields ::
+derive instance Functor OperatorDeclaration
+newtype OptionalType a = OptionalType
+    { value :: a
+    , fields ::
           { wrapped ::
-                Variant
+                VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , tuple_type :: TupleType
                     , user_type :: UserType
                     )
+                    a
           }
     }
 
-newtype OwnershipModifier = OwnershipModifier { fields :: {} }
-newtype Parameter = Parameter
-    { child :: Maybe (Variant (parameter_modifiers :: ParameterModifiers))
+derive instance Functor OptionalType
+newtype OwnershipModifier a = OwnershipModifier { value :: a, fields :: {} }
+
+derive instance Functor OwnershipModifier
+newtype Parameter a = Parameter
+    { value :: a
+    , child :: Maybe (VariantF (parameter_modifiers :: ParameterModifiers) a)
     , fields ::
           { external_name ::
-                Maybe (Variant (simple_identifier :: SimpleIdentifier))
+                Maybe (VariantF (simple_identifier :: SimpleIdentifier) a)
           , name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -3455,10 +3739,11 @@ newtype Parameter = Parameter
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           , type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -3470,22 +3755,29 @@ newtype Parameter = Parameter
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype ParameterModifier = ParameterModifier { fields :: {} }
-newtype ParameterModifiers = ParameterModifiers
-    { children :: Array (Variant (parameter_modifier :: ParameterModifier))
+derive instance Functor Parameter
+newtype ParameterModifier a = ParameterModifier { value :: a, fields :: {} }
+
+derive instance Functor ParameterModifier
+newtype ParameterModifiers a = ParameterModifiers
+    { value :: a
+    , children :: Array (VariantF (parameter_modifier :: ParameterModifier) a)
     , fields :: {}
     }
 
-newtype PostfixExpression = PostfixExpression
-    { fields ::
-          { operation :: Variant (bang :: Bang)
+derive instance Functor ParameterModifiers
+newtype PostfixExpression a = PostfixExpression
+    { value :: a
+    , fields ::
+          { operation :: VariantF (bang :: Bang) a
           , target ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3535,46 +3827,60 @@ newtype PostfixExpression = PostfixExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype PrecedenceGroupAttribute = PrecedenceGroupAttribute
-    { children ::
+derive instance Functor PostfixExpression
+newtype PrecedenceGroupAttribute a = PrecedenceGroupAttribute
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( boolean_literal :: BooleanLiteral
                     , simple_identifier :: SimpleIdentifier
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype PrecedenceGroupAttributes = PrecedenceGroupAttributes
-    { children ::
+derive instance Functor PrecedenceGroupAttribute
+newtype PrecedenceGroupAttributes a = PrecedenceGroupAttributes
+    { value :: a
+    , children ::
           Array
-              (Variant (precedence_group_attribute :: PrecedenceGroupAttribute))
+              ( VariantF
+                    (precedence_group_attribute :: PrecedenceGroupAttribute)
+                    a
+              )
     , fields :: {}
     }
 
-newtype PrecedenceGroupDeclaration = PrecedenceGroupDeclaration
-    { children ::
+derive instance Functor PrecedenceGroupAttributes
+newtype PrecedenceGroupDeclaration a = PrecedenceGroupDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( precedence_group_attributes :: PrecedenceGroupAttributes
                     , simple_identifier :: SimpleIdentifier
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype PrefixExpression = PrefixExpression
-    { fields ::
+derive instance Functor PrecedenceGroupDeclaration
+newtype PrefixExpression a = PrefixExpression
+    { value :: a
+    , fields ::
           { operation ::
-                Variant (bang :: Bang, custom_operator :: CustomOperator)
+                VariantF (bang :: Bang, custom_operator :: CustomOperator) a
           , target ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3624,14 +3930,17 @@ newtype PrefixExpression = PrefixExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype PropertyDeclaration = PropertyDeclaration
-    { children ::
+derive instance Functor PrefixExpression
+newtype PropertyDeclaration a = PropertyDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , inheritance_modifier :: InheritanceModifier
                     , modifiers :: Modifiers
@@ -3640,15 +3949,17 @@ newtype PropertyDeclaration = PropertyDeclaration
                     , type_annotation :: TypeAnnotation
                     , type_constraints :: TypeConstraints
                     )
+                    a
               )
     , fields ::
           { computed_value ::
-                Array (Variant (computed_property :: ComputedProperty))
+                Array (VariantF (computed_property :: ComputedProperty) a)
           , name ::
-                Array (Variant (value_binding_pattern :: ValueBindingPattern))
+                Array
+                    (VariantF (value_binding_pattern :: ValueBindingPattern) a)
           , value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3698,15 +4009,20 @@ newtype PropertyDeclaration = PropertyDeclaration
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype PropertyModifier = PropertyModifier { fields :: {} }
-newtype ProtocolBody = ProtocolBody
-    { children ::
+derive instance Functor PropertyDeclaration
+newtype PropertyModifier a = PropertyModifier { value :: a, fields :: {} }
+
+derive instance Functor PropertyModifier
+newtype ProtocolBody a = ProtocolBody
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( associatedtype_declaration :: AssociatedtypeDeclaration
                     , deinit_declaration :: DeinitDeclaration
                     , protocol_function_declaration ::
@@ -3716,22 +4032,26 @@ newtype ProtocolBody = ProtocolBody
                     , subscript_declaration :: SubscriptDeclaration
                     , typealias_declaration :: TypealiasDeclaration
                     )
+                    a
               )
     , fields ::
           { body ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( protocol_function_declaration ::
                                 ProtocolFunctionDeclaration
                           )
+                          a
                     )
           }
     }
 
-newtype ProtocolCompositionType = ProtocolCompositionType
-    { children ::
+derive instance Functor ProtocolBody
+newtype ProtocolCompositionType a = ProtocolCompositionType
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , function_type :: FunctionType
@@ -3742,32 +4062,38 @@ newtype ProtocolCompositionType = ProtocolCompositionType
                     , tuple_type :: TupleType
                     , user_type :: UserType
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype ProtocolDeclaration = ProtocolDeclaration
-    { children ::
+derive instance Functor ProtocolCompositionType
+newtype ProtocolDeclaration a = ProtocolDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , inheritance_specifier :: InheritanceSpecifier
                     , modifiers :: Modifiers
                     , type_constraints :: TypeConstraints
                     , type_parameters :: TypeParameters
                     )
+                    a
               )
     , fields ::
-          { body :: Variant (protocol_body :: ProtocolBody)
-          , declaration_kind :: Variant ()
-          , name :: Variant (type_identifier :: TypeIdentifier)
+          { body :: VariantF (protocol_body :: ProtocolBody) a
+          , declaration_kind :: VariantF () a
+          , name :: VariantF (type_identifier :: TypeIdentifier) a
           }
     }
 
-newtype ProtocolFunctionDeclaration = ProtocolFunctionDeclaration
-    { children ::
+derive instance Functor ProtocolDeclaration
+newtype ProtocolFunctionDeclaration a = ProtocolFunctionDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( async :: Async
                     , attribute :: Attribute
                     , bang :: Bang
@@ -3778,11 +4104,12 @@ newtype ProtocolFunctionDeclaration = ProtocolFunctionDeclaration
                     , type_constraints :: TypeConstraints
                     , type_parameters :: TypeParameters
                     )
+                    a
               )
     , fields ::
           { default_value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3832,10 +4159,11 @@ newtype ProtocolFunctionDeclaration = ProtocolFunctionDeclaration
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , bang :: Bang
                           , custom_operator :: CustomOperator
@@ -3849,10 +4177,11 @@ newtype ProtocolFunctionDeclaration = ProtocolFunctionDeclaration
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           , return_type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -3864,41 +4193,50 @@ newtype ProtocolFunctionDeclaration = ProtocolFunctionDeclaration
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype ProtocolPropertyDeclaration = ProtocolPropertyDeclaration
-    { children ::
+derive instance Functor ProtocolFunctionDeclaration
+newtype ProtocolPropertyDeclaration a = ProtocolPropertyDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( modifiers :: Modifiers
                     , protocol_property_requirements ::
                           ProtocolPropertyRequirements
                     , type_annotation :: TypeAnnotation
                     , type_constraints :: TypeConstraints
                     )
+                    a
               )
     , fields ::
-          { name :: Variant (value_binding_pattern :: ValueBindingPattern) }
+          { name :: VariantF (value_binding_pattern :: ValueBindingPattern) a }
     }
 
-newtype ProtocolPropertyRequirements = ProtocolPropertyRequirements
-    { children ::
+derive instance Functor ProtocolPropertyDeclaration
+newtype ProtocolPropertyRequirements a = ProtocolPropertyRequirements
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( getter_specifier :: GetterSpecifier
                     , setter_specifier :: SetterSpecifier
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype RangeExpression = RangeExpression
-    { fields ::
+derive instance Functor ProtocolPropertyRequirements
+newtype RangeExpression a = RangeExpression
+    { value :: a
+    , fields ::
           { end ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -3948,11 +4286,12 @@ newtype RangeExpression = RangeExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
-          , op :: Variant ()
+          , op :: VariantF () a
           , start ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -4002,46 +4341,58 @@ newtype RangeExpression = RangeExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype RawStrInterpolation = RawStrInterpolation
-    { child :: Variant (raw_str_interpolation_start :: RawStrInterpolationStart)
+derive instance Functor RangeExpression
+newtype RawStrInterpolation a = RawStrInterpolation
+    { value :: a
+    , child ::
+          VariantF (raw_str_interpolation_start :: RawStrInterpolationStart) a
     , fields ::
           { interpolation ::
                 Array
-                    ( Variant
+                    ( VariantF
                           (interpolated_expression :: InterpolatedExpression)
+                          a
                     )
           }
     }
 
-newtype RawStringLiteral = RawStringLiteral
-    { children ::
+derive instance Functor RawStrInterpolation
+newtype RawStringLiteral a = RawStringLiteral
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     (raw_str_continuing_indicator :: RawStrContinuingIndicator)
+                    a
               )
     , fields ::
           { interpolation ::
-                Array (Variant (raw_str_interpolation :: RawStrInterpolation))
+                Array
+                    (VariantF (raw_str_interpolation :: RawStrInterpolation) a)
           , text ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( raw_str_end_part :: RawStrEndPart
                           , raw_str_part :: RawStrPart
                           )
+                          a
                     )
           }
     }
 
-newtype RepeatWhileStatement = RepeatWhileStatement
-    { child :: Maybe (Variant (statements :: Statements))
+derive instance Functor RawStringLiteral
+newtype RepeatWhileStatement a = RepeatWhileStatement
+    { value :: a
+    , child :: Maybe (VariantF (statements :: Statements) a)
     , fields ::
           { condition ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -4095,14 +4446,17 @@ newtype RepeatWhileStatement = RepeatWhileStatement
                           , type_annotation :: TypeAnnotation
                           , value_binding_pattern :: ValueBindingPattern
                           )
+                          a
                     )
           }
     }
 
-newtype SelectorExpression = SelectorExpression
-    { children ::
+derive instance Functor RepeatWhileStatement
+newtype SelectorExpression a = SelectorExpression
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -4149,22 +4503,33 @@ newtype SelectorExpression = SelectorExpression
                     , try_expression :: TryExpression
                     , tuple_expression :: TupleExpression
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype SelfExpression = SelfExpression { fields :: {} }
-newtype SetterSpecifier = SetterSpecifier
-    { child :: Maybe (Variant (mutation_modifier :: MutationModifier))
+derive instance Functor SelectorExpression
+newtype SelfExpression a = SelfExpression { value :: a, fields :: {} }
+
+derive instance Functor SelfExpression
+newtype SetterSpecifier a = SetterSpecifier
+    { value :: a
+    , child :: Maybe (VariantF (mutation_modifier :: MutationModifier) a)
     , fields :: {}
     }
 
-newtype ShebangLine = ShebangLine { fields :: {} }
-newtype SimpleIdentifier = SimpleIdentifier { fields :: {} }
-newtype SourceFile = SourceFile
-    { children ::
+derive instance Functor SetterSpecifier
+newtype ShebangLine a = ShebangLine { value :: a, fields :: {} }
+
+derive instance Functor ShebangLine
+newtype SimpleIdentifier a = SimpleIdentifier { value :: a, fields :: {} }
+
+derive instance Functor SimpleIdentifier
+newtype SourceFile a = SourceFile
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -4230,14 +4595,17 @@ newtype SourceFile = SourceFile
                     , typealias_declaration :: TypealiasDeclaration
                     , while_statement :: WhileStatement
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype Statements = Statements
-    { children ::
+derive instance Functor SourceFile
+newtype Statements a = Statements
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -4297,15 +4665,20 @@ newtype Statements = Statements
                     , typealias_declaration :: TypealiasDeclaration
                     , while_statement :: WhileStatement
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype StrEscapedChar = StrEscapedChar { fields :: {} }
-newtype SubscriptDeclaration = SubscriptDeclaration
-    { children ::
+derive instance Functor Statements
+newtype StrEscapedChar a = StrEscapedChar { value :: a, fields :: {} }
+
+derive instance Functor StrEscapedChar
+newtype SubscriptDeclaration a = SubscriptDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , computed_getter :: ComputedGetter
                     , computed_modify :: ComputedModify
@@ -4316,11 +4689,12 @@ newtype SubscriptDeclaration = SubscriptDeclaration
                     , type_constraints :: TypeConstraints
                     , type_parameters :: TypeParameters
                     )
+                    a
               )
     , fields ::
           { default_value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -4370,10 +4744,11 @@ newtype SubscriptDeclaration = SubscriptDeclaration
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , name ::
                 Maybe
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -4384,10 +4759,11 @@ newtype SubscriptDeclaration = SubscriptDeclaration
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           , return_type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -4399,15 +4775,20 @@ newtype SubscriptDeclaration = SubscriptDeclaration
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype SuperExpression = SuperExpression { fields :: {} }
-newtype SwitchEntry = SwitchEntry
-    { children ::
+derive instance Functor SubscriptDeclaration
+newtype SuperExpression a = SuperExpression { value :: a, fields :: {} }
+
+derive instance Functor SuperExpression
+newtype SwitchEntry a = SwitchEntry
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -4459,14 +4840,17 @@ newtype SwitchEntry = SwitchEntry
                     , tuple_expression :: TupleExpression
                     , where_keyword :: WhereKeyword
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype SwitchPattern = SwitchPattern
-    { children ::
+derive instance Functor SwitchEntry
+newtype SwitchPattern a = SwitchPattern
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -4518,11 +4902,12 @@ newtype SwitchPattern = SwitchPattern
                     , user_type :: UserType
                     , wildcard_pattern :: WildcardPattern
                     )
+                    a
               )
     , fields ::
           { name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -4533,16 +4918,19 @@ newtype SwitchPattern = SwitchPattern
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype SwitchStatement = SwitchStatement
-    { children :: Array (Variant (switch_entry :: SwitchEntry))
+derive instance Functor SwitchPattern
+newtype SwitchStatement a = SwitchStatement
+    { value :: a
+    , children :: Array (VariantF (switch_entry :: SwitchEntry) a)
     , fields ::
           { expr ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -4592,15 +4980,18 @@ newtype SwitchStatement = SwitchStatement
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype TernaryExpression = TernaryExpression
-    { fields ::
+derive instance Functor SwitchStatement
+newtype TernaryExpression a = TernaryExpression
+    { value :: a
+    , fields ::
           { condition ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -4650,10 +5041,11 @@ newtype TernaryExpression = TernaryExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , if_false ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -4703,10 +5095,11 @@ newtype TernaryExpression = TernaryExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           , if_true ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -4756,16 +5149,21 @@ newtype TernaryExpression = TernaryExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype Throws = Throws { fields :: {} }
-newtype TryExpression = TryExpression
-    { fields ::
+derive instance Functor TernaryExpression
+newtype Throws a = Throws { value :: a, fields :: {} }
+
+derive instance Functor Throws
+newtype TryExpression a = TryExpression
+    { value :: a
+    , fields ::
           { expr ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -4815,16 +5213,19 @@ newtype TryExpression = TryExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype TupleExpression = TupleExpression
-    { fields ::
-          { name :: Array (Variant (simple_identifier :: SimpleIdentifier))
+derive instance Functor TryExpression
+newtype TupleExpression a = TupleExpression
+    { value :: a
+    , fields ::
+          { name :: Array (VariantF (simple_identifier :: SimpleIdentifier) a)
           , value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -4874,27 +5275,33 @@ newtype TupleExpression = TupleExpression
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype TupleType = TupleType
-    { fields ::
-          { element :: Array (Variant (tuple_type_item :: TupleTypeItem)) }
+derive instance Functor TupleExpression
+newtype TupleType a = TupleType
+    { value :: a
+    , fields ::
+          { element :: Array (VariantF (tuple_type_item :: TupleTypeItem) a) }
     }
 
-newtype TupleTypeItem = TupleTypeItem
-    { children ::
+derive instance Functor TupleType
+newtype TupleTypeItem a = TupleTypeItem
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( parameter_modifiers :: ParameterModifiers
                     , wildcard_pattern :: WildcardPattern
                     )
+                    a
               )
     , fields ::
           { name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -4906,10 +5313,11 @@ newtype TupleTypeItem = TupleTypeItem
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           , type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -4921,14 +5329,17 @@ newtype TupleTypeItem = TupleTypeItem
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype TypeAnnotation = TypeAnnotation
-    { fields ::
+derive instance Functor TupleTypeItem
+newtype TypeAnnotation a = TypeAnnotation
+    { value :: a
+    , fields ::
           { name ::
-                Variant
+                VariantF
                     ( array_type :: ArrayType
                     , dictionary_type :: DictionaryType
                     , function_type :: FunctionType
@@ -4939,9 +5350,10 @@ newtype TypeAnnotation = TypeAnnotation
                     , tuple_type :: TupleType
                     , user_type :: UserType
                     )
+                    a
           , type ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -4953,16 +5365,19 @@ newtype TypeAnnotation = TypeAnnotation
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype TypeArguments = TypeArguments
-    { children :: Array (Variant (type_modifiers :: TypeModifiers))
+derive instance Functor TypeAnnotation
+newtype TypeArguments a = TypeArguments
+    { value :: a
+    , children :: Array (VariantF (type_modifiers :: TypeModifiers) a)
     , fields ::
           { name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -4973,47 +5388,63 @@ newtype TypeArguments = TypeArguments
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype TypeConstraint = TypeConstraint
-    { child ::
-          Variant
+derive instance Functor TypeArguments
+newtype TypeConstraint a = TypeConstraint
+    { value :: a
+    , child ::
+          VariantF
               ( equality_constraint :: EqualityConstraint
               , inheritance_constraint :: InheritanceConstraint
               )
+              a
     , fields :: {}
     }
 
-newtype TypeConstraints = TypeConstraints
-    { children ::
+derive instance Functor TypeConstraint
+newtype TypeConstraints a = TypeConstraints
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( type_constraint :: TypeConstraint
                     , where_keyword :: WhereKeyword
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype TypeIdentifier = TypeIdentifier { fields :: {} }
-newtype TypeModifiers = TypeModifiers
-    { children :: Array (Variant (attribute :: Attribute)), fields :: {} }
+derive instance Functor TypeConstraints
+newtype TypeIdentifier a = TypeIdentifier { value :: a, fields :: {} }
 
-newtype TypeParameter = TypeParameter
-    { children ::
+derive instance Functor TypeIdentifier
+newtype TypeModifiers a = TypeModifiers
+    { value :: a
+    , children :: Array (VariantF (attribute :: Attribute) a)
+    , fields :: {}
+    }
+
+derive instance Functor TypeModifiers
+newtype TypeParameter a = TypeParameter
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( type_identifier :: TypeIdentifier
                     , type_modifiers :: TypeModifiers
                     , type_parameter_modifiers :: TypeParameterModifiers
                     )
+                    a
               )
     , fields ::
           { name ::
                 Maybe
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -5024,22 +5455,31 @@ newtype TypeParameter = TypeParameter
                           , tuple_type :: TupleType
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype TypeParameterModifiers = TypeParameterModifiers
-    { children :: Array (Variant (attribute :: Attribute)), fields :: {} }
-
-newtype TypeParameters = TypeParameters
-    { children :: Array (Variant (type_parameter :: TypeParameter))
+derive instance Functor TypeParameter
+newtype TypeParameterModifiers a = TypeParameterModifiers
+    { value :: a
+    , children :: Array (VariantF (attribute :: Attribute) a)
     , fields :: {}
     }
 
-newtype TypealiasDeclaration = TypealiasDeclaration
-    { children ::
+derive instance Functor TypeParameterModifiers
+newtype TypeParameters a = TypeParameters
+    { value :: a
+    , children :: Array (VariantF (type_parameter :: TypeParameter) a)
+    , fields :: {}
+    }
+
+derive instance Functor TypeParameters
+newtype TypealiasDeclaration a = TypealiasDeclaration
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( attribute :: Attribute
                     , inheritance_modifier :: InheritanceModifier
                     , modifiers :: Modifiers
@@ -5047,11 +5487,12 @@ newtype TypealiasDeclaration = TypealiasDeclaration
                     , property_behavior_modifier :: PropertyBehaviorModifier
                     , type_parameters :: TypeParameters
                     )
+                    a
               )
     , fields ::
           { name ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -5063,10 +5504,11 @@ newtype TypealiasDeclaration = TypealiasDeclaration
                           , type_identifier :: TypeIdentifier
                           , user_type :: UserType
                           )
+                          a
                     )
           , value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( array_type :: ArrayType
                           , dictionary_type :: DictionaryType
                           , function_type :: FunctionType
@@ -5078,30 +5520,36 @@ newtype TypealiasDeclaration = TypealiasDeclaration
                           , type_modifiers :: TypeModifiers
                           , user_type :: UserType
                           )
+                          a
                     )
           }
     }
 
-newtype UserType = UserType
-    { children ::
+derive instance Functor TypealiasDeclaration
+newtype UserType a = UserType
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( type_arguments :: TypeArguments
                     , type_identifier :: TypeIdentifier
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype ValueArgument = ValueArgument
-    { child :: Maybe (Variant (type_modifiers :: TypeModifiers))
+derive instance Functor UserType
+newtype ValueArgument a = ValueArgument
+    { value :: a
+    , child :: Maybe (VariantF (type_modifiers :: TypeModifiers) a)
     , fields ::
-          { name :: Maybe (Variant (simple_identifier :: SimpleIdentifier))
+          { name :: Maybe (VariantF (simple_identifier :: SimpleIdentifier) a)
           , reference_specifier ::
-                Array (Variant (simple_identifier :: SimpleIdentifier))
+                Array (VariantF (simple_identifier :: SimpleIdentifier) a)
           , value ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -5151,25 +5599,34 @@ newtype ValueArgument = ValueArgument
                           , try_expression :: TryExpression
                           , tuple_expression :: TupleExpression
                           )
+                          a
                     )
           }
     }
 
-newtype ValueArguments = ValueArguments
-    { children :: Array (Variant (value_argument :: ValueArgument))
+derive instance Functor ValueArgument
+newtype ValueArguments a = ValueArguments
+    { value :: a
+    , children :: Array (VariantF (value_argument :: ValueArgument) a)
     , fields :: {}
     }
 
-newtype ValueBindingPattern = ValueBindingPattern
-    { child :: Variant (non_binding_pattern :: NonBindingPattern)
+derive instance Functor ValueArguments
+newtype ValueBindingPattern a = ValueBindingPattern
+    { value :: a
+    , child :: VariantF (non_binding_pattern :: NonBindingPattern) a
     , fields :: {}
     }
 
-newtype VisibilityModifier = VisibilityModifier { fields :: {} }
-newtype WhereClause = WhereClause
-    { children ::
+derive instance Functor ValueBindingPattern
+newtype VisibilityModifier a = VisibilityModifier { value :: a, fields :: {} }
+
+derive instance Functor VisibilityModifier
+newtype WhereClause a = WhereClause
+    { value :: a
+    , children ::
           Array
-              ( Variant
+              ( VariantF
                     ( additive_expression :: AdditiveExpression
                     , array_literal :: ArrayLiteral
                     , as_expression :: AsExpression
@@ -5217,16 +5674,19 @@ newtype WhereClause = WhereClause
                     , tuple_expression :: TupleExpression
                     , where_keyword :: WhereKeyword
                     )
+                    a
               )
     , fields :: {}
     }
 
-newtype WhileStatement = WhileStatement
-    { child :: Maybe (Variant (statements :: Statements))
+derive instance Functor WhereClause
+newtype WhileStatement a = WhileStatement
+    { value :: a
+    , child :: Maybe (VariantF (statements :: Statements) a)
     , fields ::
           { condition ::
                 Array
-                    ( Variant
+                    ( VariantF
                           ( additive_expression :: AdditiveExpression
                           , array_literal :: ArrayLiteral
                           , as_expression :: AsExpression
@@ -5280,29 +5740,75 @@ newtype WhileStatement = WhileStatement
                           , type_annotation :: TypeAnnotation
                           , value_binding_pattern :: ValueBindingPattern
                           )
+                          a
                     )
           }
     }
 
-newtype Bang = Bang {}
-newtype BinLiteral = BinLiteral {}
-newtype CatchKeyword = CatchKeyword {}
-newtype Comment = Comment {}
-newtype DefaultKeyword = DefaultKeyword {}
-newtype Diagnostic = Diagnostic {}
-newtype Directive = Directive {}
-newtype Else = Else {}
-newtype HexLiteral = HexLiteral {}
-newtype IntegerLiteral = IntegerLiteral {}
-newtype MultilineComment = MultilineComment {}
-newtype OctLiteral = OctLiteral {}
-newtype PropertyBehaviorModifier = PropertyBehaviorModifier {}
-newtype RawStrContinuingIndicator = RawStrContinuingIndicator {}
-newtype RawStrEndPart = RawStrEndPart {}
-newtype RawStrInterpolationStart = RawStrInterpolationStart {}
-newtype RawStrPart = RawStrPart {}
-newtype RealLiteral = RealLiteral {}
-newtype StatementLabel = StatementLabel {}
-newtype ThrowKeyword = ThrowKeyword {}
-newtype WhereKeyword = WhereKeyword {}
-newtype WildcardPattern = WildcardPattern {}
+derive instance Functor WhileStatement
+newtype Bang a = Bang { value :: a }
+
+derive instance Functor Bang
+newtype BinLiteral a = BinLiteral { value :: a }
+
+derive instance Functor BinLiteral
+newtype CatchKeyword a = CatchKeyword { value :: a }
+
+derive instance Functor CatchKeyword
+newtype Comment a = Comment { value :: a }
+
+derive instance Functor Comment
+newtype DefaultKeyword a = DefaultKeyword { value :: a }
+
+derive instance Functor DefaultKeyword
+newtype Diagnostic a = Diagnostic { value :: a }
+
+derive instance Functor Diagnostic
+newtype Directive a = Directive { value :: a }
+
+derive instance Functor Directive
+newtype Else a = Else { value :: a }
+
+derive instance Functor Else
+newtype HexLiteral a = HexLiteral { value :: a }
+
+derive instance Functor HexLiteral
+newtype IntegerLiteral a = IntegerLiteral { value :: a }
+
+derive instance Functor IntegerLiteral
+newtype MultilineComment a = MultilineComment { value :: a }
+
+derive instance Functor MultilineComment
+newtype OctLiteral a = OctLiteral { value :: a }
+
+derive instance Functor OctLiteral
+newtype PropertyBehaviorModifier a = PropertyBehaviorModifier { value :: a }
+
+derive instance Functor PropertyBehaviorModifier
+newtype RawStrContinuingIndicator a = RawStrContinuingIndicator { value :: a }
+
+derive instance Functor RawStrContinuingIndicator
+newtype RawStrEndPart a = RawStrEndPart { value :: a }
+
+derive instance Functor RawStrEndPart
+newtype RawStrInterpolationStart a = RawStrInterpolationStart { value :: a }
+
+derive instance Functor RawStrInterpolationStart
+newtype RawStrPart a = RawStrPart { value :: a }
+
+derive instance Functor RawStrPart
+newtype RealLiteral a = RealLiteral { value :: a }
+
+derive instance Functor RealLiteral
+newtype StatementLabel a = StatementLabel { value :: a }
+
+derive instance Functor StatementLabel
+newtype ThrowKeyword a = ThrowKeyword { value :: a }
+
+derive instance Functor ThrowKeyword
+newtype WhereKeyword a = WhereKeyword { value :: a }
+
+derive instance Functor WhereKeyword
+newtype WildcardPattern a = WildcardPattern { value :: a }
+
+derive instance Functor WildcardPattern

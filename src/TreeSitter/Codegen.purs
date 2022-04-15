@@ -4,6 +4,7 @@ import Prelude
 
 import Control.Monad.Writer (tell)
 import Data.Array as Array
+import Data.Foldable (for_)
 import Data.Maybe (Maybe(..))
 import Data.String as String
 import Data.Tuple (Tuple(..))
@@ -13,7 +14,7 @@ import Foreign.Object as Object
 import Partial.Unsafe (unsafePartial)
 import PureScript.CST.Types (Declaration, Module)
 import PureScript.CST.Types as CST
-import Tidy.Codegen (declNewtype, typeApp, typeCtor, typeRecord, typeRow)
+import Tidy.Codegen (declDerive, declNewtype, typeApp, typeCtor, typeRecord, typeRow, typeVar)
 import Tidy.Codegen.Monad (codegenModule, importOpen)
 import TreeSitter.Codegen.NodeTypes (ChildType, NodeType)
 
@@ -57,7 +58,7 @@ renderVariantType
     :: Partial => Array { type :: String, named :: Boolean } -> CST.Type Void
 renderVariantType types = node
     where
-    node = typeApp (typeCtor "Variant") [ typeRow rows Nothing ]
+    node = typeApp (typeCtor "VariantF") [ typeRow rows Nothing, typeVar "a" ]
     rows = types
         # Array.filter _.named
         # map row
@@ -65,19 +66,29 @@ renderVariantType types = node
 
 renderVariantNewType :: Partial => NodeType -> Declaration Void
 renderVariantNewType { type: type', fields, children } =
-    declNewtype name [] name record
+    declNewtype name [ typeVar "a" ] name record
     where
     name = toProper type'
-    record = typeRecord (children' <> fields') Nothing
+    record = typeRecord (value <> children' <> fields') Nothing
+    value = [ Tuple "value" (typeVar "a") ]
     fields' = renderVariantFields <$> fromMaybe fields
     children' = renderVariantChildren <$> fromMaybe children
 
+renderFunctorDerivation :: Partial => NodeType -> Declaration Void
+renderFunctorDerivation { type: type' } =
+    declDerive Nothing [] "Functor" [ typeCtor (toProper type') ]
+
 renderVariantModule :: String -> Array NodeType -> Module Void
 renderVariantModule name nodeTypes = unsafePartial $ codegenModule name do
-    importOpen "Data.Variant"
+    importOpen "Prelude"
+    importOpen "Data.Functor.Variant"
     importOpen "Data.Maybe"
     importOpen "Data.Array"
-    nodeTypes
-        # Array.filter _.named
-        # map renderVariantNewType
-        # tell
+    for_ nodeTypes \node -> do
+        if node.named then
+            tell
+                [ renderVariantNewType node
+                , renderFunctorDerivation node
+                ]
+        else
+            pure unit

@@ -9,16 +9,13 @@ import Prelude
 import Control.Comonad.Cofree (Cofree, buildCofree)
 import Data.Array (null)
 import Data.Function.Uncurried (runFn3)
+import Data.Maybe (Maybe, fromMaybe)
 import Data.Tuple (Tuple(..))
 import Effect.Uncurried (runEffectFn1)
 import Effect.Unsafe (unsafePerformEffect)
-import Foreign.Object (fromHomogeneous, lookup)
+import Foreign.Object (lookup)
 import TreeSitter.Raw as Raw
-import Data.Maybe (Maybe)
-import Data.Maybe (fromJust)
 import Unsafe.Coerce (unsafeCoerce)
-import Data.Maybe (maybe)
-import Data.Maybe (fromMaybe)
 
 type LanguageName = String
 
@@ -97,7 +94,7 @@ nodeField :: Partial => String -> SyntaxNode -> Maybe SyntaxNode
 nodeField name (SyntaxNode (Raw.SyntaxNode node)) = unsafeCoerce node
     # lookup name
 
-arrayField :: Partial => String -> SyntaxNode ->  Array SyntaxNode
+arrayField :: Partial => String -> SyntaxNode -> Array SyntaxNode
 arrayField name (SyntaxNode (Raw.SyntaxNode node)) = unsafeCoerce node
     # lookup name
     # fromMaybe []

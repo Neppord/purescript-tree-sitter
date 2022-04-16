@@ -14,12 +14,10 @@ import Foreign.Object as Object
 import Partial.Unsafe (unsafePartial)
 import PureScript.CST.Types (Declaration, Module)
 import PureScript.CST.Types as CST
-import Tidy.Codegen (binaryOp, binderString, binderVar, caseBranch, declDerive, declNewtype, declValue, exprApp, exprCase, exprCtor, exprIdent, exprLambda, exprOp, exprRecord, exprString, exprTyped, typeApp, typeCtor, typeRecord, typeRow, typeString, typeVar)
-import Tidy.Codegen.Monad (codegenModule, importFrom, importOpen, importValue)
+import Tidy.Codegen (binaryOp, binderString, binderVar, caseBranch, declDerive, declNewtype, declSignature, declValue, exprApp, exprCase, exprCtor, exprIdent, exprLambda, exprOp, exprRecord, exprString, exprTyped, typeApp, typeArrow, typeConstrained, typeCtor, typeRecord, typeRow, typeString, typeVar)
+import Tidy.Codegen.Monad (codegenModule, importClass, importFrom, importOp, importOpen, importType, importValue)
 import TreeSitter.Codegen.NodeTypes (ChildType, NodeType)
-import Tidy.Codegen (declSignature)
-import Tidy.Codegen (typeArrow)
-import Tidy.Codegen (typeConstrained)
+import Tidy.Codegen.Monad (importTypeAll)
 
 capitalize :: String -> String
 capitalize word =
@@ -166,12 +164,25 @@ renderParser { type: type', fields, children } =
 
 renderVariantModule :: String -> Array NodeType -> Module Void
 renderVariantModule name nodeTypes = unsafePartial $ codegenModule name do
-    importOpen "Prelude"
-    importOpen "Data.Functor.Variant"
-    importOpen "Data.Maybe"
-    importOpen "Data.Array"
-    importOpen "Type.Proxy"
-    importOpen "TreeSitter.Lazy"
+    void $ importFrom "Data.Functor.Variant" $ importType "VariantF"
+    void $ importFrom "Data.Functor.Variant" $ importValue "inj"
+
+    void $ importFrom "TreeSitter.Lazy"
+        { syntaxNode: importType "SyntaxNode"
+        , arrayField: importValue "arrayField"
+        , children: importValue "children"
+        , nodeField: importValue "nodeField"
+        , type': importValue "type'"
+        }
+
+    void $ importFrom "Data.Array" $ importValue "head"
+
+    void $ importFrom "Data.Maybe" $ importType "Maybe"
+    void $ importFrom "Data.Maybe" $ importValue "fromJust"
+
+    void $ importFrom "Type.Proxy" $ importTypeAll "Proxy"
+    void $ importFrom "Prelude" $ importClass "Functor"
+    void $ importFrom "Prelude" $ importOp "<$>"
 
     void $ importFrom "Data.Array.Partial" (importValue "Partial.head")
 

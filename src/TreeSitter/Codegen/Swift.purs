@@ -1,13 +1,12 @@
 module TreeSitteer.Codegen.Swift where
 
-import Data.Array
-import Data.Functor.Variant
-import Data.Maybe
-import Prelude
-import TreeSitter.Lazy
-import Type.Proxy
-
+import Data.Array (head)
 import Data.Array.Partial as Partial
+import Data.Functor.Variant (VariantF, inj)
+import Data.Maybe (Maybe, fromJust)
+import Prelude (class Functor, (<$>))
+import TreeSitter.Lazy (SyntaxNode, arrayField, children, nodeField, type')
+import Type.Proxy (Proxy(..))
 
 newtype AdditiveExpression a = AdditiveExpression
     { value :: a

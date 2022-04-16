@@ -42,6 +42,7 @@ to generate this file without the comments in this block.
   , "transformers"
   , "tuples"
   , "unfoldable"
+  , "unsafe-coerce"
   , "variant"
   ]
 , packages = ./packages.dhall

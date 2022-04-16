@@ -12,7 +12,13 @@ import Data.Function.Uncurried (runFn3)
 import Data.Tuple (Tuple(..))
 import Effect.Uncurried (runEffectFn1)
 import Effect.Unsafe (unsafePerformEffect)
+import Foreign.Object (fromHomogeneous, lookup)
 import TreeSitter.Raw as Raw
+import Data.Maybe (Maybe)
+import Data.Maybe (fromJust)
+import Unsafe.Coerce (unsafeCoerce)
+import Data.Maybe (maybe)
+import Data.Maybe (fromMaybe)
 
 type LanguageName = String
 
@@ -86,6 +92,15 @@ type' (SyntaxNode (Raw.SyntaxNode { type: type'' })) =
 
 text :: SyntaxNode -> String
 text (SyntaxNode (Raw.SyntaxNode { text: text' })) = text'
+
+nodeField :: Partial => String -> SyntaxNode -> Maybe SyntaxNode
+nodeField name (SyntaxNode (Raw.SyntaxNode node)) = unsafeCoerce node
+    # lookup name
+
+arrayField :: Partial => String -> SyntaxNode ->  Array SyntaxNode
+arrayField name (SyntaxNode (Raw.SyntaxNode node)) = unsafeCoerce node
+    # lookup name
+    # fromMaybe []
 
 isMissing :: SyntaxNode -> Boolean
 isMissing (SyntaxNode (Raw.SyntaxNode { isMissing: isMissing' })) =

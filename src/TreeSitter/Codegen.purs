@@ -14,9 +14,12 @@ import Foreign.Object as Object
 import Partial.Unsafe (unsafePartial)
 import PureScript.CST.Types (Declaration, Module)
 import PureScript.CST.Types as CST
-import Tidy.Codegen (declDerive, declNewtype, typeApp, typeCtor, typeRecord, typeRow, typeVar)
-import Tidy.Codegen.Monad (codegenModule, importOpen)
+import Tidy.Codegen (binaryOp, binderString, binderVar, caseBranch, declDerive, declNewtype, declValue, exprApp, exprCase, exprCtor, exprIdent, exprLambda, exprOp, exprRecord, exprString, exprTyped, typeApp, typeCtor, typeRecord, typeRow, typeString, typeVar)
+import Tidy.Codegen.Monad (codegenModule, importFrom, importOpen, importValue)
 import TreeSitter.Codegen.NodeTypes (ChildType, NodeType)
+import Tidy.Codegen (declSignature)
+import Tidy.Codegen (typeArrow)
+import Tidy.Codegen (typeConstrained)
 
 capitalize :: String -> String
 capitalize word =
@@ -35,7 +38,10 @@ renderVariantFields fields = Tuple "fields" value
 
     rows :: Array (Tuple String (CST.Type Void))
     rows = Object.foldMap
-        (\name childType -> [ Tuple name (renderVariantChildType childType) ])
+        ( \name childType ->
+              if childType.types # Array.filter _.named # Array.null then []
+              else [ Tuple name (renderVariantChildType childType) ]
+        )
         fields
 
 renderVariantChildType :: Partial => ChildType -> CST.Type Void
@@ -78,17 +84,109 @@ renderFunctorDerivation :: Partial => NodeType -> Declaration Void
 renderFunctorDerivation { type: type' } =
     declDerive Nothing [] "Functor" [ typeCtor (toProper type') ]
 
+renderParseFields :: Partial => Object ChildType -> Tuple String (CST.Expr Void)
+renderParseFields fields = Tuple "fields" (exprRecord rows)
+    where
+    lambda childType = exprLambda [ binderVar "field" ]
+        (renderSelectParserFromChildType childType (exprIdent "field"))
+    rows = Object.foldMap
+        ( \name childType ->
+              if childType.types # Array.filter _.named # Array.null then []
+              else
+                  [ Tuple name $ case childType.multiple of
+                        false -> case childType.required of
+                            Just true -> exprApp (lambda childType)
+                                [ exprApp (exprIdent "fromJust")
+                                      [ exprApp (exprIdent "nodeField")
+                                            [ exprString name
+                                            , exprIdent "syntaxNode"
+                                            ]
+                                      ]
+                                ]
+                            _ -> exprOp (lambda childType)
+                                [ binaryOp "<$>" $ exprApp
+                                      (exprIdent "nodeField")
+                                      [ exprString name
+                                      , exprIdent "syntaxNode"
+                                      ]
+                                ]
+                        true -> exprOp (lambda childType)
+                            [ binaryOp "<$>" $ exprApp (exprIdent "arrayField")
+                                  [ exprString name, exprIdent "syntaxNode" ]
+                            ]
+                  ]
+        )
+        fields
+
+renderSelectParserFromChildType
+    :: Partial => ChildType -> CST.Expr Void -> CST.Expr Void
+renderSelectParserFromChildType childType ident =
+    exprCase [ exprApp (exprIdent "type'") [ ident ] ]
+        (matchTypeAndParse <$> (childType.types # Array.filter _.named))
+    where
+    matchTypeAndParse { type: type' } = caseBranch [ binderString type' ]
+        ( exprApp (exprIdent "inj")
+              [ exprTyped (exprCtor "Proxy")
+                    (typeApp (typeCtor "Proxy") [ typeString type' ])
+              , (exprApp (exprIdent ("parse" <> toProper type')) [ ident ])
+              ]
+        )
+
+renderParseChildren :: Partial => ChildType -> Tuple String (CST.Expr Void)
+renderParseChildren childType = Tuple name expr
+    where
+    expr = case childType.multiple of
+        false -> case childType.required of
+            Just true -> exprApp lambda
+                ([ exprApp (exprIdent "Partial.head") [ children ] ])
+            _ -> exprOp lambda
+                [ binaryOp "<$>" (exprApp (exprIdent "head") [ children ])
+                ]
+        true -> exprOp lambda [ binaryOp "<$>" children ]
+    lambda = exprLambda [ binderVar "child" ]
+        (renderSelectParserFromChildType childType (exprIdent "child"))
+    children = exprApp (exprIdent "children") [ exprIdent "syntaxNode" ]
+    name = case childType.multiple of
+        false -> "child"
+        true -> "children"
+
+renderParser :: Partial => NodeType -> Declaration Void
+renderParser { type: type', fields, children } =
+    declValue ("parse" <> toProper type')
+        [ binderVar "syntaxNode" ]
+        ( exprApp (exprCtor (toProper type'))
+              [ exprRecord
+                    ( [ Tuple "value" (exprIdent "syntaxNode") ]
+                          <> (renderParseFields <$> fromMaybe fields)
+                          <> (renderParseChildren <$> fromMaybe children)
+                    )
+              ]
+
+        )
+
 renderVariantModule :: String -> Array NodeType -> Module Void
 renderVariantModule name nodeTypes = unsafePartial $ codegenModule name do
     importOpen "Prelude"
     importOpen "Data.Functor.Variant"
     importOpen "Data.Maybe"
     importOpen "Data.Array"
+    importOpen "Type.Proxy"
+    importOpen "TreeSitter.Lazy"
+
+    void $ importFrom "Data.Array.Partial" (importValue "Partial.head")
+
     for_ nodeTypes \node -> do
         if node.named then
             tell
                 [ renderVariantNewType node
                 , renderFunctorDerivation node
+                , declSignature ("parse" <> toProper node.type) $
+                    typeConstrained [typeCtor "Partial"] $
+                    typeArrow [typeCtor "SyntaxNode"] $
+                        typeApp
+                            (typeCtor $ toProper node.type)
+                            [typeCtor "SyntaxNode"]
+                , renderParser node
                 ]
         else
             pure unit

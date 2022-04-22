@@ -5,7 +5,7 @@ import Data.Array.Partial as Partial
 import Data.Functor.Variant (VariantF, inj)
 import Data.Maybe (Maybe, fromJust)
 import Prelude (class Functor, (<$>))
-import TreeSitter.Lazy (SyntaxNode, arrayField, children, nodeField, type')
+import TreeSitter.Lazy (SyntaxNode, arrayField, children, namedChildren, nodeField, type')
 import Type.Proxy (Proxy(..))
 
 newtype AdditiveExpression a = AdditiveExpression
@@ -950,7 +950,7 @@ parseAsExpression syntaxNode = AsExpression
           ( \child -> case type' child of
                 "as_operator" -> inj (Proxy :: Proxy "as_operator")
                     (parseAsOperator child)
-          ) (Partial.head (children syntaxNode))
+          ) (Partial.head (namedChildren syntaxNode))
     }
 
 newtype AsOperator a = AsOperator { value :: a, fields :: {} }
@@ -1320,7 +1320,7 @@ parseAssociatedtypeDeclaration syntaxNode = AssociatedtypeDeclaration
                     (parseModifiers child)
                 "type_constraints" -> inj (Proxy :: Proxy "type_constraints")
                     (parseTypeConstraints child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype Async a = Async { value :: a, fields :: {} }
@@ -1506,7 +1506,7 @@ parseAttribute syntaxNode = Attribute
                     (parseTupleExpression child)
                 "user_type" -> inj (Proxy :: Proxy "user_type")
                     (parseUserType child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype AvailabilityCondition a = AvailabilityCondition
@@ -1535,7 +1535,7 @@ parseAvailabilityCondition syntaxNode = AvailabilityCondition
                     (parseIdentifier child)
                 "integer_literal" -> inj (Proxy :: Proxy "integer_literal")
                     (parseIntegerLiteral child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype AwaitExpression a = AwaitExpression
@@ -1963,7 +1963,7 @@ parseBindingPattern syntaxNode = BindingPattern
                     (parseUserType child)
                 "wildcard_pattern" -> inj (Proxy :: Proxy "wildcard_pattern")
                     (parseWildcardPattern child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype BitwiseOperation a = BitwiseOperation
@@ -2527,7 +2527,7 @@ parseCallExpression syntaxNode = CallExpression
                     (parseTryExpression child)
                 "tuple_expression" -> inj (Proxy :: Proxy "tuple_expression")
                     (parseTupleExpression child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype CallSuffix a = CallSuffix
@@ -2563,7 +2563,7 @@ parseCallSuffix syntaxNode = CallSuffix
                     (parseLambdaLiteral child)
                 "value_arguments" -> inj (Proxy :: Proxy "value_arguments")
                     (parseValueArguments child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype CaptureList a = CaptureList
@@ -2591,7 +2591,7 @@ parseCaptureList syntaxNode = CaptureList
                     (parseAttribute child)
                 "capture_list_item" -> inj (Proxy :: Proxy "capture_list_item")
                     (parseCaptureListItem child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype CaptureListItem a = CaptureListItem
@@ -2809,7 +2809,7 @@ parseCaptureListItem syntaxNode = CaptureListItem
                 "ownership_modifier" -> inj
                     (Proxy :: Proxy "ownership_modifier")
                     (parseOwnershipModifier child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype CatchBlock a = CatchBlock
@@ -2848,7 +2848,7 @@ parseCatchBlock syntaxNode = CatchBlock
                     (parseStatements child)
                 "where_clause" -> inj (Proxy :: Proxy "where_clause")
                     (parseWhereClause child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype CheckExpression a = CheckExpression
@@ -3189,7 +3189,7 @@ parseClassBody syntaxNode = ClassBody
                 "typealias_declaration" -> inj
                     (Proxy :: Proxy "typealias_declaration")
                     (parseTypealiasDeclaration child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ClassDeclaration a = ClassDeclaration
@@ -3265,7 +3265,7 @@ parseClassDeclaration syntaxNode = ClassDeclaration
                     (parseTypeConstraints child)
                 "type_parameters" -> inj (Proxy :: Proxy "type_parameters")
                     (parseTypeParameters child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ComparisonExpression a = ComparisonExpression
@@ -3674,7 +3674,7 @@ parseComputedGetter syntaxNode = ComputedGetter
                     (parseGetterSpecifier child)
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ComputedModify a = ComputedModify
@@ -3705,7 +3705,7 @@ parseComputedModify syntaxNode = ComputedModify
                     (parseModifySpecifier child)
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ComputedProperty a = ComputedProperty
@@ -3739,7 +3739,7 @@ parseComputedProperty syntaxNode = ComputedProperty
                     (parseComputedSetter child)
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ComputedSetter a = ComputedSetter
@@ -3773,7 +3773,7 @@ parseComputedSetter syntaxNode = ComputedSetter
                     (parseSimpleIdentifier child)
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ConjunctionExpression a = ConjunctionExpression
@@ -4191,7 +4191,7 @@ parseConstructorExpression syntaxNode = ConstructorExpression
                 "constructor_suffix" -> inj
                     (Proxy :: Proxy "constructor_suffix")
                     (parseConstructorSuffix child)
-          ) (Partial.head (children syntaxNode))
+          ) (Partial.head (namedChildren syntaxNode))
     }
 
 newtype ConstructorSuffix a = ConstructorSuffix
@@ -4217,7 +4217,7 @@ parseConstructorSuffix syntaxNode = ConstructorSuffix
                     (parseLambdaLiteral child)
                 "value_arguments" -> inj (Proxy :: Proxy "value_arguments")
                     (parseValueArguments child)
-          ) (Partial.head (children syntaxNode))
+          ) (Partial.head (namedChildren syntaxNode))
     }
 
 newtype ControlTransferStatement a = ControlTransferStatement
@@ -4580,7 +4580,7 @@ parseControlTransferStatement syntaxNode = ControlTransferStatement
                     (parseTryExpression child)
                 "tuple_expression" -> inj (Proxy :: Proxy "tuple_expression")
                     (parseTupleExpression child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype CustomOperator a = CustomOperator { value :: a, fields :: {} }
@@ -4613,7 +4613,7 @@ parseDeinitDeclaration syntaxNode = DeinitDeclaration
           ( \child -> case type' child of
                 "modifiers" -> inj (Proxy :: Proxy "modifiers")
                     (parseModifiers child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype DictionaryLiteral a = DictionaryLiteral
@@ -5162,7 +5162,7 @@ parseDirectlyAssignableExpression syntaxNode = DirectlyAssignableExpression
                     (parseSimpleIdentifier child)
                 "tuple_expression" -> inj (Proxy :: Proxy "tuple_expression")
                     (parseTupleExpression child)
-          ) (Partial.head (children syntaxNode))
+          ) (Partial.head (namedChildren syntaxNode))
     }
 
 newtype DisjunctionExpression a = DisjunctionExpression
@@ -5563,7 +5563,7 @@ parseDoStatement syntaxNode = DoStatement
                     (parseCatchBlock child)
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype EnumClassBody a = EnumClassBody
@@ -5631,7 +5631,7 @@ parseEnumClassBody syntaxNode = EnumClassBody
                 "typealias_declaration" -> inj
                     (Proxy :: Proxy "typealias_declaration")
                     (parseTypealiasDeclaration child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype EnumEntry a = EnumEntry
@@ -5848,7 +5848,7 @@ parseEnumEntry syntaxNode = EnumEntry
           ( \child -> case type' child of
                 "modifiers" -> inj (Proxy :: Proxy "modifiers")
                     (parseModifiers child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype EnumTypeParameters a = EnumTypeParameters
@@ -6071,7 +6071,7 @@ parseEnumTypeParameters syntaxNode = EnumTypeParameters
                     (parseTypeModifiers child)
                 "wildcard_pattern" -> inj (Proxy :: Proxy "wildcard_pattern")
                     (parseWildcardPattern child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype EqualityConstraint a = EqualityConstraint
@@ -6176,7 +6176,7 @@ parseEqualityConstraint syntaxNode = EqualityConstraint
           ( \child -> case type' child of
                 "attribute" -> inj (Proxy :: Proxy "attribute")
                     (parseAttribute child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype EqualityExpression a = EqualityExpression
@@ -7031,7 +7031,7 @@ parseForStatement syntaxNode = ForStatement
                     (parseTypeAnnotation child)
                 "where_clause" -> inj (Proxy :: Proxy "where_clause")
                     (parseWhereClause child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype FullyOpenRange a = FullyOpenRange { value :: a, fields :: {} }
@@ -7058,7 +7058,7 @@ parseFunctionBody syntaxNode = FunctionBody
           ( \child -> case type' child of
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype FunctionDeclaration a = FunctionDeclaration
@@ -7392,7 +7392,7 @@ parseFunctionDeclaration syntaxNode = FunctionDeclaration
                     (parseTypeConstraints child)
                 "type_parameters" -> inj (Proxy :: Proxy "type_parameters")
                     (parseTypeParameters child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype FunctionModifier a = FunctionModifier { value :: a, fields :: {} }
@@ -7504,7 +7504,7 @@ parseFunctionType syntaxNode = FunctionType
           ( \child -> case type' child of
                 "async" -> inj (Proxy :: Proxy "async") (parseAsync child)
                 "throws" -> inj (Proxy :: Proxy "throws") (parseThrows child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype GetterSpecifier a = GetterSpecifier
@@ -7533,7 +7533,7 @@ parseGetterSpecifier syntaxNode = GetterSpecifier
                 "mutation_modifier" -> inj (Proxy :: Proxy "mutation_modifier")
                     (parseMutationModifier child)
                 "throws" -> inj (Proxy :: Proxy "throws") (parseThrows child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype GuardStatement a = GuardStatement
@@ -7752,7 +7752,7 @@ parseGuardStatement syntaxNode = GuardStatement
                 "else" -> inj (Proxy :: Proxy "else") (parseElse child)
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype Identifier a = Identifier
@@ -7771,7 +7771,7 @@ parseIdentifier syntaxNode = Identifier
           ( \child -> case type' child of
                 "simple_identifier" -> inj (Proxy :: Proxy "simple_identifier")
                     (parseSimpleIdentifier child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype IfStatement a = IfStatement
@@ -8000,7 +8000,7 @@ parseIfStatement syntaxNode = IfStatement
                     (parseIfStatement child)
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ImportDeclaration a = ImportDeclaration
@@ -8022,7 +8022,7 @@ parseImportDeclaration syntaxNode = ImportDeclaration
                     (parseIdentifier child)
                 "modifiers" -> inj (Proxy :: Proxy "modifiers")
                     (parseModifiers child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype InfixExpression a = InfixExpression
@@ -8511,7 +8511,7 @@ parseInheritanceConstraint syntaxNode = InheritanceConstraint
           ( \child -> case type' child of
                 "attribute" -> inj (Proxy :: Proxy "attribute")
                     (parseAttribute child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype InheritanceModifier a = InheritanceModifier { value :: a, fields :: {} }
@@ -8764,7 +8764,7 @@ parseInterpolatedExpression syntaxNode = InterpolatedExpression
           ( \child -> case type' child of
                 "type_modifiers" -> inj (Proxy :: Proxy "type_modifiers")
                     (parseTypeModifiers child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype KeyPathExpression a = KeyPathExpression
@@ -8806,7 +8806,7 @@ parseKeyPathExpression syntaxNode = KeyPathExpression
                     (parseTypeIdentifier child)
                 "value_argument" -> inj (Proxy :: Proxy "value_argument")
                     (parseValueArgument child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype KeyPathStringExpression a = KeyPathStringExpression
@@ -8983,7 +8983,7 @@ parseKeyPathStringExpression syntaxNode = KeyPathStringExpression
                     (parseTryExpression child)
                 "tuple_expression" -> inj (Proxy :: Proxy "tuple_expression")
                     (parseTupleExpression child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype LambdaFunctionType a = LambdaFunctionType
@@ -9096,7 +9096,7 @@ parseLambdaFunctionType syntaxNode = LambdaFunctionType
                     (Proxy :: Proxy "lambda_function_type_parameters")
                     (parseLambdaFunctionTypeParameters child)
                 "throws" -> inj (Proxy :: Proxy "throws") (parseThrows child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype LambdaFunctionTypeParameters a = LambdaFunctionTypeParameters
@@ -9116,7 +9116,7 @@ parseLambdaFunctionTypeParameters syntaxNode = LambdaFunctionTypeParameters
           ( \child -> case type' child of
                 "lambda_parameter" -> inj (Proxy :: Proxy "lambda_parameter")
                     (parseLambdaParameter child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype LambdaLiteral a = LambdaLiteral
@@ -9151,7 +9151,7 @@ parseLambdaLiteral syntaxNode = LambdaLiteral
           ( \child -> case type' child of
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype LambdaParameter a = LambdaParameter
@@ -9276,7 +9276,7 @@ parseLambdaParameter syntaxNode = LambdaParameter
                     (parseParameterModifiers child)
                 "self_expression" -> inj (Proxy :: Proxy "self_expression")
                     (parseSelfExpression child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype LineStrText a = LineStrText { value :: a, fields :: {} }
@@ -9382,7 +9382,7 @@ parseMetatype syntaxNode = Metatype
                     (parseTupleType child)
                 "user_type" -> inj (Proxy :: Proxy "user_type")
                     (parseUserType child)
-          ) (Partial.head (children syntaxNode))
+          ) (Partial.head (namedChildren syntaxNode))
     }
 
 newtype Modifiers a = Modifiers
@@ -9439,7 +9439,7 @@ parseModifiers syntaxNode = Modifiers
                 "visibility_modifier" -> inj
                     (Proxy :: Proxy "visibility_modifier")
                     (parseVisibilityModifier child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ModifySpecifier a = ModifySpecifier
@@ -9458,7 +9458,7 @@ parseModifySpecifier syntaxNode = ModifySpecifier
           ( \child -> case type' child of
                 "mutation_modifier" -> inj (Proxy :: Proxy "mutation_modifier")
                     (parseMutationModifier child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype MultiLineStrText a = MultiLineStrText { value :: a, fields :: {} }
@@ -10748,7 +10748,7 @@ parseNonBindingPattern syntaxNode = NonBindingPattern
                     (parseUserType child)
                 "wildcard_pattern" -> inj (Proxy :: Proxy "wildcard_pattern")
                     (parseWildcardPattern child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype OpaqueType a = OpaqueType
@@ -10764,7 +10764,7 @@ parseOpaqueType syntaxNode = OpaqueType
           ( \child -> case type' child of
                 "user_type" -> inj (Proxy :: Proxy "user_type")
                     (parseUserType child)
-          ) (Partial.head (children syntaxNode))
+          ) (Partial.head (namedChildren syntaxNode))
     }
 
 newtype OpenEndRangeExpression a = OpenEndRangeExpression
@@ -11187,7 +11187,7 @@ parseOperatorDeclaration syntaxNode = OperatorDeclaration
                     (parseCustomOperator child)
                 "simple_identifier" -> inj (Proxy :: Proxy "simple_identifier")
                     (parseSimpleIdentifier child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype OptionalType a = OptionalType
@@ -11343,7 +11343,7 @@ parseParameter syntaxNode = Parameter
                 "parameter_modifiers" -> inj
                     (Proxy :: Proxy "parameter_modifiers")
                     (parseParameterModifiers child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype ParameterModifier a = ParameterModifier { value :: a, fields :: {} }
@@ -11372,7 +11372,7 @@ parseParameterModifiers syntaxNode = ParameterModifiers
                 "parameter_modifier" -> inj
                     (Proxy :: Proxy "parameter_modifier")
                     (parseParameterModifier child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype PostfixExpression a = PostfixExpression
@@ -11602,7 +11602,7 @@ parsePrecedenceGroupAttribute syntaxNode = PrecedenceGroupAttribute
                     (parseBooleanLiteral child)
                 "simple_identifier" -> inj (Proxy :: Proxy "simple_identifier")
                     (parseSimpleIdentifier child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype PrecedenceGroupAttributes a = PrecedenceGroupAttributes
@@ -11628,7 +11628,7 @@ parsePrecedenceGroupAttributes syntaxNode = PrecedenceGroupAttributes
                 "precedence_group_attribute" -> inj
                     (Proxy :: Proxy "precedence_group_attribute")
                     (parsePrecedenceGroupAttribute child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype PrecedenceGroupDeclaration a = PrecedenceGroupDeclaration
@@ -11658,7 +11658,7 @@ parsePrecedenceGroupDeclaration syntaxNode = PrecedenceGroupDeclaration
                     (parsePrecedenceGroupAttributes child)
                 "simple_identifier" -> inj (Proxy :: Proxy "simple_identifier")
                     (parseSimpleIdentifier child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype PrefixExpression a = PrefixExpression
@@ -12110,7 +12110,7 @@ parsePropertyDeclaration syntaxNode = PropertyDeclaration
                     (parseTypeAnnotation child)
                 "type_constraints" -> inj (Proxy :: Proxy "type_constraints")
                     (parseTypeConstraints child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype PropertyModifier a = PropertyModifier { value :: a, fields :: {} }
@@ -12182,7 +12182,7 @@ parseProtocolBody syntaxNode = ProtocolBody
                 "typealias_declaration" -> inj
                     (Proxy :: Proxy "typealias_declaration")
                     (parseTypealiasDeclaration child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ProtocolCompositionType a = ProtocolCompositionType
@@ -12233,7 +12233,7 @@ parseProtocolCompositionType syntaxNode = ProtocolCompositionType
                     (parseTupleType child)
                 "user_type" -> inj (Proxy :: Proxy "user_type")
                     (parseUserType child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ProtocolDeclaration a = ProtocolDeclaration
@@ -12287,7 +12287,7 @@ parseProtocolDeclaration syntaxNode = ProtocolDeclaration
                     (parseTypeConstraints child)
                 "type_parameters" -> inj (Proxy :: Proxy "type_parameters")
                     (parseTypeParameters child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ProtocolFunctionDeclaration a = ProtocolFunctionDeclaration
@@ -12606,7 +12606,7 @@ parseProtocolFunctionDeclaration syntaxNode = ProtocolFunctionDeclaration
                     (parseTypeConstraints child)
                 "type_parameters" -> inj (Proxy :: Proxy "type_parameters")
                     (parseTypeParameters child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ProtocolPropertyDeclaration a = ProtocolPropertyDeclaration
@@ -12651,7 +12651,7 @@ parseProtocolPropertyDeclaration syntaxNode = ProtocolPropertyDeclaration
                     (parseTypeAnnotation child)
                 "type_constraints" -> inj (Proxy :: Proxy "type_constraints")
                     (parseTypeConstraints child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ProtocolPropertyRequirements a = ProtocolPropertyRequirements
@@ -12680,7 +12680,7 @@ parseProtocolPropertyRequirements syntaxNode = ProtocolPropertyRequirements
                     (parseGetterSpecifier child)
                 "setter_specifier" -> inj (Proxy :: Proxy "setter_specifier")
                     (parseSetterSpecifier child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype RangeExpression a = RangeExpression
@@ -13093,7 +13093,7 @@ parseRawStrInterpolation syntaxNode = RawStrInterpolation
                 "raw_str_interpolation_start" -> inj
                     (Proxy :: Proxy "raw_str_interpolation_start")
                     (parseRawStrInterpolationStart child)
-          ) (Partial.head (children syntaxNode))
+          ) (Partial.head (namedChildren syntaxNode))
     }
 
 newtype RawStringLiteral a = RawStringLiteral
@@ -13145,7 +13145,7 @@ parseRawStringLiteral syntaxNode = RawStringLiteral
                 "raw_str_continuing_indicator" -> inj
                     (Proxy :: Proxy "raw_str_continuing_indicator")
                     (parseRawStrContinuingIndicator child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype RepeatWhileStatement a = RepeatWhileStatement
@@ -13364,7 +13364,7 @@ parseRepeatWhileStatement syntaxNode = RepeatWhileStatement
           ( \child -> case type' child of
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype SelectorExpression a = SelectorExpression
@@ -13541,7 +13541,7 @@ parseSelectorExpression syntaxNode = SelectorExpression
                     (parseTryExpression child)
                 "tuple_expression" -> inj (Proxy :: Proxy "tuple_expression")
                     (parseTupleExpression child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype SelfExpression a = SelfExpression { value :: a, fields :: {} }
@@ -13568,7 +13568,7 @@ parseSetterSpecifier syntaxNode = SetterSpecifier
           ( \child -> case type' child of
                 "mutation_modifier" -> inj (Proxy :: Proxy "mutation_modifier")
                     (parseMutationModifier child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype ShebangLine a = ShebangLine { value :: a, fields :: {} }
@@ -13825,7 +13825,7 @@ parseSourceFile syntaxNode = SourceFile
                     (parseTypealiasDeclaration child)
                 "while_statement" -> inj (Proxy :: Proxy "while_statement")
                     (parseWhileStatement child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype Statements a = Statements
@@ -14045,7 +14045,7 @@ parseStatements syntaxNode = Statements
                     (parseTypealiasDeclaration child)
                 "while_statement" -> inj (Proxy :: Proxy "while_statement")
                     (parseWhileStatement child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype StrEscapedChar a = StrEscapedChar { value :: a, fields :: {} }
@@ -14365,7 +14365,7 @@ parseSubscriptDeclaration syntaxNode = SubscriptDeclaration
                     (parseTypeConstraints child)
                 "type_parameters" -> inj (Proxy :: Proxy "type_parameters")
                     (parseTypeParameters child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype SuperExpression a = SuperExpression { value :: a, fields :: {} }
@@ -14564,7 +14564,7 @@ parseSwitchEntry syntaxNode = SwitchEntry
                     (parseTupleExpression child)
                 "where_keyword" -> inj (Proxy :: Proxy "where_keyword")
                     (parseWhereKeyword child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype SwitchPattern a = SwitchPattern
@@ -14796,7 +14796,7 @@ parseSwitchPattern syntaxNode = SwitchPattern
                     (parseUserType child)
                 "wildcard_pattern" -> inj (Proxy :: Proxy "wildcard_pattern")
                     (parseWildcardPattern child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype SwitchStatement a = SwitchStatement
@@ -14998,7 +14998,7 @@ parseSwitchStatement syntaxNode = SwitchStatement
           ( \child -> case type' child of
                 "switch_entry" -> inj (Proxy :: Proxy "switch_entry")
                     (parseSwitchEntry child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype TernaryExpression a = TernaryExpression
@@ -16097,7 +16097,7 @@ parseTupleTypeItem syntaxNode = TupleTypeItem
                     (parseParameterModifiers child)
                 "wildcard_pattern" -> inj (Proxy :: Proxy "wildcard_pattern")
                     (parseWildcardPattern child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype TypeAnnotation a = TypeAnnotation
@@ -16248,7 +16248,7 @@ parseTypeArguments syntaxNode = TypeArguments
           ( \child -> case type' child of
                 "type_modifiers" -> inj (Proxy :: Proxy "type_modifiers")
                     (parseTypeModifiers child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype TypeConstraint a = TypeConstraint
@@ -16276,7 +16276,7 @@ parseTypeConstraint syntaxNode = TypeConstraint
                 "inheritance_constraint" -> inj
                     (Proxy :: Proxy "inheritance_constraint")
                     (parseInheritanceConstraint child)
-          ) (Partial.head (children syntaxNode))
+          ) (Partial.head (namedChildren syntaxNode))
     }
 
 newtype TypeConstraints a = TypeConstraints
@@ -16304,7 +16304,7 @@ parseTypeConstraints syntaxNode = TypeConstraints
                     (parseTypeConstraint child)
                 "where_keyword" -> inj (Proxy :: Proxy "where_keyword")
                     (parseWhereKeyword child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype TypeIdentifier a = TypeIdentifier { value :: a, fields :: {} }
@@ -16331,7 +16331,7 @@ parseTypeModifiers syntaxNode = TypeModifiers
           ( \child -> case type' child of
                 "attribute" -> inj (Proxy :: Proxy "attribute")
                     (parseAttribute child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype TypeParameter a = TypeParameter
@@ -16403,7 +16403,7 @@ parseTypeParameter syntaxNode = TypeParameter
                 "type_parameter_modifiers" -> inj
                     (Proxy :: Proxy "type_parameter_modifiers")
                     (parseTypeParameterModifiers child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype TypeParameterModifiers a = TypeParameterModifiers
@@ -16423,7 +16423,7 @@ parseTypeParameterModifiers syntaxNode = TypeParameterModifiers
           ( \child -> case type' child of
                 "attribute" -> inj (Proxy :: Proxy "attribute")
                     (parseAttribute child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype TypeParameters a = TypeParameters
@@ -16442,7 +16442,7 @@ parseTypeParameters syntaxNode = TypeParameters
           ( \child -> case type' child of
                 "type_parameter" -> inj (Proxy :: Proxy "type_parameter")
                     (parseTypeParameter child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype TypealiasDeclaration a = TypealiasDeclaration
@@ -16571,7 +16571,7 @@ parseTypealiasDeclaration syntaxNode = TypealiasDeclaration
                     (parsePropertyBehaviorModifier child)
                 "type_parameters" -> inj (Proxy :: Proxy "type_parameters")
                     (parseTypeParameters child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype UserType a = UserType
@@ -16599,7 +16599,7 @@ parseUserType syntaxNode = UserType
                     (parseTypeArguments child)
                 "type_identifier" -> inj (Proxy :: Proxy "type_identifier")
                     (parseTypeIdentifier child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ValueArgument a = ValueArgument
@@ -16816,7 +16816,7 @@ parseValueArgument syntaxNode = ValueArgument
           ( \child -> case type' child of
                 "type_modifiers" -> inj (Proxy :: Proxy "type_modifiers")
                     (parseTypeModifiers child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype ValueArguments a = ValueArguments
@@ -16835,7 +16835,7 @@ parseValueArguments syntaxNode = ValueArguments
           ( \child -> case type' child of
                 "value_argument" -> inj (Proxy :: Proxy "value_argument")
                     (parseValueArgument child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype ValueBindingPattern a = ValueBindingPattern
@@ -16856,7 +16856,7 @@ parseValueBindingPattern syntaxNode = ValueBindingPattern
                 "non_binding_pattern" -> inj
                     (Proxy :: Proxy "non_binding_pattern")
                     (parseNonBindingPattern child)
-          ) (Partial.head (children syntaxNode))
+          ) (Partial.head (namedChildren syntaxNode))
     }
 
 newtype VisibilityModifier a = VisibilityModifier { value :: a, fields :: {} }
@@ -17044,7 +17044,7 @@ parseWhereClause syntaxNode = WhereClause
                     (parseTupleExpression child)
                 "where_keyword" -> inj (Proxy :: Proxy "where_keyword")
                     (parseWhereKeyword child)
-          ) <$> children syntaxNode
+          ) <$> namedChildren syntaxNode
     }
 
 newtype WhileStatement a = WhileStatement
@@ -17262,7 +17262,7 @@ parseWhileStatement syntaxNode = WhileStatement
           ( \child -> case type' child of
                 "statements" -> inj (Proxy :: Proxy "statements")
                     (parseStatements child)
-          ) <$> head (children syntaxNode)
+          ) <$> head (namedChildren syntaxNode)
     }
 
 newtype Bang a = Bang { value :: a }

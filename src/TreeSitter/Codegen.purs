@@ -143,7 +143,7 @@ renderParseChildren childType = Tuple name expr
         true -> exprOp lambda [ binaryOp "<$>" children ]
     lambda = exprLambda [ binderVar "child" ]
         (renderSelectParserFromChildType childType (exprIdent "child"))
-    children = exprApp (exprIdent "children") [ exprIdent "syntaxNode" ]
+    children = exprApp (exprIdent "namedChildren") [ exprIdent "syntaxNode" ]
     name = case childType.multiple of
         false -> "child"
         true -> "children"
@@ -171,6 +171,7 @@ renderVariantModule name nodeTypes = unsafePartial $ codegenModule name do
         { syntaxNode: importType "SyntaxNode"
         , arrayField: importValue "arrayField"
         , children: importValue "children"
+        , namedChildren: importValue "namedChildren"
         , nodeField: importValue "nodeField"
         , type': importValue "type'"
         }

@@ -82,7 +82,6 @@ renderFunctorDerivation :: Partial => NodeType -> Declaration Void
 renderFunctorDerivation { type: type' } =
     declDerive Nothing [] "Functor" [ typeCtor (toProper type') ]
 
-
 renderParseFields :: Partial => Object ChildType -> Tuple String (CST.Expr Void)
 renderParseFields fields = Tuple "fields" (exprRecord rows)
     where

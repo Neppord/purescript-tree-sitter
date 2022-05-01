@@ -92,11 +92,11 @@ text (SyntaxNode (Raw.SyntaxNode { text: text' })) = text'
 
 nodeField :: Partial => String -> SyntaxNode -> Maybe SyntaxNode
 nodeField name (SyntaxNode (Raw.SyntaxNode node)) = unsafeCoerce node
-    # lookup name
+    # lookup (name <> "Node")
 
 arrayField :: Partial => String -> SyntaxNode -> Array SyntaxNode
 arrayField name (SyntaxNode (Raw.SyntaxNode node)) = unsafeCoerce node
-    # lookup name
+    # lookup (name <> "Nodes")
     # fromMaybe []
 
 isMissing :: SyntaxNode -> Boolean

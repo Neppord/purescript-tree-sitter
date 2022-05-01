@@ -4,10 +4,11 @@
 
 module TreeSitter.Raw where
 
-import Effect.Uncurried (EffectFn1)
-import Effect (Effect)
-import Data.Unit (Unit)
 import Data.Function.Uncurried (Fn3)
+import Data.Show (class Show, show)
+import Data.Unit (Unit, unit)
+import Effect (Effect)
+import Effect.Uncurried (EffectFn1)
 
 newtype Parser = Parser
     { parse :: Fn3 String MaybeTree MaybeOptions Tree
@@ -80,6 +81,12 @@ newtype Tree = Tree
     , getEditedRange :: Tree -> Range
     , printDotGraph :: Effect Unit
     }
+
+instance showSyntaxNode :: Show SyntaxNode where
+    show (SyntaxNode ({ toString })) = toString unit
+
+instance showTree :: Show Tree where
+    show (Tree { rootNode }) = show rootNode
 
 foreign import data Language :: Type
 foreign import data MaybeOptions :: Type

@@ -103,8 +103,7 @@ isMissing :: SyntaxNode -> Boolean
 isMissing (SyntaxNode (Raw.SyntaxNode { isMissing: isMissing' })) =
     isMissing' unit
 
-instance showSyntaxNode :: Show SyntaxNode where
-    show (SyntaxNode (Raw.SyntaxNode { toString })) = toString unit
 
-instance showTree :: Show Tree where
-    show = show <<< rootNode
+
+derive newtype instance Show SyntaxNode
+derive newtype instance Show Tree

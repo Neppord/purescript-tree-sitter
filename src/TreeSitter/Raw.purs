@@ -70,7 +70,7 @@ newtype SyntaxNode = SyntaxNode
     , hasErrors :: Unit -> Boolean
     , isMissing :: Unit -> Boolean
     , toString :: Unit -> String
-    , fileds :: Array String
+    , fields :: Array String
     }
 
 newtype Tree = Tree

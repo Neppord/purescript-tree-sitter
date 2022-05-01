@@ -82,39 +82,38 @@ renderFunctorDerivation :: Partial => NodeType -> Declaration Void
 renderFunctorDerivation { type: type' } =
     declDerive Nothing [] "Functor" [ typeCtor (toProper type') ]
 
+
 renderParseFields :: Partial => Object ChildType -> Tuple String (CST.Expr Void)
 renderParseFields fields = Tuple "fields" (exprRecord rows)
     where
     lambda childType = exprLambda [ binderVar "field" ]
         (renderSelectParserFromChildType childType (exprIdent "field"))
-    rows = Object.foldMap
-        ( \name childType ->
-              if childType.types # Array.filter _.named # Array.null then []
-              else
-                  [ Tuple name $ case childType.multiple of
-                        false -> case childType.required of
-                            Just true -> exprApp (lambda childType)
-                                [ exprApp (exprIdent "fromJust")
-                                      [ exprApp (exprIdent "nodeField")
-                                            [ exprString name
-                                            , exprIdent "syntaxNode"
-                                            ]
-                                      ]
-                                ]
-                            _ -> exprOp (lambda childType)
-                                [ binaryOp "<$>" $ exprApp
-                                      (exprIdent "nodeField")
+    renderParseField name childType =
+        if childType.types # Array.filter _.named # Array.null then []
+        else
+            [ Tuple name $ case childType.multiple of
+                  false -> case childType.required of
+                      Just true -> exprApp (lambda childType)
+                          [ exprApp (exprIdent "fromJust")
+                                [ exprApp (exprIdent "nodeField")
                                       [ exprString name
                                       , exprIdent "syntaxNode"
                                       ]
                                 ]
-                        true -> exprOp (lambda childType)
-                            [ binaryOp "<$>" $ exprApp (exprIdent "arrayField")
-                                  [ exprString name, exprIdent "syntaxNode" ]
-                            ]
-                  ]
-        )
-        fields
+                          ]
+                      _ -> exprOp (lambda childType)
+                          [ binaryOp "<$>" $ exprApp
+                                (exprIdent "nodeField")
+                                [ exprString name
+                                , exprIdent "syntaxNode"
+                                ]
+                          ]
+                  true -> exprOp (lambda childType)
+                      [ binaryOp "<$>" $ exprApp (exprIdent "arrayField")
+                            [ exprString name, exprIdent "syntaxNode" ]
+                      ]
+            ]
+    rows = Object.foldMap renderParseField fields
 
 renderSelectParserFromChildType
     :: Partial => ChildType -> CST.Expr Void -> CST.Expr Void
@@ -192,12 +191,13 @@ renderVariantModule name nodeTypes = unsafePartial $ codegenModule name do
             tell
                 [ renderVariantNewType node
                 , renderFunctorDerivation node
-                , declSignature ("parse" <> toProper node.type) $
-                    typeConstrained [typeCtor "Partial"] $
-                    typeArrow [typeCtor "SyntaxNode"] $
-                        typeApp
-                            (typeCtor $ toProper node.type)
-                            [typeCtor "SyntaxNode"]
+                , declSignature ("parse" <> toProper node.type)
+                      $ typeConstrained [ typeCtor "Partial" ]
+                      $ typeArrow [ typeCtor "SyntaxNode" ]
+                      $
+                          typeApp
+                              (typeCtor $ toProper node.type)
+                              [ typeCtor "SyntaxNode" ]
                 , renderParser node
                 ]
         else

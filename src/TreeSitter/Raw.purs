@@ -83,7 +83,7 @@ newtype Tree = Tree
     }
 
 instance showSyntaxNode :: Show SyntaxNode where
-    show (SyntaxNode ({ toString })) = toString unit
+    show (SyntaxNode { toString }) = toString unit
 
 instance showTree :: Show Tree where
     show (Tree { rootNode }) = show rootNode

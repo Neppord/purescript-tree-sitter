@@ -17,6 +17,7 @@ import Foreign.Object (lookup)
 import TreeSitter.Raw as Raw
 import TreeSitter.Raw (Parser(..), Point, SyntaxNode(..), Tree(..))
 import Unsafe.Coerce (unsafeCoerce)
+import Data.Nullable (toMaybe)
 
 type LanguageName = String
 
@@ -88,6 +89,7 @@ text (SyntaxNode { text: text' }) = text'
 nodeField :: Partial => String -> SyntaxNode -> Maybe SyntaxNode
 nodeField name (SyntaxNode node) = unsafeCoerce node
     # lookup (name <> "Node")
+    # (_ >>= toMaybe)
 
 arrayField :: Partial => String -> SyntaxNode -> Array SyntaxNode
 arrayField name (SyntaxNode node) = unsafeCoerce node

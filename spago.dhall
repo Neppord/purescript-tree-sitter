@@ -31,6 +31,7 @@ to generate this file without the comments in this block.
   , "newtype"
   , "node-buffer"
   , "node-fs"
+  , "nullable"
   , "ordered-collections"
   , "partial"
   , "prelude"

@@ -5,7 +5,8 @@ import Data.Array.Partial as Partial
 import Data.Functor.Variant (VariantF, inj)
 import Data.Maybe (Maybe, fromJust)
 import Prelude (class Functor, (<$>))
-import TreeSitter.Lazy (SyntaxNode, arrayField, children, namedChildren, nodeField, type')
+import TreeSitter.Lazy (arrayField, children, namedChildren, nodeField, type')
+import TreeSitter.Raw (SyntaxNode)
 import Type.Proxy (Proxy(..))
 
 newtype AdditiveExpression a = AdditiveExpression

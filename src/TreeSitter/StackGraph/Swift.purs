@@ -6,8 +6,10 @@ import Control.Comonad.Cofree (Cofree, head, tail)
 import Data.Array (concat, filter, find)
 import Data.Maybe (Maybe, fromMaybe)
 import Data.Traversable (for)
-import TreeSitter.Lazy (SyntaxNode, endIndex, startIndex, text, type')
+import TreeSitter.Lazy (endIndex, startIndex, text, type')
+import TreeSitter.Raw (SyntaxNode)
 import TreeSitter.StackGraph (CreateGraph, declare, namedScope', newId, scope, scopeWithId, usage_)
+import TreeSitteer.Codegen.Swift (SourceFile)
 
 type Tree = Cofree Array SyntaxNode
 
@@ -74,3 +76,8 @@ sourceFile sourceTree = do
     globalScope <- newId
     ids <- for (tail sourceTree) (expression globalScope)
     void $ scopeWithId globalScope $ concat ids
+
+typedSourceFile :: SourceFile SyntaxNode -> CreateGraph Unit
+typedSourceFile _ = do
+    pure unit
+

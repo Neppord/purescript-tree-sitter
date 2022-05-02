@@ -165,9 +165,11 @@ renderVariantModule name nodeTypes = unsafePartial $ codegenModule name do
     void $ importFrom "Data.Functor.Variant" $ importType "VariantF"
     void $ importFrom "Data.Functor.Variant" $ importValue "inj"
 
-    void $ importFrom "TreeSitter.Lazy"
+    void $ importFrom "TreeSitter.Raw"
         { syntaxNode: importType "SyntaxNode"
-        , arrayField: importValue "arrayField"
+        }
+    void $ importFrom "TreeSitter.Lazy"
+        { arrayField: importValue "arrayField"
         , children: importValue "children"
         , namedChildren: importValue "namedChildren"
         , nodeField: importValue "nodeField"

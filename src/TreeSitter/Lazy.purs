@@ -15,14 +15,10 @@ import Effect.Uncurried (runEffectFn1)
 import Effect.Unsafe (unsafePerformEffect)
 import Foreign.Object (lookup)
 import TreeSitter.Raw as Raw
+import TreeSitter.Raw (Parser(..), Point, SyntaxNode(..), Tree(..))
 import Unsafe.Coerce (unsafeCoerce)
 
 type LanguageName = String
-
-type Parser = Raw.Parser
-type Point = Raw.Point
-newtype Tree = Tree Raw.Tree
-newtype SyntaxNode = SyntaxNode Raw.SyntaxNode
 
 parse :: LanguageName -> String -> Cofree Array SyntaxNode
 parse languageName =
@@ -41,69 +37,63 @@ mkParser name = unsafePerformEffect do
 
 -- | Parses the string and returns a tree
 parseString :: Parser -> String -> Tree
-parseString (Raw.Parser { parse }) input =
-    Tree $ runFn3 parse input Raw.noTree Raw.noOptions
+parseString (Raw.Parser { parse: parse' }) input =
+    runFn3 parse' input Raw.noTree Raw.noOptions
 
 -- | Not sure what this does with the old tree
 reParseString :: Parser -> String -> Tree -> Tree
-reParseString (Raw.Parser { parse }) input (Tree oldTree) =
-    Tree $ runFn3 parse input (Raw.toMaybeTree oldTree) Raw.noOptions
+reParseString (Parser { parse: parse' }) input oldTree =
+    runFn3 parse' input (Raw.toMaybeTree oldTree) Raw.noOptions
 
 rootNode :: Tree -> SyntaxNode
-rootNode (Tree (Raw.Tree { rootNode: rootNode' })) = SyntaxNode $ rootNode'
+rootNode (Tree { rootNode: rootNode' }) = rootNode'
 
 hasChildren :: SyntaxNode -> Boolean
 hasChildren = children >>> null >>> not
 
 children :: SyntaxNode -> Array SyntaxNode
-children (SyntaxNode (Raw.SyntaxNode { children: children' })) =
-    map SyntaxNode children'
+children (SyntaxNode { children: children' }) = children'
 
 namedChildren :: SyntaxNode -> Array SyntaxNode
-namedChildren (SyntaxNode (Raw.SyntaxNode { namedChildren: namedChildren' })) =
-    map SyntaxNode namedChildren'
+namedChildren (SyntaxNode { namedChildren: namedChildren' }) =
+    namedChildren'
 
 isNamed :: SyntaxNode -> Boolean
-isNamed (SyntaxNode (Raw.SyntaxNode { isNamed: isNamed' })) =
+isNamed (SyntaxNode { isNamed: isNamed' }) =
     isNamed'
 
 startIndex :: SyntaxNode -> Int
-startIndex (SyntaxNode (Raw.SyntaxNode { startIndex: startIndex' })) =
+startIndex (SyntaxNode { startIndex: startIndex' }) =
     startIndex'
 
 endIndex :: SyntaxNode -> Int
-endIndex (SyntaxNode (Raw.SyntaxNode { endIndex: endIndex' })) =
+endIndex (SyntaxNode { endIndex: endIndex' }) =
     endIndex'
 
 startPosition :: SyntaxNode -> Point
-startPosition (SyntaxNode (Raw.SyntaxNode { startPosition: startPosition' })) =
+startPosition (SyntaxNode { startPosition: startPosition' }) =
     startPosition'
 
 endPosition :: SyntaxNode -> Point
-endPosition (SyntaxNode (Raw.SyntaxNode { endPosition: endPosition' })) =
+endPosition (SyntaxNode { endPosition: endPosition' }) =
     endPosition'
 
 type' :: SyntaxNode -> String
-type' (SyntaxNode (Raw.SyntaxNode { type: type'' })) =
+type' (SyntaxNode { type: type'' }) =
     type''
 
 text :: SyntaxNode -> String
-text (SyntaxNode (Raw.SyntaxNode { text: text' })) = text'
+text (SyntaxNode { text: text' }) = text'
 
 nodeField :: Partial => String -> SyntaxNode -> Maybe SyntaxNode
-nodeField name (SyntaxNode (Raw.SyntaxNode node)) = unsafeCoerce node
+nodeField name (SyntaxNode node) = unsafeCoerce node
     # lookup (name <> "Node")
 
 arrayField :: Partial => String -> SyntaxNode -> Array SyntaxNode
-arrayField name (SyntaxNode (Raw.SyntaxNode node)) = unsafeCoerce node
+arrayField name (SyntaxNode node) = unsafeCoerce node
     # lookup (name <> "Nodes")
     # fromMaybe []
 
 isMissing :: SyntaxNode -> Boolean
-isMissing (SyntaxNode (Raw.SyntaxNode { isMissing: isMissing' })) =
+isMissing (SyntaxNode { isMissing: isMissing' }) =
     isMissing' unit
-
-
-
-derive newtype instance Show SyntaxNode
-derive newtype instance Show Tree

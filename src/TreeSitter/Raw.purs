@@ -48,7 +48,7 @@ type Edit =
 newtype SyntaxNode = SyntaxNode
     { type :: String
     , tree :: SyntaxNode
-    , typeId :: String
+    , typeId :: Int -- production id
     , isNamed :: Boolean
     , text :: String
     , startIndex :: Int
